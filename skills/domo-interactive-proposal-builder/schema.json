@@ -1,0 +1,515 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://domo.com/skills/domo-interactive-proposal-builder/schema/v0.5.0",
+  "title": "Domo Engagement Content Payload",
+  "description": "Source-of-truth content payload for a Domo client engagement. Consumed by domo-interactive-proposal-builder (renders an interactive HTML proposal) and domo-proposal-pdf-renderer (renders a polished offline PDF). Designed multi-renderer-ready: numbers stay as numbers (computable), IDs are stable across renders, and prose fields support limited inline HTML (<strong>, <em>, <br>) so formatting survives both renderers. Schema v0.5.0 renames `phases` to `solutions` and `phase_id` to `solution_id` to match Domo's customer-facing engagement vocabulary; the rendered artifact merges the prior 'Phases & Scope' and 'Level of Effort' tabs into one 'Solutions, Scope & Effort' tab.",
+  "type": "object",
+  "required": ["meta", "client", "engagement", "executive_summary", "solutions", "implementation_strategy", "timeline", "assumptions", "roi"],
+  "properties": {
+
+    "meta": {
+      "type": "object",
+      "required": ["schema_version", "generated_date"],
+      "properties": {
+        "schema_version": { "type": "string", "const": "0.5.0" },
+        "sow_version":    { "type": "string", "description": "Document version visible to client (e.g. 'v2.2')." },
+        "generated_date": { "type": "string", "format": "date" },
+        "revision_label": { "type": "string", "description": "Optional badge text shown in header (e.g. 'Accelerated 6-Month Plan')." },
+        "confidentiality":{ "type": "string", "default": "Confidential" },
+        "prepared_by":    { "type": "array", "items": { "type": "string" }, "minItems": 1, "maxItems": 2, "description": "Plain name strings only — e.g. ['Mark Lees'] or ['Mark Lees', 'Jane Smith']. Do NOT use objects. 1–2 entries. Seeded from meta.author in the discovery brief; ask for a co-presenter if applicable." }
+      }
+    },
+
+    "client": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name":         { "type": "string", "description": "Full client/organization name." },
+        "short_name":   { "type": "string", "description": "Acronym or shortened reference used in body text (e.g. 'PHA')." },
+        "primary_stakeholders": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "title"],
+            "properties": {
+              "name":  { "type": "string" },
+              "title": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "engagement": {
+      "type": "object",
+      "required": ["title", "subtitle"],
+      "properties": {
+        "eyebrow":  { "type": "string", "description": "Small uppercase header text above the title (e.g. 'Statement of Work Proposal — Accelerated 6-Month Delivery')." },
+        "title":    { "type": "string", "description": "Engagement title shown in the document header. Use <br> for line breaks." },
+        "subtitle": { "type": "string", "description": "One-line subtitle under the title." },
+        "rate_default": { "type": "number", "default": 275, "minimum": 100, "maximum": 1000, "description": "Default hourly consulting rate ($/hr) used for ROI investment math. Not displayed on the rendered ROI tab." },
+        "rate_floor":   { "type": "number", "default": 150 },
+        "rate_ceiling": { "type": "number", "default": 500 }
+      }
+    },
+
+    "executive_summary": {
+      "type": "object",
+      "required": ["strategic_context", "pillars", "current_state", "future_state", "kpi_row"],
+      "properties": {
+        "strategic_context": {
+          "type": "object",
+          "required": ["eyebrow", "title", "paragraphs"],
+          "properties": {
+            "eyebrow":    { "type": "string" },
+            "title":      { "type": "string" },
+            "paragraphs": { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "Each item renders as a <p class=\"body-text\">. Inline HTML allowed: <strong>, <em>." }
+          }
+        },
+        "pillars": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": ["label", "text"],
+            "properties": {
+              "label": { "type": "string", "description": "Bold pillar label (one phrase)." },
+              "text":  { "type": "string", "description": "1–3 sentence pillar narrative." },
+              "color_var": { "type": "string", "description": "CSS variable for the pillar number bubble. Defaults to --cs1..cs4 by index." }
+            }
+          }
+        },
+        "current_state": {
+          "type": "object",
+          "required": ["title", "rows"],
+          "properties": {
+            "title": { "type": "string", "default": "Current State — Constraints" },
+            "rows":  { "type": "array", "items": { "type": "string" }, "minItems": 3 }
+          }
+        },
+        "future_state": {
+          "type": "object",
+          "required": ["title", "rows"],
+          "properties": {
+            "title": { "type": "string", "default": "Future State — With Domo" },
+            "rows":  { "type": "array", "items": { "type": "string" }, "minItems": 3 }
+          }
+        },
+        "phase_one_framing": {
+          "type": "object",
+          "description": "Optional 'Solution 1 — The Right First Step' narrative section. Field name retained for backward field-mapping compatibility with the discovery brief skill; rendered headings use 'Solution 1' language.",
+          "properties": {
+            "title":      { "type": "string" },
+            "paragraphs": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "kpi_row": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": ["label", "value"],
+            "properties": {
+              "label":     { "type": "string" },
+              "value":     { "type": "string", "description": "Display value. Use plain integers — no tildes." },
+              "highlight": { "type": "boolean", "default": false, "description": "Apply 'hi' visual treatment (highlighted KPI tile)." }
+            }
+          }
+        },
+        "closing_callout": {
+          "type": "object",
+          "description": "Optional defining-outcome callout at the bottom of the Executive Summary.",
+          "required": ["variant", "title", "body"],
+          "properties": {
+            "variant": { "type": "string", "enum": ["accent", "track", "risk"], "default": "track" },
+            "title":   { "type": "string" },
+            "body":    { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "solutions": {
+      "type": "array",
+      "description": "Ordered list of engagement solutions. Each solution is a customer-facing chunk of value the engagement delivers — Domo speaks in solutions rather than phases. The first solution is automatically rendered with the 'priority' visual treatment. (In schema versions <= 0.3.x this field was named `phases`; renamed to `solutions` in 0.5.0 to match the customer-facing vocabulary.)",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "number", "title", "weeks_label", "hours", "description", "deliverables", "loe_rows"],
+        "properties": {
+          "id":         { "type": "string", "pattern": "^p[0-9]+$", "description": "Stable identifier (e.g. 'p1'). Used by timeline, ROI table, and cross-references. Pattern preserved across the rename so existing IDs continue to resolve." },
+          "number":     { "type": "integer", "minimum": 1, "maximum": 9 },
+          "title":      { "type": "string" },
+          "subtitle":   { "type": "string", "description": "Short keyword summary shown under the solution title in the solution card header." },
+          "badges":     { "type": "array", "items": { "type": "string", "enum": ["core", "impact", "quick-win", "strategic", "phased"] }, "description": "Optional pre-sale outcome weight tags (omit if none apply; use multiple when a solution genuinely spans categories). core=foundational must-have; impact=highest-value outcome; quick-win=fast visible value; strategic=longer-horizon; phased=deferrable." },
+          "is_priority":{ "type": "boolean", "default": false, "description": "True for the immediate-priority solution. Auto-true for the first solution if not specified." },
+          "weeks_label":{ "type": "string", "description": "e.g. 'Weeks 1–5'." },
+          "weeks_start":{ "type": "integer", "minimum": 1 },
+          "weeks_end":  { "type": "integer", "minimum": 1 },
+          "hours": {
+            "type": "object",
+            "required": ["low", "high"],
+            "properties": {
+              "low":  { "type": "integer", "minimum": 1 },
+              "high": { "type": "integer", "minimum": 1 },
+              "recommended": { "type": "integer", "description": "Optional override of the legacy 85% rule. The rendered proposal no longer displays this value — every visible hour is the high-end sum from loe_rows. Retained for downstream tooling that may still read it." }
+            }
+          },
+          "color_var":  { "type": "string", "description": "CSS variable or hex for solution color accent. Defaults by index: --cs1, --cs2, --cs3, --cs4, --cs5." },
+          "description":{ "type": "string", "description": "Short narrative shown above the deliverables list when the solution card is expanded." },
+          "deliverables": {
+            "type": "array",
+            "minItems": 3,
+            "description": "Customer-facing deliverables for this solution. Each deliverable is an object with the short collapsed title plus three required detail fields that populate the click-to-expand panel in the rendered proposal.",
+            "items": {
+              "type": "object",
+              "required": ["title", "description", "audience", "outcome_value"],
+              "properties": {
+                "title":         { "type": "string", "description": "Short customer-facing name shown in the collapsed deliverable list." },
+                "description":   { "type": "string", "description": "Customer-facing explanation of what the deliverable consists of — components, scope, where it lives, what the client receives. Avoid internal jargon and tool names unless meaningful to the customer." },
+                "audience":      { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "Who consumes or benefits from this deliverable (e.g. ['Executive sponsors', 'FP&A analysts']). One item per distinct audience; use the singular case as a 1-item array." },
+                "outcome_value": { "type": "string", "description": "How this deliverable contributes to the solution objective and the broader project scope — the 'so what' for the customer. State the change in capability, decision speed, or business outcome this enables." }
+              }
+            }
+          },
+          "architecture_flow": {
+            "type": "object",
+            "description": "Optional 'Solution X Technical Flow' diagram (Solution 1 typically has this).",
+            "required": ["title", "steps"],
+            "properties": {
+              "title": { "type": "string" },
+              "steps": {
+                "type": "array",
+                "minItems": 3,
+                "items": {
+                  "type": "object",
+                  "required": ["title"],
+                  "properties": {
+                    "title":     { "type": "string" },
+                    "subtitle":  { "type": "string" },
+                    "highlight": { "type": "boolean", "default": false }
+                  }
+                }
+              }
+            }
+          },
+          "loe_rows": {
+            "type": "array",
+            "description": "LOE table rows for this solution. MUST include Solution Design, Build sub-items, QA/UAT, Rollout & Enablement, and Project Management (10–15%). The sum of loe_rows.hours.high is the canonical solution hour total — solutions[].hours.high is recomputed from this sum at render time.",
+            "minItems": 5,
+            "items": {
+              "type": "object",
+              "required": ["work_item", "description", "hours"],
+              "properties": {
+                "id":          { "type": "string", "description": "Optional stable ID for this row." },
+                "work_item":   { "type": "string" },
+                "description": { "type": "string" },
+                "category": {
+                  "type": "string",
+                  "enum": ["Data Source Connections", "ETL", "Visualize", "AI", "Workflows", "Domo Everywhere"],
+                  "description": "Optional capability-area tag for the work item. Renders as a colored badge inside the merged Scope & Effort tab. Use only when the row clearly belongs to one of the four categories — generic rows like Solution Design, QA/UAT, Rollout, and Project Management should leave this field unset."
+                },
+                "hours": {
+                  "type": "object",
+                  "required": ["low", "high"],
+                  "properties": {
+                    "low":  { "type": "integer", "minimum": 1 },
+                    "high": { "type": "integer", "minimum": 1 }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "loe_summary": {
+      "type": "object",
+      "description": "Supporting prose for the merged Scope & Effort tab. KPI tiles and totals are auto-computed from solutions — only loe_note prose needs to be authored.",
+      "properties": {
+        "loe_note": {
+          "type": "string",
+          "description": "Closing prose block on the merged Scope & Effort tab. MUST cite the specific AI accelerators used to justify the leaner estimates."
+        }
+      }
+    },
+
+    "data_sources": {
+      "type": "object",
+      "description": "'Data Sources & Visualizations' tab content.",
+      "required": ["intro", "data_source_rows", "visualization_rows"],
+      "properties": {
+        "intro":            { "type": "string" },
+        "totals_kpi_row":   { "type": "array", "items": { "type": "object", "properties": { "label": {"type":"string"}, "value": {"type":"string"} } } },
+        "data_source_rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["solution_id", "name", "count", "approach", "comments"],
+            "properties": {
+              "solution_id": { "type": "string", "description": "Solution ID (p1, p2, …) for grouping. Renamed from `phase_id` in schema 0.5.0." },
+              "name":     { "type": "string" },
+              "count":    { "type": "string", "description": "Free text — e.g. '4 file types', '15–20 mapping tables'." },
+              "approach": { "type": "string" },
+              "comments": { "type": "string" }
+            }
+          }
+        },
+        "visualization_rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["solution_id", "name", "kpi_count", "filter_count", "comments"],
+            "properties": {
+              "solution_id":  { "type": "string", "description": "Solution ID (p1, p2, …) for grouping. Renamed from `phase_id` in schema 0.5.0." },
+              "name":         { "type": "string" },
+              "kpi_count":    { "type": "integer" },
+              "filter_count": { "type": "integer" },
+              "comments":     { "type": "string" }
+            }
+          }
+        },
+        "manifest_summary": { "type": "string", "description": "Closing prose under the visualizations table." }
+      }
+    },
+
+    "implementation_strategy": {
+      "type": "object",
+      "description": "'Implementation Strategy' tab — pilot approach, communication principles, ACE callout, and the (mandatory) Domo Momentum Methodology section.",
+      "required": ["intro", "pilot_steps", "communication_principles"],
+      "properties": {
+        "intro":       { "type": "string" },
+        "pilot_steps": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": ["step", "title", "description"],
+            "properties": {
+              "step":        { "type": "string", "description": "Display number (e.g. '01')." },
+              "title":       { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "communication_principles": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["variant", "label", "text"],
+            "properties": {
+              "variant": { "type": "string", "enum": ["accent", "track", "risk", "behind"] },
+              "label":   { "type": "string" },
+              "text":    { "type": "string" }
+            }
+          }
+        },
+        "ace_callout": {
+          "type": "object",
+          "description": "Optional ACE Support / Change Management Accelerator callout.",
+          "properties": {
+            "title": { "type": "string" },
+            "body":  { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "timeline": {
+      "type": "object",
+      "description": "'Timeline' tab. Bars are auto-rendered from solutions (using weeks_start/weeks_end and high-end hours).",
+      "required": ["months", "milestones"],
+      "properties": {
+        "title":    { "type": "string" },
+        "subtitle": { "type": "string" },
+        "months":   { "type": "array", "items": { "type": "string" }, "description": "Column labels (e.g. ['May','Jun','Jul','Aug','Sep','Oct','Nov'])." },
+        "milestones": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "object",
+            "required": ["date", "title", "description"],
+            "properties": {
+              "date":        { "type": "string" },
+              "title":       { "type": "string" },
+              "description": { "type": "string" },
+              "color_var":   { "type": "string", "description": "Defaults to solution color by ordering." },
+              "is_priority": { "type": "boolean", "default": false }
+            }
+          }
+        },
+        "closing_callout": {
+          "type": "object",
+          "properties": {
+            "variant": { "type": "string", "enum": ["accent", "track", "risk"], "default": "risk" },
+            "title":   { "type": "string" },
+            "body":    { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "assumptions": {
+      "type": "object",
+      "description": "'Assumptions' tab — four blocks: client responsibilities, Domo responsibilities, technical assumptions, out of scope.",
+      "required": ["client_responsibilities", "domo_responsibilities", "technical_assumptions", "out_of_scope"],
+      "properties": {
+        "client_responsibilities": { "type": "array", "items": { "type": "string" }, "minItems": 3 },
+        "domo_responsibilities":   { "type": "array", "items": { "type": "string" }, "minItems": 3 },
+        "technical_assumptions":   { "type": "array", "items": { "type": "string" }, "minItems": 3 },
+        "out_of_scope":            { "type": "array", "items": { "type": "string" }, "minItems": 3 },
+        "msp_callout": {
+          "type": "object",
+          "description": "Optional 'Recommended Add-On: Domo Managed Services' callout.",
+          "properties": {
+            "title": { "type": "string" },
+            "body":  { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "roi": {
+      "type": "object",
+      "description": "'ROI & Investment' tab. Total Investment is auto-computed from solution hours × rate. Drivers are authored.",
+      "required": ["intro", "drivers", "why_domo_callout"],
+      "properties": {
+        "intro": { "type": "string" },
+        "investment_framing": { "type": "string", "description": "loe-note style block under the cost table." },
+        "drivers_intro": { "type": "string" },
+        "drivers": {
+          "type": "array",
+          "minItems": 5,
+          "description": "Quantifiable Value Drivers. MUST anchor to the specific project context (not generic).",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "delivery", "annual_conservative", "annual_stretch"],
+            "properties": {
+              "id":           { "type": "string", "description": "Stable ID (e.g. 'reporting_compression')." },
+              "name":         { "type": "string" },
+              "delivery":     { "type": "string", "description": "How Domo delivers this value." },
+              "annual_conservative": { "type": "integer", "minimum": 0, "description": "Annual $ value, conservative." },
+              "annual_stretch":      { "type": "integer", "minimum": 0, "description": "Annual $ value, stretch." }
+            }
+          }
+        },
+        "why_domo_callout": {
+          "type": "object",
+          "required": ["title", "body"],
+          "properties": {
+            "title": { "type": "string", "default": "Why Domo Consulting Delivers Outsized ROI" },
+            "body":  { "type": "string", "description": "MUST cite AI-accelerated delivery, single-vendor accountability, pattern reuse across solutions, and platform-native primitives." }
+          }
+        }
+      }
+    },
+
+    "credit_impact": {
+      "type": "object",
+      "description": "'Credit Impact' tab — directional forecast of Domo credit consumption once the new solution is implemented and adopted. Optional at the top level: when omitted, the tab still renders with a 'forecast not yet provided' placeholder so tab order stays consistent across proposals. When provided, drivers MUST be enumerated by solution × category at the activity level (no category-summary-only shortcut), with low/high credit ranges for Years 1, 3, and 5. The tab is intentionally directional — the methodology block and closing callout exist to manage commercial risk and must not be removed.",
+      "required": ["intro", "methodology", "drivers"],
+      "properties": {
+        "intro": {
+          "type": "string",
+          "description": "Opening paragraph explaining what credits are, why this section exists, and how it relates to the consulting investment from the ROI tab. ROI = value of the consulting work; Credit Impact = ongoing platform consumption to deliver that value. Together they give the client the full commercial picture."
+        },
+        "methodology": {
+          "type": "object",
+          "description": "Forecast methodology and assumptions. Required when credit_impact is present. The act of enumerating assumptions explicitly is a defensibility requirement, not a stylistic choice.",
+          "required": ["title", "items"],
+          "properties": {
+            "title": { "type": "string", "default": "Forecast Methodology & Assumptions" },
+            "items": {
+              "type": "array",
+              "minItems": 3,
+              "items": { "type": "string" },
+              "description": "Bullets covering at minimum: user count assumptions, frequency assumptions, growth/adoption assumptions, what is excluded. Each bullet supports inline HTML (<strong>, <em>)."
+            }
+          }
+        },
+        "drivers": {
+          "type": "array",
+          "minItems": 3,
+          "description": "Per-driver credit consumption rows. Each driver row corresponds to a discrete activity (e.g. '5 Magic ETL flows × hourly refresh, full org partition'), tied to a solution and a category. Year fields are low/high integer pairs in absolute credits (e.g. 80000 = 80K). The renderer aggregates rows automatically into category subtotals and annual totals — author the drivers, not the totals.",
+          "items": {
+            "type": "object",
+            "required": ["solution_id", "category", "driver", "y1", "y3", "y5"],
+            "properties": {
+              "id":          { "type": "string", "description": "Optional stable id (e.g. 'p1_etl_member_pipeline')." },
+              "solution_id": { "type": "string", "description": "Solution id (p1, p2, …). Renamed from `phase_id` in schema 0.5.0." },
+              "category": {
+                "type": "string",
+                "enum": ["Data Pipelines", "Dashboards & Views", "AI Primitives", "Code Engine", "Workflows", "Embed/Everywhere", "Storage", "Other"],
+                "description": "Top-level credit category. Forces drivers into Domo's consumption-model vocabulary so the forecast lines up with how credits are billed and observed."
+              },
+              "driver":   { "type": "string", "description": "Specific driver text — what is actually consuming credits (e.g. '5 Magic ETL flows × hourly refresh, full org partition' or '4 dashboards × 35 internal users × ~12 views/day')." },
+              "y1":       { "type": "object", "required": ["low", "high"], "properties": { "low": { "type": "integer", "minimum": 0 }, "high": { "type": "integer", "minimum": 0 } }, "description": "Year 1 credit range." },
+              "y3":       { "type": "object", "required": ["low", "high"], "properties": { "low": { "type": "integer", "minimum": 0 }, "high": { "type": "integer", "minimum": 0 } }, "description": "Year 3 credit range." },
+              "y5":       { "type": "object", "required": ["low", "high"], "properties": { "low": { "type": "integer", "minimum": 0 }, "high": { "type": "integer", "minimum": 0 } }, "description": "Year 5 credit range." }
+            }
+          }
+        },
+        "current_envelope": {
+          "type": "object",
+          "description": "Optional comparison to the client's current contracted credit envelope. Renders a 'Y1 lands at ~X% of today's envelope' framing tile. Omit for net-new logos with no prior envelope.",
+          "properties": {
+            "annual_credits": { "type": "integer", "minimum": 1, "description": "Current annual contracted credit envelope." },
+            "label":          { "type": "string", "description": "Free-text label (e.g. 'Current annual envelope (FY26 contract)')." },
+            "note":           { "type": "string", "description": "Optional supporting note rendered under the comparison framing." }
+          }
+        },
+        "recommendations": {
+          "type": "array",
+          "description": "Optional efficiency patterns and re-forecast trigger points. Examples: incremental-vs-full ETL refresh, materialized aggregates vs live queries, AI primitive caching, when to re-baseline the forecast.",
+          "items": {
+            "type": "object",
+            "required": ["title", "body"],
+            "properties": {
+              "title": { "type": "string" },
+              "body":  { "type": "string" }
+            }
+          }
+        },
+        "directional_callout": {
+          "type": "object",
+          "description": "Closing directional-forecast callout. If omitted, the renderer emits a default disclaimer affirming this is a directional forecast verified during Solution 1 architecture review against actual workloads.",
+          "properties": {
+            "variant": { "type": "string", "enum": ["accent", "track", "risk"], "default": "risk" },
+            "title":   { "type": "string" },
+            "body":    { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "footer": {
+      "type": "object",
+      "properties": {
+        "legal":     { "type": "string", "description": "e.g. '© 2026 Domo, Inc. · Confidential & Proprietary · Prepared for {Client}'." },
+        "footnote":  { "type": "string", "description": "Italic note below the legal line." }
+      }
+    },
+
+    "hide_credit_impact": {
+      "type": "boolean",
+      "default": false,
+      "description": "Set true to suppress the Credit Impact tab entirely. Use when a credit forecast is not relevant to this engagement or should not be visible to the client."
+    },
+
+    "feedback": {
+      "type": "object",
+      "description": "Optional client feedback panel. When enabled, a floating Feedback button appears in the published proposal card, letting clients submit comments and SAs respond inline. Requires a deployed domo-proposal-feedback Cloudflare Worker.",
+      "properties": {
+        "enabled":      { "type": "boolean", "default": false, "description": "Set true to activate the feedback panel in the rendered card." },
+        "worker_url":   { "type": "string",  "description": "Base URL of your deployed Cloudflare Worker (e.g. 'https://domo-proposal-feedback.YOUR.workers.dev'). No trailing slash." },
+        "proposal_id":  { "type": "string",  "description": "Stable slug for this proposal — used as the dataset partition key (e.g. 'pha-2026-v1')." },
+        "proposal_sig": { "type": "string",  "description": "HMAC-SHA256 hex signature. Run worker/setup-sig.py to generate. Baked into the HTML at render time; authenticates feedback requests to the Worker without exposing the signing secret." }
+      }
+    }
+  }
+}

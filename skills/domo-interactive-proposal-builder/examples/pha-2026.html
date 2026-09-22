@@ -1,0 +1,2524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pacific Healthcare Association – Domo Proposal</title>
+<style>
+  :root {
+    --bg: #F1F6FA; --surface: #FFFFFF; --surface-hover: #F8FAFC;
+    --text-primary: #3F454D; --text-secondary: #68737F;
+    --border: #B7C1CB; --border-light: #DCE4EA;
+    --accent: #99CCEE; --accent-muted: rgba(153,204,238,0.15); --accent-pressed: #7AB3D8;
+    --nav-bg: #EDF3F8; --table-header: #EFF4F9; --table-stripe: #F8FAFC;
+    --on-track: #ADD4C1; --on-track-bg: #E8F3EC; --on-track-text: #4A7A5A;
+    --at-risk: #FF9922;  --at-risk-bg:  #FFF0DD; --at-risk-text:  #C47A10;
+    --behind:  #776CB0;  --behind-bg:   #EAE7F3; --behind-text:   #5A5094;
+    --complete: #99CCEE; --complete-bg: #E0F0FA; --complete-text: #5A9ABE;
+    --alert: #E45F5F;
+    --shadow: 0px 0px 0px 1px rgba(63,69,77,0.06), 0px 1px 2px -1px rgba(63,69,77,0.06), 0px 2px 4px 0px rgba(63,69,77,0.04);
+    --shadow-hover: 0px 0px 0px 1px rgba(63,69,77,0.08), 0px 2px 4px -1px rgba(63,69,77,0.08), 0px 4px 12px 0px rgba(63,69,77,0.06);
+    --radius-card: 10px; --radius-btn: 6px; --radius-badge: 4px;
+    --card-padding: 20px; --grid-gap: 16px;
+    --cs1: #3A98AB; --cs2: #3A92BC; --cs3: #458BC6; --cs4: #5283CF; --cs5: #449696; --cs6: #7D81C7;
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-stack); background: var(--bg); color: var(--text-primary); font-size: 13px; line-height: 1.5; }
+
+  /* HEADER */
+  .sow-header { background: #1F262D; }
+  .header-inner { padding: 36px 40px 0; display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 24px; }
+  .domo-logo { width: 56px; height: 56px; display: block; margin-bottom: 16px; }
+  .header-eyebrow { font-size: 11px; font-weight: 400; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  .header-title { font-size: 22px; font-weight: 600; color: #fff; line-height: 1.25; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.55); }
+  .header-meta { text-align: right; }
+  .meta-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .meta-val { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7); }
+  .meta-block { margin-bottom: 12px; }
+  .revision-pill { display: inline-block; background: rgba(255,153,34,0.18); border: 1px solid rgba(255,153,34,0.4); border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 600; color: #FF9922; letter-spacing: 0.04em; margin-top: 8px; }
+  .header-accent-bar { height: 3px; background: linear-gradient(90deg, var(--cs1) 0%, var(--accent) 50%, var(--cs3) 100%); margin-top: 32px; }
+
+  /* NAV */
+  .sow-nav { background: var(--surface); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; overflow-x: auto; }
+  .nav-tab { padding: 13px 20px; font-size: 13px; font-weight: 400; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; user-select: none; transition-property: color, border-color; transition-duration: 150ms; transition-timing-function: ease-out; }
+  .nav-tab:hover { color: var(--text-primary); }
+  .nav-tab.active { color: var(--text-primary); font-weight: 600; border-bottom-color: var(--accent); }
+
+
+  /* PANELS */
+  .sow-panel { display: none; padding: 32px 40px 40px; }
+  .sow-panel.active { display: block; }
+
+  /* TYPE */
+  .section-eyebrow { font-size: 11px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 6px; }
+  .section-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 20px; }
+  .body-text { font-size: 13px; color: var(--text-primary); line-height: 1.6; margin-bottom: 14px; }
+  .divider { height: 1px; background: var(--border-light); margin: 24px 0; }
+
+  /* PRIORITY BANNER */
+  .priority-banner { background: #FFF0DD; border: 1px solid rgba(255,153,34,0.35); border-left: 4px solid var(--at-risk); border-radius: var(--radius-card); padding: 16px 20px; margin-bottom: 28px; }
+  .priority-banner-title { font-size: 12px; font-weight: 600; color: var(--at-risk-text); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .priority-banner-body { font-size: 13px; color: #7A5010; line-height: 1.6; }
+
+  /* KPI ROW */
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); margin-bottom: 28px; }
+  .kpi-card { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); }
+  .kpi-label { font-size: 11px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-secondary); margin-bottom: 6px; }
+  .kpi-value { font-size: 28px; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+  .kpi-card.hi .kpi-value { color: var(--complete-text); }
+
+  /* STRATEGIC PILLARS */
+  .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); margin-bottom: 28px; }
+  .pillar { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); display: flex; gap: 14px; align-items: flex-start; }
+  .pillar-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; flex-shrink: 0; margin-top: 1px; }
+  .pillar-label { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 5px; }
+  .pillar-text { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* CURRENT STATE TABLE */
+  .state-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); margin-bottom: 24px; }
+  .state-card { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); }
+  .state-card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border-light); }
+  .state-card.current .state-card-title { color: var(--at-risk-text); }
+  .state-card.future  .state-card-title { color: var(--on-track-text); }
+  .state-row { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: var(--text-primary); padding: 7px 0; border-bottom: 1px solid var(--border-light); line-height: 1.5; }
+  .state-row:last-child { border-bottom: none; }
+  .state-pip { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+
+  /* PAIN CARDS */
+  .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); margin-bottom: 24px; }
+  .pcard { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); border-left: 4px solid var(--border); }
+  .pcard.c-risk   { border-left-color: var(--at-risk); }
+  .pcard.c-behind { border-left-color: var(--behind); }
+  .pcard.c-accent { border-left-color: var(--accent); }
+  .pcard.c-track  { border-left-color: var(--on-track); }
+  .pcard-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 6px; }
+  .pcard-text { font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+
+  /* CALLOUT */
+  .callout { border-radius: var(--radius-card); padding: 16px 20px; margin-top: 16px; border-left: 4px solid; }
+  .c-accent { background: var(--complete-bg); border-left-color: var(--accent); }
+  .c-risk   { background: var(--at-risk-bg);  border-left-color: var(--at-risk); }
+  .c-track  { background: var(--on-track-bg); border-left-color: var(--on-track); }
+  .callout-title { font-size: 12px; font-weight: 600; margin-bottom: 5px; }
+  .c-accent .callout-title { color: var(--complete-text); }
+  .c-risk .callout-title   { color: var(--at-risk-text); }
+  .c-track .callout-title  { color: var(--on-track-text); }
+  .callout-body { font-size: 13px; line-height: 1.6; }
+  .c-accent .callout-body { color: #3F6B7C; }
+  .c-risk .callout-body   { color: #7A5010; }
+  .c-track .callout-body  { color: #3A6348; }
+
+  /* PHASE CARDS */
+  .phase-card { background: var(--surface); border-radius: var(--radius-card); box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden; cursor: pointer; transition-property: box-shadow; transition-duration: 150ms; transition-timing-function: ease-out; }
+  .phase-card:hover { box-shadow: var(--shadow-hover); }
+  .phase-card.priority { box-shadow: var(--shadow), 0 0 0 2px var(--accent); }
+  .phase-card.priority:hover { box-shadow: var(--shadow-hover), 0 0 0 2px var(--accent-pressed); }
+  .phase-header { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 14px; padding: 18px 20px; }
+  .phase-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; flex-shrink: 0; }
+  .phase-title { font-size: 13px; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .phase-desc { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+  .phase-right { text-align: right; display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+  .phase-weeks { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+  .phase-hrs { font-size: 11px; color: var(--text-secondary); }
+  .phase-chevron { font-size: 10px; color: var(--text-secondary); transition-property: transform; transition-duration: 150ms; }
+  .phase-card.open .phase-chevron { transform: rotate(180deg); }
+  .phase-body { display: none; border-top: 1px solid var(--border-light); padding: 20px; background: var(--bg); }
+  .phase-card.open .phase-body { display: block; }
+  .dl-list { list-style: none; }
+  .dl-list .dl-item { border-bottom: 1px solid var(--border-light); cursor: pointer; transition-property: background; transition-duration: 150ms; transition-timing-function: ease-out; }
+  .dl-list .dl-item:last-child { border-bottom: none; }
+  .dl-list .dl-item:hover { background: var(--surface); }
+  .dl-list .dl-summary { display: grid; grid-template-columns: auto 1fr auto; align-items: flex-start; gap: 10px; padding: 10px 4px; font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+  .dl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .dl-chevron { font-size: 9px; color: var(--text-secondary); flex-shrink: 0; margin-top: 6px; transition-property: transform; transition-duration: 150ms; }
+  .dl-list .dl-item.open .dl-chevron { transform: rotate(180deg); }
+  .dl-detail { display: none; padding: 4px 4px 14px 22px; }
+  .dl-list .dl-item.open .dl-detail { display: block; }
+  .dl-detail-block { margin-bottom: 10px; }
+  .dl-detail-block:last-child { margin-bottom: 0; }
+  .dl-detail-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 4px; }
+  .dl-detail-body { font-size: 13px; color: var(--text-primary); line-height: 1.55; }
+  .dl-audience-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .dl-audience-pill { background: var(--bg); border: 1px solid var(--border-light); border-radius: 999px; padding: 3px 10px; font-size: 11px; color: var(--text-secondary); }
+
+  /* ARCH BOX */
+  .arch-box { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); margin-top: 16px; }
+  .arch-box h4 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 14px; }
+  .arch-flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; }
+  .arch-step { background: var(--bg); border-radius: var(--radius-btn); padding: 10px 14px; font-size: 12px; font-weight: 600; color: var(--text-primary); text-align: center; flex: 1; min-width: 90px; }
+  .arch-step.hl { background: var(--complete-bg); color: var(--complete-text); }
+  .arch-arrow { font-size: 16px; color: var(--border); padding: 0 4px; flex-shrink: 0; }
+  .arch-sub { font-size: 11px; color: var(--text-secondary); font-weight: 400; display: block; margin-top: 3px; }
+
+  /* LOE TABLE */
+  .loe-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .loe-table thead th { background: var(--table-header); color: var(--text-secondary); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-light); }
+  .loe-table thead th:last-child { text-align: right; }
+  .loe-table tbody tr { border-bottom: 1px solid var(--border-light); }
+  .loe-table tbody tr:nth-child(even) { background: var(--table-stripe); }
+  .loe-table tbody tr:hover { background: #F1F6FA; }
+  .loe-table tbody tr.priority-row { background: var(--complete-bg); }
+  .loe-table tbody tr.priority-row:hover { background: #cce8f6; }
+  .loe-table td { padding: 10px 14px; color: var(--text-primary); vertical-align: top; }
+  .loe-table td:last-child { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .loe-table .section-row td { background: var(--nav-bg); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); padding: 8px 14px; border-bottom: 1px solid var(--border-light); }
+  .loe-table tfoot td { padding: 12px 14px; font-weight: 600; background: var(--complete-bg); color: var(--complete-text); border-top: 2px solid var(--accent); }
+  .loe-table tfoot td:last-child { text-align: right; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .loe-table.dv td:last-child { text-align: left; font-weight: 400; font-variant-numeric: normal; color: var(--text-primary); }
+  .loe-table.dv td.num { text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--text-primary); }
+  .loe-table.dv thead th.num { text-align: center; }
+  .loe-table.dv { margin-bottom: 28px; }
+  .loe-note { font-size: 12px; color: var(--text-primary); margin-top: 14px; background: var(--accent-muted); border-radius: var(--radius-btn); padding: 12px 16px; border-left: 4px solid var(--accent); line-height: 1.6; }
+
+  /* SOLUTIONS, SCOPE & EFFORT — work-item table inside an open solution card. Tightens table padding so the inner table reads compactly. */
+  .loe-phase-table { margin: 0; }
+  .loe-phase-table thead th { padding: 10px 16px; }
+  .loe-phase-table tbody td { padding: 9px 16px; }
+  .loe-phase-table tbody td:first-child { font-weight: 500; white-space: nowrap; }
+  .loe-phase-table tbody td:nth-child(2) { color: var(--text-secondary); font-size: 12px; line-height: 1.5; white-space: normal; }
+  .loe-phase-table tbody td.num { white-space: nowrap; }
+  .loe-phase-table tfoot td { padding: 11px 16px; font-size: 13px; }
+  .loe-phase-table tfoot td.num { font-size: 14px; }
+
+  /* Section labels inside an open solution card — separates Deliverables from Level of Effort visually. */
+  .solution-section-label {
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-secondary); margin: 4px 0 10px;
+    padding-bottom: 6px; border-bottom: 1px solid var(--border-light);
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .solution-section-label .solution-section-count {
+    margin-left: auto; font-size: 10px; font-weight: 500; color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+
+  /* Collapsible Level of Effort block — defaults closed even when its parent solution is open.
+     Header always shows the solution total so reviewers see hours without expanding the table. */
+  .solution-loe-block { margin-top: 18px; }
+  .solution-loe-toggle {
+    display: flex; align-items: baseline; gap: 10px; cursor: pointer;
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-secondary); padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-light);
+    transition-property: color; transition-duration: 150ms; transition-timing-function: ease-out;
+  }
+  .solution-loe-toggle:hover { color: var(--text-primary); }
+  .solution-loe-toggle .solution-loe-count {
+    font-size: 10px; font-weight: 500; color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .solution-loe-toggle .solution-loe-total {
+    margin-left: auto;
+    font-size: 13px; font-weight: 700; text-transform: none; letter-spacing: 0;
+    color: var(--complete-text); font-variant-numeric: tabular-nums;
+  }
+  .solution-loe-toggle .solution-loe-chevron {
+    font-size: 9px; color: var(--text-secondary); flex-shrink: 0;
+    transition-property: transform; transition-duration: 150ms;
+  }
+  .solution-loe-block.open .solution-loe-toggle .solution-loe-chevron { transform: rotate(180deg); }
+  .solution-loe-body { display: none; padding-top: 10px; }
+  .solution-loe-block.open .solution-loe-body { display: block; }
+
+  /* LOE category tags — colored badges flagging which capability area each work item exercises. */
+  .loe-cat-tag {
+    display: inline-block; vertical-align: 1px; margin-left: 6px;
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 2px 7px; border-radius: var(--radius-badge); white-space: nowrap;
+  }
+  .loe-cat-data-source-connections { background: rgba(58,152,171,0.15);  color: #1F6F82; }
+  .loe-cat-etl                     { background: rgba(58,146,188,0.15);  color: #1F6A8E; }
+  .loe-cat-visualize               { background: rgba(68,150,150,0.15);  color: #2A6464; }
+  .loe-cat-ai                      { background: rgba(125,129,199,0.15); color: #4F5495; }
+  .loe-cat-workflows               { background: rgba(82,131,207,0.15);  color: #3A5FA0; }
+  .loe-cat-domo-everywhere         { background: rgba(255,153,34,0.15);  color: #C47A10; }
+
+  /* LOE engagement total — closing summary tile beneath the per-solution cards. */
+  .loe-engagement-summary {
+    background: var(--complete-bg); border-radius: var(--radius-card); border-top: 3px solid var(--accent);
+    padding: 18px 24px; margin-top: 8px; box-shadow: var(--shadow);
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .loe-engagement-summary-label { font-size: 13px; font-weight: 600; color: var(--complete-text); line-height: 1.5; }
+  .loe-engagement-summary-value { font-size: 22px; font-weight: 700; color: var(--complete-text); font-variant-numeric: tabular-nums; }
+  .dv-subhead { font-size: 16px; font-weight: 600; color: var(--text-primary); margin: 32px 0 14px; padding: 0 0 10px; border-bottom: 2px solid var(--accent); letter-spacing: -0.2px; display: flex; align-items: center; gap: 10px; }
+  .dv-subhead::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+  .dv-subhead .dv-subhead-count { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; }
+  .dv-totals { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); margin-bottom: 24px; }
+  .loe-table.dv tr.parent-row td:first-child { font-weight: 700; }
+  .loe-table.dv tr.parent-row { background: #F1F6FA; }
+  .loe-table.dv tr.parent-row:hover { background: #E6EFF6; }
+
+  /* BADGE */
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 8px; border-radius: var(--radius-badge); }
+  .b-core      { background: var(--complete-bg);  color: var(--complete-text); }
+  .b-impact    { background: var(--on-track-bg); color: var(--on-track-text); }
+  .b-quick-win { background: #FFF3CD; color: #B8860B; }
+  .b-strategic { background: var(--behind-bg);   color: var(--behind-text); }
+  .b-phased    { background: #F0F0F4; color: #6B7280; }
+
+  /* TIMELINE */
+  .tl-month-row { display: grid; grid-template-columns: 140px 1fr 72px; margin-bottom: 8px; }
+  .tl-months { display: grid; grid-template-columns: repeat(7,1fr); font-size: 10px; color: var(--text-secondary); text-align: center; font-weight: 400; text-transform: uppercase; letter-spacing: 0.05em; }
+  .tl-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .tl-label { width: 140px; font-size: 12px; font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+  .tl-track { flex: 1; background: var(--border-light); border-radius: 20px; height: 26px; position: relative; overflow: hidden; }
+  .tl-bar { height: 100%; border-radius: 20px; display: flex; align-items: center; padding-left: 10px; font-size: 11px; color: #fff; font-weight: 600; position: absolute; }
+  .tl-hrs { width: 72px; text-align: right; font-size: 12px; font-weight: 600; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+  .tl-total { border-top: 1px solid var(--border-light); margin-top: 6px; padding-top: 10px; }
+  .tl-total .tl-label { color: var(--text-primary); }
+  .tl-total .tl-hrs   { color: var(--text-primary); }
+
+  .milestone-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 20px; }
+  .m-tile { background: var(--surface); border-radius: var(--radius-card); padding: 16px 14px; box-shadow: var(--shadow); border-top: 4px solid var(--border-light); }
+  .m-tile.m-priority { border-top-color: var(--accent); background: var(--complete-bg); }
+  .m-date { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .m-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .m-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+
+  .pilot-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--grid-gap); margin-bottom: 20px; }
+  .pilot-card { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); }
+  .pilot-step { font-size: 28px; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; margin-bottom: 6px; }
+  .pilot-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .pilot-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  .assume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); }
+  .assume-block { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); }
+  .assume-block h4 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 14px; }
+  .assume-list { list-style: none; }
+  .assume-list li { font-size: 13px; color: var(--text-primary); padding: 7px 0; border-bottom: 1px solid var(--border-light); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+  .assume-list li:last-child { border-bottom: none; }
+  .a-pip { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+
+  .sow-footer { background: #1F262D; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-legal { font-size: 11px; color: rgba(255,255,255,0.35); font-weight: 300; }
+  .footer-note { font-size: 11px; color: rgba(255,255,255,0.45); font-style: italic; }
+
+  /* ROI TAB — RATE CONTROL */
+  .rate-control { background: var(--surface); border-radius: var(--radius-card); padding: 18px 22px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; border-left: 4px solid var(--accent); }
+  .rate-control-block { display: flex; flex-direction: column; gap: 4px; }
+  .rate-control-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); }
+  .rate-control-input-wrap { display: flex; align-items: center; gap: 6px; font-size: 18px; font-weight: 600; color: var(--text-primary); }
+  .rate-control-input-wrap input { width: 88px; font-family: inherit; font-size: 22px; font-weight: 600; color: var(--complete-text); padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius-btn); background: var(--complete-bg); text-align: center; outline: none; transition: border-color 150ms ease-out, box-shadow 150ms ease-out; font-variant-numeric: tabular-nums; }
+  .rate-control-input-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(153,204,238,0.25); }
+  /* Hide native number-input spinner controls — input remains fully editable via keyboard/typing */
+  .rate-control-input-wrap input::-webkit-outer-spin-button,
+  .rate-control-input-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .rate-control-input-wrap input { -moz-appearance: textfield; appearance: textfield; }
+  .rate-control-currency { font-size: 18px; color: var(--text-secondary); font-weight: 500; }
+  .rate-control-suffix { font-size: 13px; color: var(--text-secondary); font-weight: 400; }
+  .rate-control-note { flex: 1; min-width: 220px; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* ROI TAB — COST TABLE */
+  .loe-table.roi-cost-table thead th { text-align: left; }
+  .loe-table.roi-cost-table thead th.num,
+  .loe-table.roi-cost-table tbody td.num,
+  .loe-table.roi-cost-table tfoot td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .loe-table.roi-cost-table tbody td.num { font-weight: 600; }
+  .loe-table.roi-cost-table tbody td.num.cost-rec { color: var(--complete-text); }
+  .loe-table.roi-cost-table tfoot td { background: var(--complete-bg); color: var(--complete-text); border-top: 2px solid var(--accent); padding: 12px 14px; font-weight: 600; }
+  .loe-table.roi-cost-table tfoot td.num { font-size: 14px; }
+
+  /* ROI TAB — DRIVERS TABLE */
+  .loe-table.roi-driver-table thead th { text-align: left; }
+  .loe-table.roi-driver-table thead th.num,
+  .loe-table.roi-driver-table tbody td.num,
+  .loe-table.roi-driver-table tfoot td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .loe-table.roi-driver-table tbody td.num.cons { color: var(--text-primary); }
+  .loe-table.roi-driver-table tbody td.num.stretch { color: var(--complete-text); }
+  .loe-table.roi-driver-table tbody td:nth-child(2) { color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
+  .loe-table.roi-driver-table tfoot td { background: var(--complete-bg); color: var(--complete-text); border-top: 2px solid var(--accent); padding: 12px 14px; font-weight: 600; }
+  .loe-table.roi-driver-table tfoot td.num { font-size: 15px; }
+
+  /* ROI TAB — SUMMARY TILES */
+  .roi-summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); margin-bottom: 24px; }
+  .roi-tile { background: var(--surface); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow); border-top: 4px solid var(--accent); display: flex; flex-direction: column; gap: 6px; }
+  .roi-tile.featured { border-top-color: var(--on-track); background: linear-gradient(180deg, var(--on-track-bg) 0%, var(--surface) 100%); }
+  .roi-tile-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); }
+  .roi-tile-value { font-size: 24px; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; line-height: 1.15; }
+  .roi-tile.featured .roi-tile-value { color: var(--on-track-text); }
+  .roi-tile-sub { font-size: 11px; color: var(--text-secondary); line-height: 1.4; margin-top: auto; }
+
+  /* MOMENTUM METHODOLOGY SECTION */
+  .momentum-section { background: var(--surface); border-radius: var(--radius-card); padding: 28px 28px 24px; box-shadow: var(--shadow); margin-top: 16px; }
+  .momentum-svg-wrap { width: 100%; overflow-x: auto; padding: 8px 0 4px; }
+  .momentum-svg { display: block; width: 100%; min-width: 920px; height: auto; }
+  .momentum-svg .m-stage-circle { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+  .momentum-svg .m-stage-circle.start { stroke: var(--at-risk); stroke-width: 2.5; }
+  .momentum-svg .m-stage-circle.end { stroke: var(--on-track); stroke-width: 2.5; }
+  .momentum-svg .m-icon { fill: none; stroke: var(--text-primary); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .momentum-svg .m-icon.start { stroke: var(--at-risk-text); }
+  .momentum-svg .m-icon.end { stroke: var(--on-track-text); }
+  .momentum-svg .m-label { fill: var(--text-primary); font-family: var(--font-stack); font-size: 13px; font-weight: 600; }
+  .momentum-svg .m-desc { fill: var(--text-secondary); font-family: var(--font-stack); font-size: 10.5px; font-weight: 400; }
+  .momentum-svg .m-iter-label { fill: var(--complete-text); font-family: var(--font-stack); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .momentum-summary-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); margin-top: 24px; }
+  .momentum-pillar { background: var(--bg); border-radius: var(--radius-btn); padding: 14px 16px; }
+  .momentum-pillar-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--complete-text); margin-bottom: 4px; }
+  .momentum-pillar-text { font-size: 12px; color: var(--text-primary); line-height: 1.5; }
+
+  /* CREDIT IMPACT TAB */
+  .credit-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); margin-bottom: 24px; }
+  .credit-tile { background: var(--surface); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow); border-top: 4px solid var(--accent); display: flex; flex-direction: column; gap: 6px; }
+  .credit-tile.year1 { border-top-color: var(--cs1); }
+  .credit-tile.year3 { border-top-color: var(--cs3); }
+  .credit-tile.year5 { border-top-color: var(--cs5); }
+  .credit-tile-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); }
+  .credit-tile-value { font-size: 24px; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; line-height: 1.15; }
+  .credit-tile-sub { font-size: 11px; color: var(--text-secondary); line-height: 1.4; margin-top: auto; }
+
+  .credit-method-block { background: var(--surface); border-radius: var(--radius-card); padding: 18px 22px; box-shadow: var(--shadow); border-left: 4px solid var(--cs2); margin-bottom: 24px; }
+  .credit-method-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 10px; }
+  .credit-method-list { list-style: none; }
+  .credit-method-list li { font-size: 12px; color: var(--text-primary); padding: 6px 0; border-bottom: 1px solid var(--border-light); display: flex; gap: 8px; align-items: flex-start; line-height: 1.55; }
+  .credit-method-list li:last-child { border-bottom: none; }
+  .credit-method-list li::before { content: "▸"; color: var(--cs2); font-size: 11px; flex-shrink: 0; margin-top: 2px; }
+
+  .credit-envelope { background: var(--complete-bg); border-radius: var(--radius-card); padding: 18px 22px; border-left: 4px solid var(--accent); margin-bottom: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items: center; }
+  .credit-envelope-block { display: flex; flex-direction: column; gap: 4px; }
+  .credit-envelope-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--complete-text); }
+  .credit-envelope-value { font-size: 18px; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+  .credit-envelope-pct { color: var(--complete-text); }
+  .credit-envelope-note { grid-column: 1 / -1; font-size: 11px; color: var(--text-secondary); line-height: 1.5; padding-top: 6px; border-top: 1px solid rgba(63,69,77,0.08); }
+
+  .loe-table.credit-table thead th { text-align: left; }
+  .loe-table.credit-table thead th.num,
+  .loe-table.credit-table tbody td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .loe-table.credit-table tbody td.num { font-weight: 600; }
+  .loe-table.credit-table tbody td:nth-child(3) { color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
+  .loe-table.credit-table tr.cat-row td { background: #F1F6FA; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); padding: 7px 14px; }
+  .loe-table.credit-table tbody td.cat-cell { font-weight: 600; color: var(--text-primary); }
+  .credit-recs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); margin-top: 8px; }
+  .credit-rec { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); border-left: 4px solid var(--on-track); }
+  .credit-rec-title { font-size: 12px; font-weight: 600; color: var(--on-track-text); margin-bottom: 6px; }
+  .credit-rec-body { font-size: 12px; color: var(--text-primary); line-height: 1.55; }
+
+  .credit-empty { background: var(--surface); border-radius: var(--radius-card); padding: 36px 28px; box-shadow: var(--shadow); border: 1px dashed var(--border); text-align: center; }
+  .credit-empty-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+  .credit-empty-body { font-size: 12px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; margin: 0 auto; }
+
+
+  /* FEEDBACK PANEL */
+  .fb-trigger {
+    position: fixed; bottom: 28px; right: 28px; background: #1F262D; color: #fff;
+    border: none; border-radius: 24px; padding: 10px 20px; font-size: 13px;
+    font-weight: 600; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    z-index: 900; display: flex; align-items: center; gap: 7px;
+    letter-spacing: 0.01em; transition: background 150ms;
+  }
+  .fb-trigger:hover { background: #2E3740; }
+  .fb-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1000;
+    display: none; align-items: flex-end; justify-content: flex-end;
+  }
+  .fb-overlay.open { display: flex; }
+  .fb-panel {
+    background: var(--surface); width: 400px; max-width: 95vw;
+    height: 70vh; max-height: 600px; border-radius: 12px 12px 0 0;
+    display: flex; flex-direction: column;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.12); margin-right: 28px; overflow: hidden;
+  }
+  .fb-panel-header {
+    padding: 14px 20px; background: #1F262D; color: #fff;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; font-weight: 600; flex-shrink: 0;
+  }
+  .fb-close { background: none; border: none; color: rgba(255,255,255,0.55); font-size: 22px; cursor: pointer; line-height: 1; padding: 0 2px; }
+  .fb-close:hover { color: #fff; }
+  .fb-thread { flex: 1; overflow-y: auto; padding: 14px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .fb-loading, .fb-empty, .fb-error { font-size: 13px; color: var(--text-secondary); text-align: center; padding: 24px 0; }
+  .fb-error { color: var(--alert); }
+  .fb-comment { background: var(--surface); border: 1px solid var(--border-light); border-radius: 8px; padding: 11px 13px; }
+  .fb-comment-client { border-left: 3px solid var(--accent); }
+  .fb-comment-sa { border-left: 3px solid var(--on-track); }
+  .fb-comment-meta { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; flex-wrap: wrap; }
+  .fb-comment-author { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+  .fb-comment-type { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .fb-type-client { background: var(--accent-muted); color: var(--complete-text); }
+  .fb-type-sa { background: var(--on-track-bg); color: var(--on-track-text); }
+  .fb-comment-date { font-size: 11px; color: var(--text-secondary); margin-left: auto; }
+  .fb-comment-body { font-size: 13px; color: var(--text-primary); line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+  .fb-reply-btn { background: none; border: 1px solid var(--border); border-radius: 4px; color: var(--text-secondary); font-size: 11px; cursor: pointer; padding: 3px 10px; margin-top: 7px; }
+  .fb-reply-btn:hover { border-color: var(--accent); color: var(--text-primary); }
+  .fb-replies { margin-top: 9px; padding-left: 12px; border-left: 2px solid var(--border-light); display: flex; flex-direction: column; gap: 7px; }
+  .fb-compose { padding: 11px 20px 15px; border-top: 1px solid var(--border-light); flex-shrink: 0; display: flex; flex-direction: column; gap: 7px; }
+  .fb-input {
+    width: 100%; font-family: var(--font-stack); font-size: 13px; color: var(--text-primary);
+    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-btn);
+    padding: 7px 11px; outline: none; resize: none;
+  }
+  .fb-input:focus { border-color: var(--accent); }
+  .fb-textarea { resize: vertical; min-height: 70px; }
+  .fb-compose-actions { display: flex; justify-content: space-between; align-items: center; }
+  .fb-status { font-size: 12px; color: var(--text-secondary); }
+  .fb-submit {
+    background: #1F262D; color: #fff; border: none; border-radius: var(--radius-btn);
+    padding: 7px 18px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 150ms;
+  }
+  .fb-submit:hover { background: #2E3740; }
+  .fb-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<div>
+  <!-- HEADER -->
+  <div class="sow-header">
+    <div class="header-inner">
+      <div>
+        <svg class="domo-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Domo"><path fill="#9ce" d="M150.53,328.62a106.55,106.55,0,0,1,25,49.83,106.85,106.85,0,0,1,209.41,0V292.91L491.76,399.73,598.89,292.91v85.56A106.86,106.86,0,0,1,800,353.65V0H0V292.91H70.82A106.55,106.55,0,0,1,150.53,328.62Z"/><path fill="#9ce" d="M703.6,506.56A106.86,106.86,0,0,1,598.89,421v85.56h-36V378.8l-71.12,71.42L420.34,378.8V506.56H384.93V421a106.85,106.85,0,0,1-209.41,0,106.87,106.87,0,0,1-104.7,85.55H0V800H800V445.82A106.83,106.83,0,0,1,703.6,506.56Z"/><path fill="#9ce" d="M280.22,471a71.29,71.29,0,1,0-71.28-71.29A71.29,71.29,0,0,0,280.22,471Z"/><path fill="#9ce" d="M142.1,399.73a71.28,71.28,0,0,0-66.61-71.11H35.4V470.85H75.46A71.28,71.28,0,0,0,142.1,399.73Z"/><path fill="#9ce" d="M703.6,471a71.29,71.29,0,1,0-71.28-71.29A71.28,71.28,0,0,0,703.6,471Z"/><path fill="#fff" d="M150.53,470.85a106.54,106.54,0,0,0,25-49.84,106.85,106.85,0,0,0,209.41,0v85.56h35.41V378.8l71.42,71.42,71.12-71.42V506.56h36V421A106.86,106.86,0,0,0,800,445.82V353.65a106.86,106.86,0,0,0-201.11,24.82V292.91L491.76,399.73,384.93,292.91v85.56a106.85,106.85,0,0,0-209.41,0,106.88,106.88,0,0,0-104.7-85.54H0V506.56H70.82A106.57,106.57,0,0,0,150.53,470.85ZM703.6,328.45a71.29,71.29,0,1,1-71.28,71.28A71.28,71.28,0,0,1,703.6,328.45Zm-423.38,0a71.29,71.29,0,1,1-71.28,71.28A71.29,71.29,0,0,1,280.22,328.45Zm-244.82.17H75.49a71.27,71.27,0,0,1,0,142.23H35.4Z"/></svg>
+        <div class="header-eyebrow">Statement of Work Proposal — Accelerated 6-Month Delivery</div>
+        <div class="header-title">Pacific Healthcare Association<br>Data Modernization Platform</div>
+        <div class="header-sub">Implementation Services · Accelerated Delivery</div>
+      </div>
+      <div class="header-meta">
+        <div class="meta-block"><div class="meta-label">Prepared for</div><div class="meta-val">Pacific Healthcare Association</div></div>
+<div class="meta-block"><div class="meta-label">Prepared by</div><div class="meta-val">Mark Lees</div></div>        <div class="meta-block"><div class="meta-label">Revision date</div><div class="meta-val">April 24, 2026</div></div>
+        <div class="meta-block"><div class="meta-label">Version</div><div class="meta-val">v2.2 · Confidential</div></div>
+<div><span class="revision-pill">⚑ Accelerated — 6-Month Plan</span></div>      </div>
+    </div>
+    <div class="header-accent-bar"></div>
+  </div>
+
+  <!-- NAV -->
+  <div class="sow-nav" id="sowNav">
+    <div class="nav-tab active" data-tab="exec">Executive Summary</div>
+    <div class="nav-tab" data-tab="solutions">Scope &amp; Effort</div>
+    <div class="nav-tab" data-tab="data">Data Sources &amp; Visualizations</div>
+    <div class="nav-tab" data-tab="impl">Implementation Strategy</div>
+    <div class="nav-tab" data-tab="timeline">Timeline</div>
+    <div class="nav-tab" data-tab="assumptions">Assumptions</div>
+    <div class="nav-tab" data-tab="roi">ROI &amp; Investment</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- EXEC SUMMARY — REVISED                                       -->
+  <!-- ============================================================ -->
+  <div class="sow-panel active" id="tab-exec">
+
+    <!-- STRATEGIC CONTEXT -->
+    <div class="section-eyebrow">Strategic Context</div>
+    <div class="section-title">A Platform Transformation, Not a Point Solution</div>
+    <p class="body-text">PHA's data infrastructure challenge is not a single problem — it is a collection of interconnected constraints that have compounded over time, limiting the organization's ability to serve its members with the timeliness and depth of insight they deserve. Today, PHA's data team operates across a fragmented stack: PHI clinical data submitted through ad-hoc file transfers, financial and operational data collected via manual spreadsheet intake and email coordination, QA and ETL work managed through a combination of SQL scripts, Microsoft Access, Data 360, and Tableau — each requiring significant manual intervention to move data from receipt to report.</p>
+    <p class="body-text">The result is a reporting cycle that, in some cases, stretches 12 to 18 months from data collection to published report — a lag that has created real concerns among PHA's membership about the relevance and value of the organization's analytical output. PHA leadership has identified closing this gap as the single most important outcome this engagement must deliver.</p>
+    <p class="body-text">Domo addresses this not by replacing one tool with another, but by providing an end-to-end platform — data integration, transformation, AI-powered validation, warehousing, and visualization — under a single, unified environment. This consolidates the existing vendor landscape (Tableau, AWS, Data 360, Access, and custom-built portals) into one governed, scalable system that PHA's team can own and operate independently over time.</p>
+
+    <div class="divider"></div>
+
+    <!-- STRATEGIC PILLARS -->
+    <div class="section-eyebrow">Strategic Pillars</div>
+    <div class="section-title" style="margin-bottom: 16px;">Outcomes Driving This Engagement</div>
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-num" style="background: var(--cs1);">1</div>
+        <div>
+          <div class="pillar-label">Eliminate the Reporting Lag</div>
+          <div class="pillar-text">Reduce PHA's QHR reporting cycle from 12–18 months to near-real-time. Once data is submitted and validated, the report is generated automatically — no manual ETL, no Access intermediary, no multi-month pipeline.</div>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num" style="background: var(--cs2);">2</div>
+        <div>
+          <div class="pillar-label">Modernize Data Intake End-to-End</div>
+          <div class="pillar-text">Replace manual spreadsheet collection, email coordination, and ad-hoc file transfers with a governed, member-facing intake platform — covering both PHI clinical data and the four non-PHI financial and operational reports PHA collects annually.</div>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num" style="background: var(--cs3);">3</div>
+        <div>
+          <div class="pillar-label">Elevate the Member Experience</div>
+          <div class="pillar-text">Transition members from receiving static annual PDF exports to self-service access to their own data, peer benchmarks, and trend analysis — building PHA's value proposition as a data-driven resource for the PHA community.</div>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num" style="background: var(--cs4);">4</div>
+        <div>
+          <div class="pillar-label">Consolidate & Simplify the Tech Stack</div>
+          <div class="pillar-text">Replace the fragmented combination of Tableau, AWS, Data 360, Access, and custom-built portals with a single, fully integrated Domo environment — reducing vendor overhead, training burden, and points of failure across PHA's data operations.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CURRENT VS FUTURE STATE -->
+    <div class="section-eyebrow">Current vs. Future State</div>
+    <div class="section-title" style="margin-bottom: 16px;">What Changes — and What Becomes Possible</div>
+    <div class="state-grid">
+      <div class="state-card current">
+        <div class="state-card-title">Current State — Constraints</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--at-risk);"></span>PHI data collected via decommissioned QHR portal, now transitioning to interim SharePoint file transfer</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--at-risk);"></span>Non-PHI financial and operational data collected via email and manual spreadsheet intake</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--at-risk);"></span>Data QA and ETL managed manually across SQL scripts, Access databases, and Data 360</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--at-risk);"></span>QHR taxonomy crosswalk performed manually — EHR column changes and coding differences require recurring rework</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--at-risk);"></span>Reporting produced in Tableau and distributed as static PDF emails — no self-service member access</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--at-risk);"></span>QHR reporting cycle: 12–18 months from data collection to published report</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--at-risk);"></span>Submission tracking managed manually in spreadsheets — no real-time status visibility</div>
+      </div>
+      <div class="state-card future">
+        <div class="state-card-title">Future State — With Domo</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--on-track);"></span>PHI data submitted directly through a governed Domo member portal — secure, auditable, and permanently hosted</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--on-track);"></span>Non-PHI data collected via Domo Forms with required field validation — no spreadsheets, no manual QA on intake</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--on-track);"></span>Agentic AI validates uploaded files automatically — flags issues, routes for human review, and learns from approved corrections</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--on-track);"></span>QHR taxonomy crosswalk automated — EHR column changes detected and resolved with human-in-loop approval, not manual rework</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--on-track);"></span>Members access self-service dashboards with their own data, peer benchmarks, and trend analysis — PDF export on demand</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--on-track);"></span>QHR reporting available near-real-time upon validated submission — 12–18 month lag eliminated</div>
+        <div class="state-row"><span class="state-pip" style="background: var(--on-track);"></span>Submission tracking live in Domo — PHA staff see status by org, form, and date in real time</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- IMMEDIATE PRIORITY CONTEXT (field name `phase_one_framing` retained for handoff compatibility; rendered language reads 'Solution 1') -->
+    <div class="section-eyebrow">Immediate Priority</div>
+    <div class="section-title" style="margin-bottom: 16px;">Solution 1 — QHR Intake Portal: The Right First Step</div>
+    <p class="body-text">Within the broader platform vision, Solution 1 has been deliberately scoped to address PHA's most pressing near-term need: establishing a permanent, Domo-native channel for members to submit their QHR PHI data — before the current collection cycle requires PHA to direct members to a temporary solution.</p>
+    <p class="body-text">The decommissioned QHR portal left PHA without a dedicated submission channel. An interim SharePoint site has been prepared as a bridge, but directing members there — only to transition them again to Domo within the same year — would create unnecessary friction and require communicating a process change twice in a short period. By standing up the Domo intake portal first, PHA makes one clear, intentional announcement to its membership: this is the new platform, and this is how things will work going forward.</p>
+    <p class="body-text">This approach also ensures that every subsequent solution — AI validation, QHR taxonomy mapping, analytics dashboards, and non-PHI form ingestion — is built on a foundation that members are already familiar and comfortable with, making each new capability feel like a natural evolution rather than a disruption.</p>
+
+    <!-- KPI ROW -->
+    <div class="kpi-row" style="margin-top: 8px;">
+      <div class="kpi-card hi"><div class="kpi-label">Solution 1 Target</div><div class="kpi-value">End Jun</div></div>
+      <div class="kpi-card hi"><div class="kpi-label">Solution 1 Hours</div><div class="kpi-value">80</div></div>
+      <div class="kpi-card"><div class="kpi-label">Pilot Cohort Size</div><div class="kpi-value">5–10</div></div>
+      <div class="kpi-card"><div class="kpi-label">Full Roadmap Hours</div><div class="kpi-value">590</div></div>
+    </div>
+
+    <div class="callout c-track" style="margin-top: 8px;">
+      <div class="callout-title">The Defining Outcome</div>
+      <div class="callout-body">PHA's QHR report for 2024 data — collected by the end of Q2 2025 — was not published until early 2026. That is a 9-to-12-month gap between data availability and member access. With Domo's validated intake pipeline and automated reporting layer in place, that same cycle compresses to days from submission. That is the transformation PHA's members are waiting for — and the outcome this engagement is designed to deliver.</div>
+    </div>
+  </div>
+
+  <!-- SOLUTIONS, SCOPE & EFFORT — merged tab. Each solution card opens to show
+       (1) narrative description, (2) deliverables accordion, (3) optional
+       architecture-flow diagram, (4) the per-solution LOE work-item table.
+       The KPI tile row + closing loe-note from the prior LOE tab are lifted
+       to the top of this merged tab so the reader still sees the engagement-
+       level numbers up front. Cards collapsed by default; one click expands. -->
+  <div class="sow-panel" id="tab-solutions">
+    <div class="section-eyebrow">Delivery Roadmap</div>
+    <div class="section-title">5-Solution Plan — AI-Accelerated Delivery</div>
+
+    <div class="kpi-row" style="margin-bottom:28px;">
+      <div class="kpi-card hi"><div class="kpi-label">Solution 1 — Immediate</div><div class="kpi-value">80 hrs</div></div>
+      <div class="kpi-card hi"><div class="kpi-label">Solution 2 — AI Validation</div><div class="kpi-value">158 hrs</div></div>
+      <div class="kpi-card"><div class="kpi-label">Full Roadmap Hours</div><div class="kpi-value">590</div></div>
+      <div class="kpi-card"><div class="kpi-label">Total Timeline</div><div class="kpi-value">26 wk</div></div>
+    </div>
+
+    <div class="phase-card priority" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num" style="background:var(--cs1);">1</div>
+        <div>
+          <div class="phase-title">Solution 1 — QHR PHI Intake Portal <span class="badge b-core">Core</span></div>
+          <div class="phase-desc">Domo Filesets upload portal · Member authentication · Submission tracking · Replaces interim SharePoint site</div>
+        </div>
+        <div class="phase-right"><span class="phase-weeks">Weeks 1–5</span><span class="phase-hrs">80 hrs</span><span class="phase-chevron">▼</span></div>
+      </div>
+      <div class="phase-body">
+<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;line-height:1.5;">A production-ready, HIPAA-aligned PHI file intake portal embedded on phaonline.org. Members log in once, upload their QHR data files, and are done. PHA staff have real-time submission visibility. This becomes the permanent foundation — no interim step, no second migration.</p>
+        <div class="solution-section-label">Deliverables <span class="solution-section-count">10</span></div>
+        <ul class="dl-list">
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs1);"></span>
+              <span class="dl-title">Member-Facing Intake Portal (Custom App)</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">A branded Domo Custom App embedded behind the phaonline.org member login wall. Members access the portal as part of their existing PHA login flow — no second account, no separate URL — and the visual treatment matches PHA's web presence from launch day.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member healthcare organizations</span><span class="dl-audience-pill">PHA program leadership</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Replaces the interim SharePoint upload site and removes the friction that has been suppressing member submissions. Becomes the permanent foundation every subsequent solution builds on — there is no second migration after this.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs1);"></span>
+              <span class="dl-title">Member Authentication & Org Hierarchy Governance</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Role-based access scoping for 150+ member healthcare organizations, including parent-org / child-site hierarchies. Each member organization sees only its own data; PHA staff see across the full membership. Member ID is the authoritative key linking authentication, file partitions, and downstream analytics.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member healthcare organizations</span><span class="dl-audience-pill">PHA IT and security review</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Solves the parent/child organization modeling that the current SharePoint setup can't represent cleanly, and gives PHA the HIPAA-aligned access posture required to receive PHI through the portal at all.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs1);"></span>
+              <span class="dl-title">PHI File Upload to Domo Filesets</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">A single upload experience that routes member files into Domo Filesets with org-level partitioning. Each member organization's PHI is isolated for HIPAA compliance and is deletable on a per-org basis to honor BAA obligations.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member healthcare organizations</span><span class="dl-audience-pill">PHA compliance and BAA owners</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Eliminates the upload friction members experience today, while giving PHA a defensible HIPAA posture and a clean BAA-deletability story it can share with member-org legal teams during onboarding.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs1);"></span>
+              <span class="dl-title">EHR Vendor Identification at Intake</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">A lightweight intake questionnaire capturing each member organization's EHR vendor (Epic, Cerner, MEDITECH, etc.) at the moment of file submission. The captured EHR signal becomes the routing key the Solution 2 AI validation layer applies to choose the correct vendor-specific transformations.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member-org data submitters</span><span class="dl-audience-pill">Solution 2 validation engine consumers</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Pre-positions Solution 2 with the routing data it needs from day one of the QHR pipeline, so AI validation launches without a separate EHR-discovery exercise after Solution 1 closes.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs1);"></span>
+              <span class="dl-title">Submission Tracker for PHA Staff</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">A live PHA-staff dashboard showing Member ID, file name, date/time, and submission status for every org's QHR cycle. Replaces the manually maintained SharePoint tracker PHA staff use today.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program leadership</span><span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Restores real-time submission visibility — staff can see who has submitted, who hasn't, and where to follow up in days rather than weeks. Direct support for the solution's 'restore visibility' objective.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs1);"></span>
+              <span class="dl-title">Submission Notifications & Reminders</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Workflow-driven alerts to PHA staff on every new submission, plus configurable reminder cadences for member organizations that haven't yet submitted by the per-cycle deadline.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program operations staff</span><span class="dl-audience-pill">Member-org data submitters</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Removes the manual chase-up burden from PHA staff and lifts member submission rates by surfacing late submitters early — the early warning surface that prevents missed cycles before they happen.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs1);"></span>
+              <span class="dl-title">Forward-Compatible Fileset & AppDB Architecture</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Data architecture for the intake layer deliberately designed so that Solutions 2–5 (validation, taxonomy mapping, analytics, extended EHR coverage) plug in additively without rebuilding the intake plumbing.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Domo solution architecture team</span><span class="dl-audience-pill">PHA IT</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Locks in the 'no second migration' commitment as a structural property of the architecture rather than a hope. The Solution 1 investment is preserved entirely as the program scales across solutions.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs1);"></span>
+              <span class="dl-title">HIPAA-Aligned Environment Configuration</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Configuration of the Domo HIPAA-eligible environment, security review, BAA execution support, and a documentation packet PHA can hand to member organizations and their legal teams during onboarding.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA compliance owners</span><span class="dl-audience-pill">Member-org legal and security review</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Removes the compliance friction that is currently the single biggest block to faster member submission — member-org legal teams clear the portal on day one rather than after weeks of internal review.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs1);"></span>
+              <span class="dl-title">Pilot Cohort Onboarding (5–10 Member Orgs)</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Hands-on onboarding for an early-adopter cohort of 5–10 member organizations, with feedback collection, two iteration cycles, and a phased rollout plan informed by what the pilot reveals.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Pilot member organizations</span><span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">De-risks the full membership rollout — proves the experience works across diverse member-org IT realities before opening it to all 150+. Pilot insights also tune Solution 2's validation rule strictness.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs1);"></span>
+              <span class="dl-title">QA, UAT, and Production Deployment</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">End-to-end testing across the upload UX, authentication, fileset isolation, submission tracker, and notifications; UAT with PHA program staff and pilot member representatives; production cutover from the SharePoint interim to the Domo portal.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program leadership</span><span class="dl-audience-pill">Pilot member organizations</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Ensures cutover is a member-experience improvement, not a regression — pilot member organizations move from SharePoint to the Domo portal without losing confidence in the program.</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="arch-box">
+          <h4>Solution 1 Technical Flow — Fileset Intake Architecture</h4>
+          <div class="arch-flow">
+            <div class="arch-step">Member Login<span class="arch-sub">phaonline.org embed</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step hl">Upload Button<span class="arch-sub">Domo Custom App</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step hl">Domo Filesets<span class="arch-sub">PHI isolated by org</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step">Staff Tracker<span class="arch-sub">Submission dashboard</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step">Notifications<span class="arch-sub">Workflow alerts</span></div>
+          </div>
+        </div>
+
+        <div class="solution-loe-block">
+          <div class="solution-loe-toggle" onclick="toggleLoe(event, this.parentElement)">
+            <span>Level of Effort</span>
+            <span class="solution-loe-count">8 work items</span>
+            <span class="solution-loe-total">Solution 1 Total: 80 hrs</span>
+            <span class="solution-loe-chevron">▼</span>
+          </div>
+          <div class="solution-loe-body">
+            <table class="loe-table loe-phase-table">
+              <thead><tr>
+                <th>Work Item</th>
+                <th>Description</th>
+                <th class="num">Hours</th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td>Solution Design & Architecture</td>
+                  <td>Requirements, Fileset data model, PHI isolation design, hosting config, HIPAA environment setup. POC scaffolding reuse.</td>
+                  <td class="num">8</td>
+                </tr>
+                <tr>
+                  <td>Member Portal & Auth <span class="loe-cat-tag loe-cat-visualize">Visualize</span></td>
+                  <td>Custom app, PHA branding, phaonline.org embed, RBAC for 150+ orgs with parent/child hierarchy. AI-scaffolded UX shell.</td>
+                  <td class="num">18</td>
+                </tr>
+                <tr>
+                  <td>Fileset Upload Interface <span class="loe-cat-tag loe-cat-data-source-connections">Data Source Connections</span></td>
+                  <td>Single upload button UX, file routing to org-partitioned Filesets, EHR system identification intake</td>
+                  <td class="num">12</td>
+                </tr>
+                <tr>
+                  <td>Submission Tracker <span class="loe-cat-tag loe-cat-visualize">Visualize</span></td>
+                  <td>PHA staff dashboard — Member ID, file name, date/time, status per org. AppDB + standard dashboard pattern.</td>
+                  <td class="num">7</td>
+                </tr>
+                <tr>
+                  <td>Workflow Notifications</td>
+                  <td>Staff alerts on new submissions; configurable member reminders for non-submitters. Workflow templates.</td>
+                  <td class="num">5</td>
+                </tr>
+                <tr>
+                  <td>QA</td>
+                  <td>Test scripts, stakeholder UAT, security validation, production deployment. Domo HIPAA env pre-validated.</td>
+                  <td class="num">12</td>
+                </tr>
+                <tr>
+                  <td>Solution Rollout & Enablement</td>
+                  <td>Pilot cohort onboarding (5–10 orgs), feedback collection, iteration, phased rollout preparation, member training materials.</td>
+                  <td class="num">8</td>
+                </tr>
+                <tr>
+                  <td>Project Management</td>
+                  <td>Solution planning, status reporting, stakeholder coordination, risk tracking, weekly cadence with PHA. 10–15% of solution delivery work.</td>
+                  <td class="num">10</td>
+                </tr>
+              </tbody>
+              <tfoot><tr>
+                <td colspan="2"><strong>Solution 1 Total Hours</strong></td>
+                <td class="num"><strong>80 hrs</strong></td>
+              </tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num" style="background:var(--cs2);">2</div>
+        <div>
+          <div class="phase-title">Solution 2 — Agentic QHR Validation & Taxonomy Engine <span class="badge b-impact">Impact</span></div>
+          <div class="phase-desc">AI validation agent · Human-in-loop workflow · QHR crosswalk · EHR pathway routing · Top 3 EHR systems</div>
+        </div>
+        <div class="phase-right"><span class="phase-weeks">Weeks 4–12</span><span class="phase-hrs">158 hrs</span><span class="phase-chevron">▼</span></div>
+      </div>
+      <div class="phase-body">
+<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;line-height:1.5;">With files landing in Filesets from Solution 1, this solution adds intelligence: an agentic review layer that validates data quality, maps to PHA's QHR taxonomy, and surfaces issues to human reviewers before data enters the analytics pipeline.</p>
+        <div class="solution-section-label">Deliverables <span class="solution-section-count">7</span></div>
+        <ul class="dl-list">
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs2);"></span>
+              <span class="dl-title">Agentic AI Validation Pipeline</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">An AI agent that reviews every uploaded Fileset against the QHR required-field checklist, automatically flagging missing, malformed, or out-of-range data before it enters the analytics pipeline.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program operations staff</span><span class="dl-audience-pill">Member-org data submitters</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Catches data-quality issues that today only surface 9–12 months later in QHR review — collapsing the remediation cycle from quarters to days and protecting the integrity of every downstream report.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs2);"></span>
+              <span class="dl-title">Human-in-the-Loop Approval Workflow</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">A workflow-driven review interface where PHA staff inspect agent findings and approve or reject each data packet before it enters the analytics pipeline. The review queue is filtered to exceptions only, not every submission.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Keeps PHA staff judgment in the loop where it matters (edge cases, vendor-specific anomalies) while automating the 80% of submissions that are clean — converts staff effort from data janitorial work to exception handling.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs2);"></span>
+              <span class="dl-title">QHR Taxonomy Crosswalk Engine</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Automated mapping of EHR-specific coding values into PHA's standardized QHR taxonomy. Built on Aaron Cole's existing Data 360 crosswalk scripts and QA logic, ported into Domo with AI-assisted translation so existing institutional knowledge is preserved rather than rebuilt.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Aaron Cole (Data 360 owner)</span><span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Preserves five years of institutional crosswalk work and removes the manual Access database / spreadsheet mapping step that today sits between submission and report. The QHR taxonomy becomes a live capability rather than an annual manual exercise.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs2);"></span>
+              <span class="dl-title">EHR Pathway Routing — Top 3 Vendors</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Vendor-aware routing for the three EHR systems that cover ~80% of member submission volume. Each pathway carries the validation rules and transformation logic correct for that vendor's data shape.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program operations staff</span><span class="dl-audience-pill">Member organizations on Big 3 EHRs</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Delivers immediate clean validation for the membership majority. The long-tail vendors are picked up additively in Solution 5 — no re-architecture required when coverage expands.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs2);"></span>
+              <span class="dl-title">Dynamic Column Mapping Intelligence</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">AI detection of EHR column-name changes when a vendor pushes an update, with human approval prompts and confirmed-mapping training so the engine learns from each approved decision.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program operations staff</span><span class="dl-audience-pill">Member-org IT contacts</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Eliminates the recurring fire drills triggered by EHR vendor updates — historically a major source of QHR cycle delay — and lets the validation engine evolve with the EHR market without consultant rework.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs2);"></span>
+              <span class="dl-title">EHR Transition Dual-Pathway Handling</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Workflow support for member organizations migrating between EHR systems mid-year, ingesting data from both source and target systems without data loss or double-counting through the transition window.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member organizations mid-EHR-migration</span><span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Removes a quiet failure mode in today's manual process, where member orgs in EHR transition either submit incomplete data or are quietly excluded from a QHR cycle entirely.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs2);"></span>
+              <span class="dl-title">Field-Level Member Feedback Loop</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Automated notifications back to the submitting member organization when validation issues are detected, with field-level remediation guidance ('Field X failed range check; expected range Y–Z') so the org can self-correct without contacting PHA.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member-org data submitters</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Member organizations learn from their own submissions in real time, building data-quality maturity inside the membership and reducing inbound 'why was this rejected?' inquiries to PHA staff.</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="arch-box">
+          <h4>Solution 2 Technical Flow — Agentic Validation Architecture</h4>
+          <div class="arch-flow">
+            <div class="arch-step">PHI Fileset<span class="arch-sub">From Solution 1</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step hl">AI Validation<span class="arch-sub">Required field checks</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step hl">QHR Taxonomy Map<span class="arch-sub">EHR crosswalk</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step">Human Review<span class="arch-sub">Exceptions only</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step">Analytics Pipeline<span class="arch-sub">Validated & ready</span></div>
+          </div>
+        </div>
+
+        <div class="solution-loe-block">
+          <div class="solution-loe-toggle" onclick="toggleLoe(event, this.parentElement)">
+            <span>Level of Effort</span>
+            <span class="solution-loe-count">9 work items</span>
+            <span class="solution-loe-total">Solution 2 Total: 158 hrs</span>
+            <span class="solution-loe-chevron">▼</span>
+          </div>
+          <div class="solution-loe-body">
+            <table class="loe-table loe-phase-table">
+              <thead><tr>
+                <th>Work Item</th>
+                <th>Description</th>
+                <th class="num">Hours</th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td>Solution Design & Architecture</td>
+                  <td>Agentic AI architecture, validation rule schema, EHR routing logic design, taxonomy engine pattern.</td>
+                  <td class="num">10</td>
+                </tr>
+                <tr>
+                  <td>AI Validation Agent <span class="loe-cat-tag loe-cat-ai">AI</span></td>
+                  <td>Agentic review of Fileset files, required field checks, malformed data flagging, workflow triggers. Domo AI primitives + agent framework reuse.</td>
+                  <td class="num">34</td>
+                </tr>
+                <tr>
+                  <td>Human-in-Loop Workflow</td>
+                  <td>PHA staff review interface, approve/reject packets, email-triggered review center. Workflow templates from Solution 1.</td>
+                  <td class="num">18</td>
+                </tr>
+                <tr>
+                  <td>QHR Taxonomy Engine <span class="loe-cat-tag loe-cat-etl">ETL</span></td>
+                  <td>Automated crosswalk of EHR coding to QHR taxonomy; ported from Aaron Cole's existing Data 360 scripts with AI-assisted translation.</td>
+                  <td class="num">26</td>
+                </tr>
+                <tr>
+                  <td>EHR Pathway Routing <span class="loe-cat-tag loe-cat-etl">ETL</span></td>
+                  <td>Big 3 EHR vendor routing; column-change detection; dual-pathway for mid-year EHR migrations. Rule-based config + AI-assisted vendor mapping.</td>
+                  <td class="num">22</td>
+                </tr>
+                <tr>
+                  <td>Member Feedback Loop</td>
+                  <td>Automated member issue notifications with field-level remediation guidance. Lightweight workflow on Solution 1 plumbing.</td>
+                  <td class="num">8</td>
+                </tr>
+                <tr>
+                  <td>QA</td>
+                  <td>Validation logic regression testing, agent UAT, taxonomy crosswalk QA, EHR routing accuracy validation, security review.</td>
+                  <td class="num">12</td>
+                </tr>
+                <tr>
+                  <td>Solution Rollout & Enablement</td>
+                  <td>Member-facing rollout of agentic validation, Data Quality Coach training, PHA staff enablement on agent + approval workflow.</td>
+                  <td class="num">10</td>
+                </tr>
+                <tr>
+                  <td>Project Management</td>
+                  <td>Solution planning, status reporting, stakeholder coordination, risk tracking, weekly cadence with PHA. 10–15% of solution delivery work.</td>
+                  <td class="num">18</td>
+                </tr>
+              </tbody>
+              <tfoot><tr>
+                <td colspan="2"><strong>Solution 2 Total Hours</strong></td>
+                <td class="num"><strong>158 hrs</strong></td>
+              </tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num" style="background:var(--cs3);">3</div>
+        <div>
+          <div class="phase-title">Solution 3 — QHR Analytics Dashboard & Member Reporting <span class="badge b-strategic">Strategic</span></div>
+          <div class="phase-desc">Near-real-time QHR reporting · Member self-service dashboards · Staff analytics · 12-month lag eliminated</div>
+        </div>
+        <div class="phase-right"><span class="phase-weeks">Weeks 10–17</span><span class="phase-hrs">118 hrs</span><span class="phase-chevron">▼</span></div>
+      </div>
+      <div class="phase-body">
+<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;line-height:1.5;">Validated, taxonomy-mapped PHI data flows automatically into the reporting layer — replacing the Tableau + Access + manual ETL pipeline with a Domo-native analytics surface that members access directly.</p>
+        <div class="solution-section-label">Deliverables <span class="solution-section-count">6</span></div>
+        <ul class="dl-list">
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs3);"></span>
+              <span class="dl-title">Validated PHI to Analytics Pipeline</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Validated, taxonomy-mapped PHI flowing automatically from Solution 2 into the reporting dataset. No manual ETL, no Access database intermediary, no out-of-Domo handoff between validation and reporting.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Aaron Cole (Data 360 owner)</span><span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Closes the structural gap that today produces a 9-to-12-month lag between submission and report. The QHR analytics layer becomes a continuous flow rather than an annual data-engineering project.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs3);"></span>
+              <span class="dl-title">Member-Facing QHR Dashboard</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">A self-service dashboard giving each member organization access to its own QHR data, anonymized peer benchmarks at category level, and 5-year trend continuity. Replaces the annual PDF QHR report members receive today.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member organization clinical leadership</span><span class="dl-audience-pill">Member-org executives</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Members move from 'an annual PDF emailed 9 months after submission' to 'a live dashboard refreshed in days.' Materially upgrades the value the PHA membership receives — the direct answer to the program's 9-to-12-month gap.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs3);"></span>
+              <span class="dl-title">PHA Staff Aggregate Analytics View</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Full-membership dataset with filter and drill-down by region, org size, Member ID, and EHR type. Reuses the member-portal visualization framework so the staff and member experiences stay visually coherent.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program leadership</span><span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Replaces the Tableau + manual ETL workflow PHA staff use today, and enables ad-hoc cross-membership analysis (by region, by EHR type, by org size) that is currently a multi-day manual exercise.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs3);"></span>
+              <span class="dl-title">5-Year Historical Data Integration</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Five-year QHR baseline aligned to the new schema, giving trend continuity from the legacy Tableau/Access world into the Domo analytics layer. AI-assisted schema translation from historical formats.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member organization clinical leadership</span><span class="dl-audience-pill">PHA program leadership</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Members and staff don't lose institutional history at the migration boundary. Year-over-year QHR comparison continues seamlessly, preserving the longitudinal value of every past submission.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs3);"></span>
+              <span class="dl-title">On-Demand PDF Export & Report Generation</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Self-service PDF export from the member dashboard, replacing the current Tableau → PDF → email-distribution workflow.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member organization clinical leadership</span><span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Preserves the PDF artifact some member workflows still require, while removing PHA staff from the manual distribution loop entirely.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs3);"></span>
+              <span class="dl-title">Member-Centered UX Design Review</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Stakeholder design reviews with PHA leadership and a sample of member organizations, deliberately preserving familiar visual language from the legacy QHR report so members aren't asked to learn new conventions while they're learning a new tool.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member organization end users</span><span class="dl-audience-pill">PHA leadership</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Reduces change-management drag on Solution 3 rollout. Members recognize the report shape from day one — adoption follows the data, not a visual redesign.</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="arch-box">
+          <h4>Solution 3 Technical Flow — Analytics & Reporting Architecture</h4>
+          <div class="arch-flow">
+            <div class="arch-step">Validated PHI<span class="arch-sub">From Solution 2</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step hl">QHR Dataset<span class="arch-sub">Near-real-time</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step hl">Staff Analytics<span class="arch-sub">Cross-org views</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step">Member Dashboard<span class="arch-sub">Self-service portal</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step">PDF Export<span class="arch-sub">On-demand reports</span></div>
+          </div>
+        </div>
+
+        <div class="solution-loe-block">
+          <div class="solution-loe-toggle" onclick="toggleLoe(event, this.parentElement)">
+            <span>Level of Effort</span>
+            <span class="solution-loe-count">8 work items</span>
+            <span class="solution-loe-total">Solution 3 Total: 118 hrs</span>
+            <span class="solution-loe-chevron">▼</span>
+          </div>
+          <div class="solution-loe-body">
+            <table class="loe-table loe-phase-table">
+              <thead><tr>
+                <th>Work Item</th>
+                <th>Description</th>
+                <th class="num">Hours</th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td>Solution Design & Architecture</td>
+                  <td>Member portal IA, dashboard composition, analytics dataset design, PDP scoping.</td>
+                  <td class="num">8</td>
+                </tr>
+                <tr>
+                  <td>QHR Analytics Pipeline <span class="loe-cat-tag loe-cat-etl">ETL</span></td>
+                  <td>Validated PHI → analytics dataset; no manual ETL or Access intermediary. Magic ETL with AI-assisted field mapping.</td>
+                  <td class="num">20</td>
+                </tr>
+                <tr>
+                  <td>Member QHR Portal <span class="loe-cat-tag loe-cat-visualize">Visualize</span></td>
+                  <td>Consolidated parent app: current-period dashboard, peer benchmarks, 5-year trend, on-demand PDF export. Replaces annual PDF emails.</td>
+                  <td class="num">26</td>
+                </tr>
+                <tr>
+                  <td>Staff Aggregate View <span class="loe-cat-tag loe-cat-visualize">Visualize</span></td>
+                  <td>Full dataset with org/region/EHR filters and drill-downs. Reuses Member Portal viz framework.</td>
+                  <td class="num">16</td>
+                </tr>
+                <tr>
+                  <td>Historical Data Mapping <span class="loe-cat-tag loe-cat-etl">ETL</span></td>
+                  <td>5-year baseline alignment to new schema for continuity. AI-assisted schema translation.</td>
+                  <td class="num">16</td>
+                </tr>
+                <tr>
+                  <td>QA</td>
+                  <td>Dashboard UAT with PHA stakeholders, PDP scoping validation, PDF export QA, member portal accessibility testing.</td>
+                  <td class="num">10</td>
+                </tr>
+                <tr>
+                  <td>Solution Rollout & Enablement</td>
+                  <td>Member portal rollout, dashboard training, PDF export self-service guidance, PHA staff enablement on aggregate views.</td>
+                  <td class="num">8</td>
+                </tr>
+                <tr>
+                  <td>Project Management</td>
+                  <td>Solution planning, status reporting, stakeholder coordination, risk tracking, weekly cadence with PHA. 10–15% of solution delivery work.</td>
+                  <td class="num">14</td>
+                </tr>
+              </tbody>
+              <tfoot><tr>
+                <td colspan="2"><strong>Solution 3 Total Hours</strong></td>
+                <td class="num"><strong>118 hrs</strong></td>
+              </tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num" style="background:var(--cs4);">4</div>
+        <div>
+          <div class="phase-title">Solution 4 — Non-PHI Form Ingestion & Financial Dashboards <span class="badge b-quick-win">Quick Win</span></div>
+          <div class="phase-desc">Financial report forms · Staffing forms · Quality/compliance forms · 50 Tableau chart migrations</div>
+        </div>
+        <div class="phase-right"><span class="phase-weeks">Weeks 14–21</span><span class="phase-hrs">136 hrs</span><span class="phase-chevron">▼</span></div>
+      </div>
+      <div class="phase-body">
+<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;line-height:1.5;">This work is sequenced after the QHR PHI portal launch. PHA's financial report data collection is already underway and will conclude within the original six-week window. This solution picks up once the QHR pipeline is established and the member experience is stable.</p>
+        <div class="solution-section-label">Deliverables <span class="solution-section-count">5</span></div>
+        <ul class="dl-list">
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs4);"></span>
+              <span class="dl-title">Domo Forms — PMPM, Financial, Staffing, Quality</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Domo Forms for each of the four non-PHI data submission types (PMPM, Financial Ratios, Staffing, Quality/Compliance), with required-field validation and field-level guidance per form.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member-org finance contacts</span><span class="dl-audience-pill">Member-org HR/staffing contacts</span><span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Brings the non-PHI data streams into the same submission experience as QHR, ending the multi-tool patchwork members navigate today and giving PHA a unified submission surface across all four data types.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs4);"></span>
+              <span class="dl-title">Tableau Visual Migration (50 Charts)</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Recreation of 36 PMPM and 14 Financial Ratio Tableau visuals in Domo, using the Pacific Drift chart palette and consolidated into 4 dashboards rather than 50 disconnected views. AI-assisted Tableau-to-Beast-Mode translation.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program leadership</span><span class="dl-audience-pill">Member organization finance contacts</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Retires the Tableau license dependency for these reports while consolidating 50 fragmented views into 4 coherent dashboards — a usability win in addition to a tooling win.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs4);"></span>
+              <span class="dl-title">Financial & Staffing Member Dashboards</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Dedicated member-facing and PHA-staff aggregate dashboards for the financial and staffing data domains, built on the same parent-app pattern established in Solution 3.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member organization executives</span><span class="dl-audience-pill">Member-org finance contacts</span><span class="dl-audience-pill">PHA program leadership</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Extends the QHR self-service experience into financial and staffing domains, giving members a unified view of their full PHA program participation in one place.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs4);"></span>
+              <span class="dl-title">Staggered Annual Form Activation Calendar</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Form activation tied to PHA's annual data collection cadence — forms become available to members on schedule, and reminders fire on PHA's existing rhythm.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program operations staff</span><span class="dl-audience-pill">Member-org data submitters</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Honors PHA's existing operational cadence rather than forcing a process change. Members see forms appearing on the calendar they already expect.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs4);"></span>
+              <span class="dl-title">Extended Member Onboarding Flow</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Member onboarding flow extending the change-management foundation built in Solutions 1–3 across the financial, staffing, and quality submission types.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member organization end users</span><span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Avoids a second adoption hill for members — the rollout of non-PHI forms feels like an extension of the QHR portal rather than a new system to learn.</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="arch-box">
+          <h4>Solution 4 Technical Flow — Form Ingestion & Financial Reporting Architecture</h4>
+          <div class="arch-flow">
+            <div class="arch-step">Member Form App<span class="arch-sub">Self-service portal</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step hl">AppDB Storage<span class="arch-sub">Form submissions</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step hl">ETL & Beast Modes<span class="arch-sub">Tableau migration</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step">Financial Dashboards<span class="arch-sub">Real-time views</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step">Staff Reports<span class="arch-sub">Staffing + quality</span></div>
+          </div>
+        </div>
+
+        <div class="solution-loe-block">
+          <div class="solution-loe-toggle" onclick="toggleLoe(event, this.parentElement)">
+            <span>Level of Effort</span>
+            <span class="solution-loe-count">7 work items</span>
+            <span class="solution-loe-total">Solution 4 Total: 136 hrs</span>
+            <span class="solution-loe-chevron">▼</span>
+          </div>
+          <div class="solution-loe-body">
+            <table class="loe-table loe-phase-table">
+              <thead><tr>
+                <th>Work Item</th>
+                <th>Description</th>
+                <th class="num">Hours</th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td>Solution Design & Architecture</td>
+                  <td>Form schema design, dashboard IA for migrated visuals, calendar / activation pattern.</td>
+                  <td class="num">8</td>
+                </tr>
+                <tr>
+                  <td>Non-PHI Forms (×4) <span class="loe-cat-tag loe-cat-data-source-connections">Data Source Connections</span></td>
+                  <td>PMPM, Financial Ratios, Staffing, Quality/Compliance forms with validation. Domo Forms primitives + AI-generated field configs.</td>
+                  <td class="num">36</td>
+                </tr>
+                <tr>
+                  <td>50 Chart Migration <span class="loe-cat-tag loe-cat-visualize">Visualize</span></td>
+                  <td>Replicate 36 PMPM + 14 Financial Ratio Tableau visuals in Domo, consolidated into 4 dashboards. AI-assisted Tableau-to-Beast-Mode translation.</td>
+                  <td class="num">32</td>
+                </tr>
+                <tr>
+                  <td>Financial & Staffing Dashboards <span class="loe-cat-tag loe-cat-visualize">Visualize</span></td>
+                  <td>Member and staff views; staggered form calendar; extended onboarding flow. Consolidated parent app pattern.</td>
+                  <td class="num">24</td>
+                </tr>
+                <tr>
+                  <td>QA</td>
+                  <td>Form UAT with PHA + sample member orgs, 50-chart visual fidelity QA against Tableau source, dashboard regression testing.</td>
+                  <td class="num">12</td>
+                </tr>
+                <tr>
+                  <td>Solution Rollout & Enablement</td>
+                  <td>Form rollout per staggered annual calendar, member training on each form type, PHA staff enablement on financial dashboards.</td>
+                  <td class="num">8</td>
+                </tr>
+                <tr>
+                  <td>Project Management</td>
+                  <td>Solution planning, status reporting, stakeholder coordination, risk tracking, weekly cadence with PHA. 10–15% of solution delivery work.</td>
+                  <td class="num">16</td>
+                </tr>
+              </tbody>
+              <tfoot><tr>
+                <td colspan="2"><strong>Solution 4 Total Hours</strong></td>
+                <td class="num"><strong>136 hrs</strong></td>
+              </tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num" style="background:var(--cs5);">5</div>
+        <div>
+          <div class="phase-title">Solution 5 — Data Quality Intelligence, Extended EHR Coverage & SSO <span class="badge b-phased">Phased</span></div>
+          <div class="phase-desc">All 15 EHR systems · Quality audit engine · Longitudinal tracking · SSO planning</div>
+        </div>
+        <div class="phase-right"><span class="phase-weeks">Weeks 19–26</span><span class="phase-hrs">98 hrs</span><span class="phase-chevron">▼</span></div>
+      </div>
+      <div class="phase-body">
+<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;line-height:1.5;">The final solution extends coverage to the full membership and establishes durable quality intelligence — turning every submission cycle into an opportunity for continuous improvement.</p>
+        <div class="solution-section-label">Deliverables <span class="solution-section-count">5</span></div>
+        <ul class="dl-list">
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs5);"></span>
+              <span class="dl-title">Longitudinal Data Quality Audit Engine</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Per-org tracking of submission accuracy across cycles, surfacing chronic data-quality issues at the membership level. Built on the Solution 2 agent framework and validation logs.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA program leadership</span><span class="dl-audience-pill">Member-org data submitters</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Turns every cycle into an opportunity for member-org data improvement rather than a one-time audit. PHA gains visibility into membership-wide data maturity trends and where to invest member support.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs5);"></span>
+              <span class="dl-title">Targeted Member Quality Feedback Packages</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Per-member-org remediation reports surfacing chronic issues — for example, 'Field X is repeatedly submitted late' or 'Field Y consistently fails range checks' — designed to help member organizations improve their in-house data practices.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member-org data submitters</span><span class="dl-audience-pill">Member-org clinical leadership</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">PHA's role evolves from 'collects data' to 'helps member orgs get better at their own data.' Strengthens the member-association value proposition durably and gives member orgs a tangible reason to engage with PHA outside of submission deadlines.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs5);"></span>
+              <span class="dl-title">Extended EHR Pathway Coverage (12+ Vendors)</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Extension of validation and taxonomy mapping to the 12 additional EHR / homegrown systems beyond the Big 3 covered in Solution 2. Repeatable pattern with AI-assisted vendor configuration.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member organizations on long-tail EHR systems</span><span class="dl-audience-pill">PHA program operations staff</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Brings the remaining ~20% of membership into the same automated experience as the Big 3 cohort — completing the QHR pipeline modernization for the full membership.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs5);"></span>
+              <span class="dl-title">Predictive Submission Prompts</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">AI-generated nudges reminding member organizations of historically missed fields specific to their org and EHR vendor, fired ahead of submission deadlines.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">Member-org data submitters</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Prevents the same submission misses recurring cycle after cycle — turns submission history into a forward-looking quality lever rather than a backward-looking audit artifact.</div>
+              </div>
+            </div>
+          </li>
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var(--cs5);"></span>
+              <span class="dl-title">SSO Integration Scoping</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">Design and scoping work for future single sign-on integration with PHA's replacement Association Management Software, defining the integration shape and effort estimate ready to execute when the AMS replacement is in place.</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+<span class="dl-audience-pill">PHA IT</span><span class="dl-audience-pill">Member organization end users</span>                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">Eliminates the dual-login experience members currently navigate, and pre-positions Domo and the new AMS for a clean integration when the AMS replacement project is ready to execute.</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="arch-box">
+          <h4>Solution 5 Technical Flow — Quality Intelligence & Platform Completion Architecture</h4>
+          <div class="arch-flow">
+            <div class="arch-step">All 15 EHR Systems<span class="arch-sub">Full coverage</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step hl">Quality Audit Engine<span class="arch-sub">Anomaly detection</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step hl">Longitudinal Tracking<span class="arch-sub">Multi-year data</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step">SSO Integration<span class="arch-sub">Platform access</span></div>
+<div class="arch-arrow">→</div>            <div class="arch-step">Enterprise Platform<span class="arch-sub">Fully operational</span></div>
+          </div>
+        </div>
+
+        <div class="solution-loe-block">
+          <div class="solution-loe-toggle" onclick="toggleLoe(event, this.parentElement)">
+            <span>Level of Effort</span>
+            <span class="solution-loe-count">7 work items</span>
+            <span class="solution-loe-total">Solution 5 Total: 98 hrs</span>
+            <span class="solution-loe-chevron">▼</span>
+          </div>
+          <div class="solution-loe-body">
+            <table class="loe-table loe-phase-table">
+              <thead><tr>
+                <th>Work Item</th>
+                <th>Description</th>
+                <th class="num">Hours</th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td>Solution Design & Architecture</td>
+                  <td>Quality engine architecture, EHR rollout pattern design, SSO scoping framework.</td>
+                  <td class="num">7</td>
+                </tr>
+                <tr>
+                  <td>Quality Audit Engine <span class="loe-cat-tag loe-cat-ai">AI</span></td>
+                  <td>Longitudinal per-org quality tracking, automated remediation reports. Reuses Solution 2 logs and agent framework.</td>
+                  <td class="num">22</td>
+                </tr>
+                <tr>
+                  <td>Extended EHR Coverage <span class="loe-cat-tag loe-cat-etl">ETL</span></td>
+                  <td>Pathways for 12 additional EHR/homegrown systems beyond Big 3. Repeatable pattern; AI-assisted vendor configuration.</td>
+                  <td class="num">32</td>
+                </tr>
+                <tr>
+                  <td>SSO Planning</td>
+                  <td>Design and scoping for future AMS integration and single sign-on pass-through.</td>
+                  <td class="num">10</td>
+                </tr>
+                <tr>
+                  <td>QA</td>
+                  <td>Quality engine UAT, EHR coverage validation across 12 vendors, audit log testing.</td>
+                  <td class="num">8</td>
+                </tr>
+                <tr>
+                  <td>Solution Rollout & Enablement</td>
+                  <td>Quality engine rollout, PHA staff enablement on EHR coverage configuration, SSO planning workshops.</td>
+                  <td class="num">7</td>
+                </tr>
+                <tr>
+                  <td>Project Management</td>
+                  <td>Solution planning, status reporting, stakeholder coordination, risk tracking, weekly cadence with PHA. 10–15% of solution delivery work.</td>
+                  <td class="num">12</td>
+                </tr>
+              </tbody>
+              <tfoot><tr>
+                <td colspan="2"><strong>Solution 5 Total Hours</strong></td>
+                <td class="num"><strong>98 hrs</strong></td>
+              </tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="loe-engagement-summary">
+      <div class="loe-engagement-summary-label">Total Engagement (All Solutions · includes Solution Design, QA/UAT, Rollout &amp; Project Management)</div>
+      <div class="loe-engagement-summary-value">590 hrs</div>
+    </div>
+
+    <div class="loe-note"><strong>AI-Accelerated Delivery:</strong> Hour estimates reflect Domo's deepest AI-assisted delivery model. Consultants leverage Claude and Domo AI for custom app scaffolding, Fileset architecture, ETL logic, agentic workflow design, taxonomy engine development, and Tableau-to-Beast-Mode translation — resulting in <strong>40–50% leaner estimates</strong> than traditional delivery. Estimates are further compressed by (1) direct reuse of Marcus Brown's existing POC scaffolding into Solution 1, (2) Solution 1 patterns templated directly into Solutions 2–5, (3) parent/child consolidation reducing actual visualization count, (4) Domo platform primitives (Filesets, Magic ETL, Beast Modes, Workflow templates, AI grounding) eliminating bespoke build, and (5) parallel-track execution across solutions. Solution 1 is scoped narrow to hit the late-June target.</div>
+  </div>
+
+  <!-- ROI & INVESTMENT -->
+  <div class="sow-panel" id="tab-roi">
+    <div class="section-eyebrow">Investment &amp; Value</div>
+    <div class="section-title">Return on Investment Analysis</div>
+    <p class="body-text">This page presents the investment required to deliver the five-solution engagement and the quantifiable return PHA can expect from modernizing its data platform with Domo. The Total Investment shown is the full contingency cost at Domo's standard $275/hr blended consulting rate; PHA pays only for hours actually delivered.</p>
+
+    <!-- INVESTMENT KPI ROW -->
+    <div class="kpi-row" style="margin-bottom:28px;">
+      <div class="kpi-card hi"><div class="kpi-label">Total Investment</div><div class="kpi-value">$162,250</div></div>
+      <div class="kpi-card"><div class="kpi-label">Total Hours</div><div class="kpi-value">590 hrs</div></div>
+    </div>
+
+    <!-- INVESTMENT BREAKDOWN -->
+    <div class="section-eyebrow" style="margin-top:8px;">Investment Summary</div>
+    <div class="section-title">Solution-by-Solution Cost Breakdown</div>
+    <table class="loe-table roi-cost-table">
+      <thead><tr>
+        <th>Solution</th>
+        <th class="num">Hours</th>
+        <th class="num">Investment</th>
+      </tr></thead>
+      <tbody>
+        <tr class="priority-row">
+          <td>Solution 1 — QHR PHI Intake Portal · Immediate Priority</td>
+          <td class="num">80 hrs</td>
+          <td class="num">$22,000</td>
+        </tr>
+        <tr>
+          <td>Solution 2 — Agentic QHR Validation & Taxonomy Engine</td>
+          <td class="num">158 hrs</td>
+          <td class="num">$43,450</td>
+        </tr>
+        <tr>
+          <td>Solution 3 — QHR Analytics Dashboard & Member Reporting</td>
+          <td class="num">118 hrs</td>
+          <td class="num">$32,450</td>
+        </tr>
+        <tr>
+          <td>Solution 4 — Non-PHI Form Ingestion & Financial Dashboards</td>
+          <td class="num">136 hrs</td>
+          <td class="num">$37,400</td>
+        </tr>
+        <tr>
+          <td>Solution 5 — Data Quality Intelligence, Extended EHR Coverage & SSO</td>
+          <td class="num">98 hrs</td>
+          <td class="num">$26,950</td>
+        </tr>
+      </tbody>
+      <tfoot><tr>
+        <td><strong>Total Engagement Investment</strong></td>
+        <td class="num"><strong>590 hrs</strong></td>
+        <td class="num"><strong>$162,250</strong></td>
+      </tr></tfoot>
+    </table>
+    <div class="loe-note"><strong>Investment framing:</strong> The Total Investment shown above reflects the full-contingency cost for the engagement at Domo's standard $275/hr blended consulting rate, including all solutions, Solution Design, QA/UAT, Rollout, and Project Management. PHA pays only for hours actually delivered — the AI-accelerated delivery model frequently lands engagements 15–25% below this contingency ceiling, but every figure on this tab is sized against the ceiling so the payback period, 3-year net value, and ROI multiple are conservative by design.</div>
+
+    <!-- ROI DRIVERS -->
+    <div class="section-eyebrow" style="margin-top:32px;">Quantifiable Value Drivers</div>
+    <div class="section-title">Annual Return on Investment</div>
+    <p class="body-text">The drivers below translate the operational outcomes of this engagement into annual financial value. Conservative figures reflect outcomes PHA can confidently realize within the first 12 months of go-live. Stretch figures reflect what becomes achievable as platform adoption deepens and self-service replaces manual operations across the membership.</p>
+    <table class="loe-table roi-driver-table">
+      <thead><tr>
+        <th>Value Driver</th>
+        <th>How Domo Delivers It</th>
+        <th class="num">Conservative<br>Annual Value</th>
+        <th class="num">Stretch<br>Annual Value</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Reporting Cycle Compression</strong></td>
+          <td>QHR lag reduced from 12–18 months to days. Members renew and grow membership because PHA delivers timely, relevant value — rebuilding the data-driven relevance that has eroded over the lag period.</td>
+          <td class="num cons">$50,000</td>
+          <td class="num stretch">$250,000</td>
+        </tr>
+        <tr>
+          <td><strong>Vendor Stack Consolidation</strong></td>
+          <td>Tableau, Data 360, MS Access, and the AWS-hosted QHR portal are retired and consolidated into a single Domo environment — reducing license, infrastructure, and integration spend.</td>
+          <td class="num cons">$40,000</td>
+          <td class="num stretch">$120,000</td>
+        </tr>
+        <tr>
+          <td><strong>Staff Time Recaptured</strong></td>
+          <td>Manual ETL, QA, and QHR taxonomy crosswalk work eliminated through agentic validation, AppDB-native pipelines, and Magic ETL — recapturing analyst capacity for higher-value work.</td>
+          <td class="num cons">$60,000</td>
+          <td class="num stretch">$180,000</td>
+        </tr>
+        <tr>
+          <td><strong>Member Experience Uplift</strong></td>
+          <td>Self-service dashboards replace static PDF emails. Members find answers themselves, reducing inbound support volume on PHA staff and strengthening PHA's value proposition to its membership.</td>
+          <td class="num cons">$25,000</td>
+          <td class="num stretch">$90,000</td>
+        </tr>
+        <tr>
+          <td><strong>Rework & Error Reduction</strong></td>
+          <td>EHR column-name drift caught automatically via AI; taxonomy crosswalks self-maintain; submission errors are flagged at intake rather than discovered downstream — eliminating recurring rework cycles.</td>
+          <td class="num cons">$30,000</td>
+          <td class="num stretch">$80,000</td>
+        </tr>
+      </tbody>
+      <tfoot><tr>
+        <td colspan="2"><strong>Total Annual Value (Year 1 onward)</strong></td>
+        <td class="num"><strong>$205,000</strong></td>
+        <td class="num"><strong>$720,000</strong></td>
+      </tr></tfoot>
+    </table>
+
+    <!-- PAYBACK & MULTI-YEAR -->
+    <div class="section-eyebrow" style="margin-top:32px;">Payback &amp; Multi-Year Return</div>
+    <div class="section-title">3-Year Return Projection</div>
+    <div class="roi-summary-grid">
+      <div class="roi-tile">
+        <div class="roi-tile-label">Payback Period</div>
+        <div class="roi-tile-value" id="roiPayback">2.7 – 9.5 months</div>
+        <div class="roi-tile-sub">Time to recover the investment from realized annual value</div>
+      </div>
+      <div class="roi-tile">
+        <div class="roi-tile-label">Annual Value Generated</div>
+        <div class="roi-tile-value" id="roiAnnual">$205K – $720K</div>
+        <div class="roi-tile-sub">Recurring annual return once platform is live and adopted</div>
+      </div>
+      <div class="roi-tile featured">
+        <div class="roi-tile-label">3-Year Net Value</div>
+        <div class="roi-tile-value" id="roi3yrNet">$453K – $2M</div>
+        <div class="roi-tile-sub">Cumulative value over 3 years, net of investment</div>
+      </div>
+      <div class="roi-tile">
+        <div class="roi-tile-label">3-Year ROI Multiple</div>
+        <div class="roi-tile-value" id="roiMultiple">3.8× – 13.3×</div>
+        <div class="roi-tile-sub">Total return on consulting investment over 3 years (gross)</div>
+      </div>
+    </div>
+
+    <!-- WHY DOMO -->
+    <div class="callout c-accent" style="margin-top:24px;">
+      <div class="callout-title">Why Domo Consulting Delivers Outsized ROI</div>
+      <div class="callout-body">Domo's consulting practice is uniquely positioned to deliver this transformation efficiently and durably. Four reasons drive the ROI math above. First, <strong>AI-accelerated delivery</strong> — every consultant on this engagement leverages Claude and Domo AI for app scaffolding, ETL design, agentic workflow patterns, and Tableau-to-Beast-Mode translation, producing 40–50% leaner estimates than traditional integrators while raising delivery quality. Second, <strong>single-vendor accountability</strong> — Domo owns the platform, the consulting work, and the runtime, eliminating finger-pointing across vendors when issues surface. Third, <strong>pattern reuse across solutions</strong> — Solution 1's portal, Fileset architecture, and workflow templates are directly templated into Solutions 2–5, compounding the value of every hour invested. Fourth, <strong>platform-native primitives</strong> — Filesets, Magic ETL, Beast Modes, AppDB, Workflow templates, and Domo's AI grounding eliminate bespoke build that competitors would charge separately for. The combined effect is a consulting engagement that pays for itself in months, not years, and seeds a self-sustaining platform PHA's team can operate independently going forward.</div>
+    </div>
+  </div>
+
+  <!-- CREDIT IMPACT -->
+
+  <!-- TIMELINE -->
+  <div class="sow-panel" id="tab-timeline">
+    <div class="section-eyebrow">Delivery Schedule</div>
+    <div class="section-title">Accelerated Project Timeline — May through November 2026 (Six Months)</div>
+    <div class="tl-month-row">
+      <div></div>
+      <div class="tl-months" style="grid-template-columns: repeat(7,1fr);">
+<span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span>      </div>
+      <div style="font-size:10px;color:var(--text-secondary);text-align:right;text-transform:uppercase;letter-spacing:.05em;">Hours</div>
+    </div>
+    <div class="tl-row"><div class="tl-label">Solution 1 · QHR Portal</div><div class="tl-track"><div class="tl-bar" style="background:var(--cs1);left:0%;width:16%;">PHI Intake Portal</div></div><div class="tl-hrs">80 hrs</div></div>
+    <div class="tl-row"><div class="tl-label">Solution 2 · AI Validation</div><div class="tl-track"><div class="tl-bar" style="background:var(--cs2);left:12%;width:32%;">QHR Taxonomy + Agent</div></div><div class="tl-hrs">158 hrs</div></div>
+    <div class="tl-row"><div class="tl-label">Solution 3 · QHR Reports</div><div class="tl-track"><div class="tl-bar" style="background:var(--cs3);left:36%;width:28%;">Analytics + Dashboards</div></div><div class="tl-hrs">118 hrs</div></div>
+    <div class="tl-row"><div class="tl-label">Solution 4 · Non-PHI Forms</div><div class="tl-track"><div class="tl-bar" style="background:var(--cs4);left:52%;width:28%;">Financial + Staffing Forms</div></div><div class="tl-hrs">136 hrs</div></div>
+    <div class="tl-row"><div class="tl-label">Solution 5 · Quality+</div><div class="tl-track"><div class="tl-bar" style="background:var(--cs5);left:72%;width:28%;">EHR+ · SSO</div></div><div class="tl-hrs">98 hrs</div></div>
+    <div class="tl-row tl-total"><div class="tl-label">Total</div><div class="tl-track"><div class="tl-bar" style="background:#4A5568;left:0%;width:100%;">All Solutions · 26 wks</div></div><div class="tl-hrs">590 hrs</div></div>
+    <div class="divider"></div>
+    <div class="section-eyebrow">Key Milestones</div>
+    <div class="milestone-grid" style="grid-template-columns: repeat(5, 1fr);">
+      <div class="m-tile m-priority"><div class="m-date" style="color:var(--cs1);">Late June 2026</div><div class="m-title">QHR Portal Live</div><div class="m-desc">Members submit PHI to Domo. Pilot group onboarded. Sequenced rollout begins.</div></div>
+      <div class="m-tile" style="border-top-color:var(--cs2);"><div class="m-date" style="color:var(--cs2);">Mid-August 2026</div><div class="m-title">AI Validation Active</div><div class="m-desc">Agent reviews submissions. QHR crosswalk live. Human-in-loop workflow operational.</div></div>
+      <div class="m-tile" style="border-top-color:var(--cs3);"><div class="m-date" style="color:var(--cs3);">Late September 2026</div><div class="m-title">QHR Reports Live</div><div class="m-desc">Near-real-time QHR reporting. 12-month lag eliminated.</div></div>
+      <div class="m-tile" style="border-top-color:var(--cs4);"><div class="m-date" style="color:var(--cs4);">Late October 2026</div><div class="m-title">Non-PHI Forms</div><div class="m-desc">Financial + staffing forms live. 50 Tableau charts migrated. PDF email retired.</div></div>
+      <div class="m-tile" style="border-top-color:var(--cs5);"><div class="m-date" style="color:var(--cs5);">Late November 2026</div><div class="m-title">Quality Intelligence</div><div class="m-desc">All 15 EHRs supported. Org-level quality audits. SSO planning underway.</div></div>
+    </div>
+    <div class="callout c-risk" style="margin-top:20px;">
+      <div class="callout-title">Contract Timing & Six-Month Commitment</div>
+      <div class="callout-body">If contract is executed by approximately May 15, a team can be mobilized within one week — positioning Solution 1 go-live in late June, before PHA would need to direct members to an interim solution. The full five-solution engagement completes within <strong>six months</strong> (late November 2026), enabled by parallel-track execution across solutions and AI-assisted consultant delivery. Hours-per-solution are unchanged from the prior plan; calendar duration compresses through concurrent workstreams and overlapping kickoffs (e.g., Solution 2 architecture begins as Solution 1 enters UAT). Solution 1 remains intentionally narrow in scope — upload portal and Filesets governance, no visualization layer — to make this timeline achievable.</div>
+    </div>
+  </div>
+
+  <!-- DATA SOURCES & VISUALIZATIONS -->
+  <div class="sow-panel" id="tab-data">
+    <div class="section-eyebrow">Build Manifest</div>
+    <div class="section-title">Data Sources &amp; Visualizations</div>
+    <p class="body-text">The two tables below enumerate the critical data sources the Domo consulting team will connect for ingestion and the dashboards, custom apps, and reports the team will build across all five solutions. Items are grouped by solution and consolidated into parent components — sub-pages and constituent datasets are listed inline within each parent row.</p>
+
+    <div class="dv-totals">
+      <div class="kpi-card"><div class="kpi-label">Data Source Components</div><div class="kpi-value">13</div></div>
+      <div class="kpi-card"><div class="kpi-label">Visualization Components</div><div class="kpi-value">10</div></div>
+      <div class="kpi-card"><div class="kpi-label">Domo Filesets & AppDB</div><div class="kpi-value">Core</div></div>
+      <div class="kpi-card"><div class="kpi-label">Solution 1 Components</div><div class="kpi-value">5</div></div>
+    </div>
+
+    <!-- DATA SOURCES TABLE -->
+    <div class="dv-subhead">Data Sources for Ingestion <span class="dv-subhead-count">13 components</span></div>
+    <table class="loe-table dv">
+      <thead><tr>
+        <th>Data Source Name</th>
+        <th class="num"># of Tables / Reports / Data Structures</th>
+        <th>Recommended Connection Approach</th>
+        <th>Comments</th>
+      </tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="4">Solution 1 — QHR PHI Intake Portal · Immediate Priority</td></tr>
+        <tr class="priority-row parent-row"><td>QHR PHI File Submissions</td><td class="num">4 file types</td><td>Domo Filesets via member-facing custom app</td><td>Includes: <em>Enrollment, Encounters, Admissions, Program-Level files</em>. Org-partitioned for HIPAA isolation; org-level deletability per BAA.</td></tr>
+        <tr class="priority-row parent-row"><td>Member Identity & H-Number Directory</td><td class="num">1–2</td><td>Domo Form / one-time CSV + scheduled refresh</td><td>Source of truth for 150+ orgs with parent/child site hierarchy. Powers RBAC and Personalized Data Permissions across the engagement.</td></tr>
+        <tr class="priority-row parent-row"><td>Submission Operations Telemetry</td><td class="num">3</td><td>Domo AppDB + Workflow audit feed</td><td>Includes: <em>submission tracker tables, workflow notification logs, EHR identification intake responses</em>.</td></tr>
+        <tr class="section-row"><td colspan="4">Solution 2 — Agentic QHR Validation & Taxonomy Engine</td></tr>
+        <tr class="parent-row"><td>QHR Validation Rule Library</td><td class="num">4</td><td>Domo dataset (curated, version-controlled)</td><td>Includes: <em>required-field registry, value-range rules, conditional logic, EHR pathway routing rules for Big 3 vendors</em> (80% of submission volume).</td></tr>
+        <tr class="parent-row"><td>QHR Taxonomy Crosswalk</td><td class="num">15–20 mapping tables</td><td>One-time migration from Data 360 + version-controlled dataset</td><td>Foundation for EHR-to-QHR standardization. Ported from Aaron Cole's existing Data 360 scripts and QA logic.</td></tr>
+        <tr class="parent-row"><td>Validation & Approval Audit Trail</td><td class="num">3</td><td>Workflow event capture</td><td>Includes: <em>agent decision logs, human-in-loop approval events, member resubmit notifications</em>. HIPAA-grade auditability.</td></tr>
+        <tr class="section-row"><td colspan="4">Solution 3 — QHR Analytics Dashboard & Member Reporting</td></tr>
+        <tr class="parent-row"><td>Validated QHR Analytics Datasets</td><td class="num">5–7</td><td>Domo Magic ETL outputs (downstream of Solution 2)</td><td>Single source for member dashboards and staff aggregate views. Built only from validated, taxonomy-mapped data.</td></tr>
+        <tr class="parent-row"><td>5-Year Historical QHR Data</td><td class="num">4–6</td><td>One-time SQL Server / Access connector ingestion + schema alignment</td><td>Provides trend continuity in new dashboards. Aligned to v2.2 schema.</td></tr>
+        <tr class="parent-row"><td>Peer Benchmark & Anonymization Configuration</td><td class="num">3–4</td><td>Domo dataset (PHA-managed) + PDP rules</td><td>Includes: <em>peer cohort definitions (org size, region, EHR type), masking configuration for cross-org comparison</em>.</td></tr>
+        <tr class="section-row"><td colspan="4">Solution 4 — Non-PHI Form Ingestion & Financial Dashboards</td></tr>
+        <tr class="parent-row"><td>Non-PHI Form Submissions</td><td class="num">4–6</td><td>Domo Forms with required-field validation</td><td>Includes: <em>PMPM, Financial Ratios, Staffing, and Quality/Compliance form datasets</em> on a staggered annual calendar.</td></tr>
+        <tr class="parent-row"><td>Tableau Visualization Reference Library</td><td class="num">50 charts</td><td>One-time export + Domo recreation in Pacific Drift palette</td><td>Source visuals for migration: 36 PMPM + 14 Financial Ratio.</td></tr>
+        <tr class="section-row"><td colspan="4">Solution 5 — Data Quality Intelligence, Extended EHR Coverage & SSO</td></tr>
+        <tr class="parent-row"><td>Extended EHR Coverage Library</td><td class="num">12 routing rule sets</td><td>Domo Forms + custom connectors (Jupyter where APIs are non-standard)</td><td>Completes coverage beyond Big 3. Addresses long-tail of submitters with homegrown or unsupported legacy systems.</td></tr>
+        <tr class="parent-row"><td>Quality Intelligence Datasets</td><td class="num">2–3</td><td>Domo Magic ETL aggregations + AI agent training data</td><td>Powers org-level audit reports and predictive submission prompts. Self-improving over time.</td></tr>
+      </tbody>
+    </table>
+
+    <!-- VISUALIZATIONS TABLE -->
+    <div class="dv-subhead">Visualizations to Be Created <span class="dv-subhead-count">10 components</span></div>
+    <table class="loe-table dv">
+      <thead><tr>
+        <th>Dashboard / App Name</th>
+        <th class="num"># of KPIs / Metrics</th>
+        <th class="num"># of Breakdowns / Filters</th>
+        <th>Comments</th>
+      </tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="4">Solution 1 — QHR PHI Intake Portal · Immediate Priority</td></tr>
+        <tr class="priority-row parent-row"><td>QHR Submission Portal (Custom App)</td><td class="num">6</td><td class="num">4</td><td>Member-facing upload experience embedded behind PHA member login. Sub-pages: <em>file upload, submission history, EHR identification intake, current cycle countdown</em>.</td></tr>
+        <tr class="priority-row parent-row"><td>PHA Staff Operations Dashboard</td><td class="num">8</td><td class="num">5</td><td>Staff-facing operational view. Sub-pages: <em>live submission tracker, reminder & notification center, EHR vendor mix snapshot</em>.</td></tr>
+        <tr class="section-row"><td colspan="4">Solution 2 — Agentic QHR Validation & Taxonomy Engine</td></tr>
+        <tr class="parent-row"><td>AI Validation & Approval Workspace</td><td class="num">8</td><td class="num">5</td><td>PHA staff workspace. Sub-pages: <em>agent findings console, human-in-loop approval queue, EHR pathway routing monitor</em>.</td></tr>
+        <tr class="parent-row"><td>Taxonomy & Crosswalk Admin App</td><td class="num">4</td><td class="num">4</td><td>Sub-pages: <em>crosswalk mapping admin, member resubmit / issue notification view</em>.</td></tr>
+        <tr class="section-row"><td colspan="4">Solution 3 — QHR Analytics Dashboard & Member Reporting</td></tr>
+        <tr class="parent-row"><td>Member-Facing QHR Portal (Self-Service)</td><td class="num">16</td><td class="num">5</td><td>PDP-scoped per Member ID. Sub-pages: <em>current-period dashboard, peer benchmark comparison, 5-year trend view, on-demand PDF report builder</em>. Replaces annual PDF email.</td></tr>
+        <tr class="parent-row"><td>PHA Staff QHR Aggregate Dashboard</td><td class="num">14</td><td class="num">6</td><td>Internal analytics for PHA leadership. Sub-pages: <em>full dataset view, region / org-size drill-downs, EHR-cohort comparison</em>.</td></tr>
+        <tr class="section-row"><td colspan="4">Solution 4 — Non-PHI Form Ingestion & Financial Dashboards</td></tr>
+        <tr class="parent-row"><td>Non-PHI Financial & Operational Dashboards</td><td class="num">30</td><td class="num">5</td><td>Member and staff views. Sub-pages: <em>PMPM, Financial Ratios, Staffing, Quality/Compliance dashboards</em>. Recreates 50 Tableau visuals using Pacific Drift palette.</td></tr>
+        <tr class="parent-row"><td>Member Form Submission Flow (Custom App)</td><td class="num">7</td><td class="num">4</td><td>Single self-service entry point for all four non-PHI forms. Sub-pages: <em>form selection, validation status, completion progress, calendar / activation view</em>.</td></tr>
+        <tr class="section-row"><td colspan="4">Solution 5 — Data Quality Intelligence, Extended EHR Coverage & SSO</td></tr>
+        <tr class="parent-row"><td>Quality Intelligence Center</td><td class="num">14</td><td class="num">4</td><td>PHA leadership and per-org views. Sub-pages: <em>longitudinal quality trends, org-level audit reports, predictive submission prompt center</em>.</td></tr>
+        <tr class="parent-row"><td>Extended EHR Coverage Monitor</td><td class="num">5</td><td class="num">3</td><td>Operational view of Solution 5 EHR expansion. Tracks long-tail orgs onboarded and fallback path usage.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="loe-note"><strong>Build manifest summary:</strong> 13 data source components connected and 10 dashboards / custom apps built across the six-month engagement. Per-solution split — Solution 1: 3 sources / 2 visuals · Solution 2: 3 / 2 · Solution 3: 3 / 2 · Solution 4: 2 / 2 · Solution 5: 2 / 2. Counts represent parent components — sub-pages and constituent datasets are listed inline. Exact field-level structures will be confirmed during Solution 1 discovery and Solution 2 taxonomy mapping.</div>
+  </div>
+
+  <!-- IMPLEMENTATION STRATEGY -->
+  <div class="sow-panel" id="tab-impl">
+    <div class="section-eyebrow">Member Rollout Strategy</div>
+    <div class="section-title">Sequenced Pilot Approach — Change Management by Design</div>
+    <p class="body-text">Mia emphasized that PHA is a member-facing organization and that member experience cannot be compromised. A phased pilot with the most eager or technically capable member orgs — before full rollout — directly addresses this concern and builds confidence at every level of the organization.</p>
+    <div class="pilot-grid">
+      <div class="pilot-card">
+        <div class="pilot-step">01</div>
+        <div class="pilot-title">Select Pilot Cohort</div>
+        <div class="pilot-desc">PHA identifies 5–10 member orgs: the most technically capable, the most eager to submit, or the most trusted to provide candid feedback. These become co-designers of the experience, not just early adopters.</div>
+      </div>
+      <div class="pilot-card">
+        <div class="pilot-step">02</div>
+        <div class="pilot-title">Pilot & Iterate</div>
+        <div class="pilot-desc">Pilot orgs complete the full upload experience in the Domo portal. PHA and Domo collect feedback, identify friction points, and refine the experience before broader rollout. Members feel heard and valued.</div>
+      </div>
+      <div class="pilot-card">
+        <div class="pilot-step">03</div>
+        <div class="pilot-title">Sequenced Rollout</div>
+        <div class="pilot-desc">Next cohorts onboarded in tranches — 10 to 25 orgs at a time. Issues from the pilot are already resolved. Confidence builds across the membership. No big-bang cutover, no single point of failure.</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="section-eyebrow">Member Communication Strategy</div>
+    <div class="section-title" style="margin-bottom:16px;">Guiding Principles</div>
+    <div class="pain-grid">
+      <div class="pcard c-accent"><div class="pcard-label">One Transition, Not Two</div><div class="pcard-text">Members are told once: here is the new platform, and here is how you will submit data going forward. No interim step, no second announcement when Domo is ready. Derek confirmed this is the goal.</div></div>
+      <div class="pcard c-accent"><div class="pcard-label">Iterative Reveal</div><div class="pcard-text">Members first see the upload-only portal. Over time, they log in to find new capabilities — dashboards, benchmarks, quality feedback. Change feels incremental and additive, not disruptive.</div></div>
+      <div class="pcard c-track"><div class="pcard-label">Historical Context Honored</div><div class="pcard-text">Long-tenured members have years of context with how PHA has operated. Communication should acknowledge the change, explain the benefit, and provide clear documentation for both the process and the platform.</div></div>
+      <div class="pcard c-track"><div class="pcard-label">Documentation First</div><div class="pcard-text">PHA staff must be equipped to field member questions confidently before rollout. Domo will deliver member-facing guides and PHA staff reference documentation alongside each solution launch.</div></div>
+    </div>
+    <div class="callout c-accent">
+      <div class="callout-title">ACE Support — Change Management Accelerator</div>
+      <div class="callout-body">PHA's included ACE support package (80 hours/year, 20 hours/quarter) provides direct access to Domo's senior engineers for co-building, training, and platform guidance. During Solution 1 rollout, the ACE team can work concurrently with the implementation team — helping PHA staff learn the platform in real time. Recommended structure: regular office hours blocks (e.g., Monday/Wednesday) so the full data team can participate efficiently without consuming implementation time.</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- DOMO MOMENTUM METHODOLOGY -->
+    <div class="section-eyebrow">Delivery Methodology</div>
+    <div class="section-title">Domo Momentum — How Every Solution Is Delivered</div>
+    <p class="body-text">Every solution in this engagement is executed using <strong>Domo Momentum</strong>, our proven nine-stage delivery methodology. The framework opens with disciplined alignment (Kickoff through Data Strategy), drives value through iterative agile cycles (Build, Test, Review) that release working capability every sprint, and closes with the structural rigor — Governance and Deployment &amp; Adoption — that makes the platform durable and self-sustaining for PHA's team. This is the same methodology behind Domo's most successful enterprise transformations.</p>
+
+    <div class="momentum-section">
+      <div class="momentum-svg-wrap">
+        <svg class="momentum-svg" viewBox="0 0 1280 460" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Domo Momentum methodology — nine-stage delivery framework">
+          <defs>
+            <linearGradient id="momSpine" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%"  stop-color="#FF9922" stop-opacity="0.9"/>
+              <stop offset="9%"  stop-color="#3A98AB" stop-opacity="0.9"/>
+              <stop offset="50%" stop-color="#5283CF" stop-opacity="0.9"/>
+              <stop offset="91%" stop-color="#449696" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#ADD4C1" stop-opacity="0.95"/>
+            </linearGradient>
+            <filter id="momShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="1.6"/>
+              <feOffset dx="0" dy="1.5"/>
+              <feComponentTransfer><feFuncA type="linear" slope="0.16"/></feComponentTransfer>
+              <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <marker id="momArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#5A9ABE"/>
+            </marker>
+          </defs>
+
+          <!-- Spine pill -->
+          <rect x="40" y="230" width="1200" height="16" rx="8" fill="url(#momSpine)" filter="url(#momShadow)"/>
+
+          <!-- Iteration loop — TOP arc: Review → Test → Build (forward) -->
+          <path d="M 614 218 Q 783 100 951 218" fill="none" stroke="#5A9ABE" stroke-width="2.2" stroke-dasharray="6 4" opacity="0.65" marker-end="url(#momArrow)"/>
+          <!-- Iteration loop — BOTTOM arc: Build → Test → Review (return, completes the cycle) -->
+          <path d="M 951 258 Q 783 342 614 258" fill="none" stroke="#5A9ABE" stroke-width="2.2" stroke-dasharray="6 4" opacity="0.65" marker-end="url(#momArrow)"/>
+          <text class="m-iter-label" x="783" y="92" text-anchor="middle">Iterative Delivery Cycles</text>
+
+          <!-- ============== STAGE 1 — Kickoff (label below, orange) ============== -->
+          <circle class="m-stage-circle start" cx="70" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon start" transform="translate(60 228)">
+            <path d="M 10 2 L 13 7 L 13 13 L 11 15 L 9 15 L 7 13 L 7 7 Z"/>
+            <circle cx="10" cy="8" r="1.4"/>
+            <path d="M 7 11 L 4 14 L 4 17 L 7 15"/>
+            <path d="M 13 11 L 16 14 L 16 17 L 13 15"/>
+            <path d="M 8.5 15 L 10 19 L 11.5 15"/>
+          </g>
+          <text class="m-label" x="70" y="293" text-anchor="middle">Kickoff</text>
+          <text class="m-desc" x="70" y="308" text-anchor="middle">Align on scope, services,<tspan x="70" dy="13">and project team</tspan></text>
+
+          <!-- ============== STAGE 2 — Solution Design (label above) ============== -->
+          <circle class="m-stage-circle" cx="213" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(203 228)">
+            <rect x="3" y="3" width="14" height="15" rx="1.5"/>
+            <rect x="6.5" y="1" width="7" height="3" rx="0.6"/>
+            <path d="M 6 11 L 9 14 L 14 8"/>
+          </g>
+          <text class="m-label" x="213" y="180" text-anchor="middle">Solution Design</text>
+          <text class="m-desc" x="213" y="195" text-anchor="middle">Clarify value, project objectives,<tspan x="213" dy="13">pain points, and success criteria</tspan></text>
+
+          <!-- ============== STAGE 3 — Measurement Planning (label below) ============== -->
+          <circle class="m-stage-circle" cx="355" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(345 228)">
+            <path d="M 3 17 L 17 17"/>
+            <path d="M 5 17 L 5 12"/>
+            <path d="M 9 17 L 9 8"/>
+            <path d="M 13 17 L 13 5"/>
+            <path d="M 14.5 7 L 17 4.5 L 17 7"/>
+          </g>
+          <text class="m-label" x="355" y="293" text-anchor="middle">Measurement Planning</text>
+          <text class="m-desc" x="355" y="308" text-anchor="middle">Map and define the metrics<tspan x="355" dy="13">and KPIs of interest</tspan></text>
+
+          <!-- ============== STAGE 4 — Data Strategy (label above) ============== -->
+          <circle class="m-stage-circle" cx="498" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(488 228)">
+            <circle cx="10" cy="4" r="1.6"/>
+            <circle cx="4.5" cy="15" r="1.6"/>
+            <circle cx="15.5" cy="15" r="1.6"/>
+            <path d="M 9.3 5.3 L 5.2 13.7"/>
+            <path d="M 10.7 5.3 L 14.8 13.7"/>
+            <path d="M 6 15 L 14 15"/>
+          </g>
+          <text class="m-label" x="498" y="180" text-anchor="middle">Data Strategy</text>
+          <text class="m-desc" x="498" y="195" text-anchor="middle">Identify the strategy to bring<tspan x="498" dy="13">in the necessary data</tspan></text>
+
+          <!-- ============== STAGE 5 — Build (label below) ============== -->
+          <circle class="m-stage-circle" cx="640" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(630 228)">
+            <path d="M 7 2 L 7 5"/>
+            <path d="M 13 2 L 13 5"/>
+            <path d="M 4 7 L 16 7 L 16 11 a 6 6 0 0 1 -12 0 Z"/>
+            <path d="M 10 17 L 10 19"/>
+          </g>
+          <text class="m-label" x="640" y="293" text-anchor="middle">Build</text>
+          <text class="m-desc" x="640" y="308" text-anchor="middle">Hands-on sessions to build connections,<tspan x="640" dy="13">ETLs, dashboards, workflows, and apps</tspan></text>
+
+          <!-- ============== STAGE 6 — Test (label above, anchors top of iter loop) ============== -->
+          <circle class="m-stage-circle" cx="783" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(773 228)">
+            <circle cx="10" cy="10" r="2.5"/>
+            <path d="M 10 2 L 10 4.5"/>
+            <path d="M 10 15.5 L 10 18"/>
+            <path d="M 2 10 L 4.5 10"/>
+            <path d="M 15.5 10 L 18 10"/>
+            <path d="M 4.3 4.3 L 6 6"/>
+            <path d="M 14 14 L 15.7 15.7"/>
+            <path d="M 4.3 15.7 L 6 14"/>
+            <path d="M 14 6 L 15.7 4.3"/>
+          </g>
+          <text class="m-label" x="783" y="180" text-anchor="middle">Test</text>
+          <text class="m-desc" x="783" y="195" text-anchor="middle">Provide guidance on validation<tspan x="783" dy="13">and business acceptance testing</tspan></text>
+
+          <!-- ============== STAGE 7 — Review (label below) ============== -->
+          <circle class="m-stage-circle" cx="925" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(915 228)">
+            <path d="M 2 5 L 11 5 a 1.5 1.5 0 0 1 1.5 1.5 L 12.5 11 a 1.5 1.5 0 0 1 -1.5 1.5 L 5 12.5 L 2.5 15 Z"/>
+            <path d="M 7 8 L 8.5 9.5 L 11 7"/>
+            <path d="M 9 13 L 17 13 a 1.3 1.3 0 0 1 1.3 1.3 L 18.3 17 a 1.3 1.3 0 0 1 -1.3 1.3 L 12 18.3 L 10 19.5 Z"/>
+          </g>
+          <text class="m-label" x="925" y="293" text-anchor="middle">Review</text>
+          <text class="m-desc" x="925" y="308" text-anchor="middle">Conduct show-and-tells of<tspan x="925" dy="13">releasable features</tspan></text>
+
+          <!-- ============== STAGE 8 — Governance (label above) ============== -->
+          <circle class="m-stage-circle" cx="1068" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(1058 228)">
+            <path d="M 10 2 L 12 7 L 17.5 7 L 13 10.5 L 14.7 16 L 10 12.8 L 5.3 16 L 7 10.5 L 2.5 7 L 8 7 Z"/>
+          </g>
+          <text class="m-label" x="1068" y="180" text-anchor="middle">Governance</text>
+          <text class="m-desc" x="1068" y="195" text-anchor="middle">Best practices for access, permissions,<tspan x="1068" dy="13">user experience, and actionability</tspan></text>
+
+          <!-- ============== STAGE 9 — Deployment & Adoption (label below, green) ============== -->
+          <circle class="m-stage-circle end" cx="1210" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon end" transform="translate(1200 228)">
+            <path d="M 5 9 L 5 18 L 2 18 L 2 9 Z"/>
+            <path d="M 5 9 L 9 2 a 1.5 1.5 0 0 1 2.6 1.2 L 10 7 L 16 7 a 1.5 1.5 0 0 1 1.5 1.8 L 16 16 a 1.5 1.5 0 0 1 -1.5 1.5 L 5 17.5"/>
+          </g>
+          <text class="m-label" x="1210" y="293" text-anchor="middle">Deployment &amp; Adoption</text>
+          <text class="m-desc" x="1210" y="308" text-anchor="middle">Best practices for initial<tspan x="1210" dy="13">adoption activities</tspan></text>
+        </svg>
+      </div>
+
+      <div class="momentum-summary-row">
+        <div class="momentum-pillar">
+          <div class="momentum-pillar-label">Align</div>
+          <div class="momentum-pillar-text">Stages 1–4 establish scope, success criteria, the metrics that matter, and the data strategy that powers them — the foundation every solution is built on.</div>
+        </div>
+        <div class="momentum-pillar">
+          <div class="momentum-pillar-label">Iterate</div>
+          <div class="momentum-pillar-text">Stages 5–7 run as agile sprint cycles — Build, Test, Review — releasing working capability every sprint and absorbing feedback before it compounds into rework.</div>
+        </div>
+        <div class="momentum-pillar">
+          <div class="momentum-pillar-label">Operationalize</div>
+          <div class="momentum-pillar-text">Stages 8–9 lock in governance, security, and the adoption motion that makes Domo a self-sustaining capability PHA's team owns and operates independently.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ASSUMPTIONS -->
+  <div class="sow-panel" id="tab-assumptions">
+    <div class="section-eyebrow">Project Governance</div>
+    <div class="section-title">Assumptions, Dependencies &amp; Out of Scope</div>
+    <div class="assume-grid">
+      <div class="assume-block">
+        <h4>PHA Responsibilities</h4>
+        <ul class="assume-list">
+          <li><span class="a-pip" style="background:var(--cs1);"></span>Provide complete list of member org contacts, email addresses, and Member IDs (including parent/child hierarchy) prior to Solution 1 kickoff</li>
+          <li><span class="a-pip" style="background:var(--cs1);"></span>Identify 5–10 pilot member orgs for Solution 1 early-adopter cohort</li>
+          <li><span class="a-pip" style="background:var(--cs1);"></span>Coordinate with David/IT to enable Domo app embedding on phaonline.org behind existing member login wall</li>
+          <li><span class="a-pip" style="background:var(--cs1);"></span>Provide EHR system mapping data (which org uses which EHR) from existing PHA records</li>
+          <li><span class="a-pip" style="background:var(--cs1);"></span>Share Aaron Cole's existing QHR taxonomy crosswalk scripts and QA logic from Data 360 (Solution 2 dependency)</li>
+          <li><span class="a-pip" style="background:var(--cs1);"></span>Designate internal PHA project lead; provide timely UAT feedback and stakeholder availability for design reviews</li>
+          <li><span class="a-pip" style="background:var(--cs1);"></span>Manage member communication strategy in coordination with Domo-provided documentation and templates</li>
+        </ul>
+      </div>
+      <div class="assume-block">
+        <h4>Domo Responsibilities</h4>
+        <ul class="assume-list">
+          <li><span class="a-pip" style="background:var(--cs2);"></span>Deliver Solution 1 QHR intake portal within 6 weeks of contract execution (targeting end-of-June go-live)</li>
+          <li><span class="a-pip" style="background:var(--cs2);"></span>Architect Fileset data model and AppDB schema to scale across all five solutions — no throwaway work</li>
+          <li><span class="a-pip" style="background:var(--cs2);"></span>Provide dedicated implementation consultant (Anika Patel), solutions director (Mark), and technical resource (Marcus Brown) throughout engagement</li>
+          <li><span class="a-pip" style="background:var(--cs2);"></span>Deliver member-facing and PHA staff documentation alongside each solution launch</li>
+          <li><span class="a-pip" style="background:var(--cs2);"></span>Conduct weekly status check-ins and maintain a shared project tracker</li>
+          <li><span class="a-pip" style="background:var(--cs2);"></span>Support pilot cohort onboarding and iterate on feedback before full member rollout</li>
+        </ul>
+      </div>
+      <div class="assume-block">
+        <h4>Technical Assumptions</h4>
+        <ul class="assume-list">
+          <li><span class="a-pip" style="background:var(--cs3);"></span>Domo platform licenses include HIPAA-eligible environment (confirmed — included in proposal)</li>
+          <li><span class="a-pip" style="background:var(--cs3);"></span>Domo Filesets provisioned for PHI storage with org-level partitioning</li>
+          <li><span class="a-pip" style="background:var(--cs3);"></span>PHA website (phaonline.org) supports iframe or JS embed for Domo app behind existing member login wall</li>
+          <li><span class="a-pip" style="background:var(--cs3);"></span>PHI data can be stored together in Filesets as long as org-level isolation and deletability is maintained per BAA</li>
+          <li><span class="a-pip" style="background:var(--cs3);"></span>Future SSO integration is a separate scoping engagement — dual-login accepted as interim state</li>
+        </ul>
+      </div>
+      <div class="assume-block">
+        <h4>Out of Scope (This SOW)</h4>
+        <ul class="assume-list">
+          <li><span class="a-pip" style="background:var(--at-risk);"></span>Migration or data extraction from the interim SharePoint site</li>
+          <li><span class="a-pip" style="background:var(--at-risk);"></span>Direct live EHR API connections / automated data pulls (future state beyond Solution 5)</li>
+          <li><span class="a-pip" style="background:var(--at-risk);"></span>SSO / single sign-on implementation (pending AMS replacement — separate engagement)</li>
+          <li><span class="a-pip" style="background:var(--at-risk);"></span>Modification or maintenance of PHA's existing Tableau environment</li>
+          <li><span class="a-pip" style="background:var(--at-risk);"></span>Managed services / ongoing platform administration (separate Domo MSP engagement)</li>
+          <li><span class="a-pip" style="background:var(--at-risk);"></span>AWS infrastructure or Data 360 decommissioning (PHA's internal responsibility)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-accent" style="margin-top:8px;">
+      <div class="callout-title">Recommended Add-On: Domo Managed Services (MSP)</div>
+      <div class="callout-body">As PHA's data team builds internal Domo competency, Domo Managed Services provides continuity of platform administration, ongoing app enhancements, and governance support between solution launches. Derek noted the goal is for the data team to become self-sufficient — MSP bridges that gap during Year 1 while the team ramps. Nadia Park's team will present MSP options separately as a complement to this implementation SOW.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="sow-footer">
+    <div class="footer-legal">© 2026 Domo, Inc. · Confidential & Proprietary · Prepared for Pacific Healthcare Association</div>
+<div class="footer-note">v2.2 · Accelerated 6-month delivery</div>  </div>
+</div>
+
+<script>
+  document.getElementById('sowNav').addEventListener('click', function(e) {
+    const tab = e.target.closest('.nav-tab');
+    if (!tab) return;
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.sow-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+  function togglePhase(card) { card.classList.toggle('open'); }
+  function toggleDeliverable(event, item) {
+    event.stopPropagation();
+    item.classList.toggle('open');
+  }
+  function toggleLoe(event, block) {
+    event.stopPropagation();
+    block.classList.toggle('open');
+  }
+
+
+
+(function () {
+  var WORKER   = "https://domo-proposal-feedback.lees-mark.workers.dev";
+  var PROP_ID  = "pha-2026-v1";
+  var PROP_SIG = "22cdef860cbe1c530f93a7f7415ad67e480392b7835369e0576a77341331fe2a";
+  var params   = new URLSearchParams(location.search);
+  var SA_MODE  = params.has('sa');
+  var SA_NAME  = params.get('sa_name') || '';
+
+  var trigger   = document.getElementById('fb-trigger');
+  var overlay   = document.getElementById('fb-overlay');
+  var closeBtn  = document.getElementById('fb-close');
+  var thread    = document.getElementById('fb-thread');
+  var authorEl  = document.getElementById('fb-author');
+  var msgEl     = document.getElementById('fb-message');
+  var submitBtn = document.getElementById('fb-submit');
+  var statusEl  = document.getElementById('fb-status');
+  var replyTo   = null;
+
+  if (SA_MODE && SA_NAME) { authorEl.value = SA_NAME; authorEl.readOnly = true; }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderComment(c, replies, depth) {
+    var isClient = c.author_type === 'client';
+    var d = new Date(c.created_at);
+    var date = isNaN(d) ? '' : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var kids = (replies[c.comment_id] || []).map(function(r){ return renderComment(r, {}, depth + 1); }).join('');
+    var replyBtn = (isClient && depth === 0)
+      ? '<button class="fb-reply-btn" data-id="' + esc(c.comment_id) + '">Reply</button>'
+      : '';
+    return '<div class="fb-comment fb-comment-' + esc(c.author_type) + '">'
+      + '<div class="fb-comment-meta">'
+      + '<span class="fb-comment-author">' + esc(c.author_name) + '</span>'
+      + '<span class="fb-comment-type fb-type-' + esc(c.author_type) + '">' + (isClient ? 'Client' : 'Domo SA') + '</span>'
+      + '<span class="fb-comment-date">' + date + '</span>'
+      + '</div>'
+      + '<div class="fb-comment-body">' + esc(c.message) + '</div>'
+      + replyBtn
+      + (kids ? '<div class="fb-replies">' + kids + '</div>' : '')
+      + '</div>';
+  }
+
+  function renderThread(comments) {
+    if (!comments.length) {
+      thread.innerHTML = '<div class="fb-empty">No feedback yet. Be the first to share your thoughts.</div>';
+      return;
+    }
+    var roots   = comments.filter(function(c){ return !c.parent_id; });
+    var replies = {};
+    comments.filter(function(c){ return c.parent_id; }).forEach(function(c){
+      (replies[c.parent_id] = replies[c.parent_id] || []).push(c);
+    });
+    thread.innerHTML = roots.map(function(c){ return renderComment(c, replies, 0); }).join('');
+
+    if (SA_MODE) {
+      thread.querySelectorAll('.fb-reply-btn').forEach(function(btn) {
+        btn.style.display = 'inline-block';
+        btn.addEventListener('click', function() {
+          replyTo = btn.dataset.id;
+          statusEl.textContent = 'Replying…';
+          msgEl.focus();
+        });
+      });
+    }
+  }
+
+  function loadComments() {
+    thread.innerHTML = '<div class="fb-loading">Loading…</div>';
+    fetch(WORKER + '/feedback?proposal_id=' + encodeURIComponent(PROP_ID) + '&sig=' + encodeURIComponent(PROP_SIG))
+      .then(function(r){ return r.json(); })
+      .then(function(d){ renderThread(d.comments || []); })
+      .catch(function(e){ thread.innerHTML = '<div class="fb-error">Could not load: ' + esc(e.message) + '</div>'; });
+  }
+
+  trigger.addEventListener('click', function() { overlay.classList.add('open'); loadComments(); });
+  closeBtn.addEventListener('click', function() { overlay.classList.remove('open'); replyTo = null; statusEl.textContent = ''; });
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) { overlay.classList.remove('open'); replyTo = null; } });
+
+  submitBtn.addEventListener('click', function() {
+    var author  = authorEl.value.trim();
+    var message = msgEl.value.trim();
+    if (!author)  { statusEl.textContent = 'Please enter your name.'; return; }
+    if (!message) { statusEl.textContent = 'Please enter a message.'; return; }
+    submitBtn.disabled = true;
+    statusEl.textContent = 'Sending…';
+    var payload = {
+      proposal_id: PROP_ID, sig: PROP_SIG,
+      author_type: SA_MODE ? 'sa' : 'client',
+      author_name: author, message: message
+    };
+    if (replyTo) payload.parent_id = replyTo;
+    fetch(WORKER + '/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
+    .then(function(res) {
+      if (!res.ok) throw new Error(res.d.error || 'Failed');
+      msgEl.value = ''; replyTo = null;
+      statusEl.textContent = 'Sent!';
+      loadComments();
+      setTimeout(function(){ statusEl.textContent = ''; }, 3000);
+    })
+    .catch(function(e){ statusEl.textContent = 'Error: ' + esc(e.message); })
+    .finally(function(){ submitBtn.disabled = false; });
+  });
+})();
+
+</script>
+
+
+<!-- FEEDBACK PANEL -->
+<button id="fb-trigger" class="fb-trigger">&#x1F4AC; Feedback</button>
+<div id="fb-overlay" class="fb-overlay">
+  <div id="fb-panel" class="fb-panel">
+    <div class="fb-panel-header">
+      <span>Proposal Feedback</span>
+      <button id="fb-close" class="fb-close" aria-label="Close">&times;</button>
+    </div>
+    <div id="fb-thread" class="fb-thread">
+      <div class="fb-loading">Loading comments&hellip;</div>
+    </div>
+    <div class="fb-compose">
+      <input id="fb-author" type="text" placeholder="Your name" maxlength="80" class="fb-input">
+      <textarea id="fb-message" placeholder="Leave your feedback or question&hellip;" maxlength="2000" class="fb-input fb-textarea" rows="3"></textarea>
+      <div class="fb-compose-actions">
+        <span id="fb-status" class="fb-status"></span>
+        <button id="fb-submit" class="fb-submit">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

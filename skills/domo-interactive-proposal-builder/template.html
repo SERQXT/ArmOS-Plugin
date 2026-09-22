@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ client.name }} – Domo Proposal</title>
+<style>
+  :root {
+    --bg: #F1F6FA; --surface: #FFFFFF; --surface-hover: #F8FAFC;
+    --text-primary: #3F454D; --text-secondary: #68737F;
+    --border: #B7C1CB; --border-light: #DCE4EA;
+    --accent: #99CCEE; --accent-muted: rgba(153,204,238,0.15); --accent-pressed: #7AB3D8;
+    --nav-bg: #EDF3F8; --table-header: #EFF4F9; --table-stripe: #F8FAFC;
+    --on-track: #ADD4C1; --on-track-bg: #E8F3EC; --on-track-text: #4A7A5A;
+    --at-risk: #FF9922;  --at-risk-bg:  #FFF0DD; --at-risk-text:  #C47A10;
+    --behind:  #776CB0;  --behind-bg:   #EAE7F3; --behind-text:   #5A5094;
+    --complete: #99CCEE; --complete-bg: #E0F0FA; --complete-text: #5A9ABE;
+    --alert: #E45F5F;
+    --shadow: 0px 0px 0px 1px rgba(63,69,77,0.06), 0px 1px 2px -1px rgba(63,69,77,0.06), 0px 2px 4px 0px rgba(63,69,77,0.04);
+    --shadow-hover: 0px 0px 0px 1px rgba(63,69,77,0.08), 0px 2px 4px -1px rgba(63,69,77,0.08), 0px 4px 12px 0px rgba(63,69,77,0.06);
+    --radius-card: 10px; --radius-btn: 6px; --radius-badge: 4px;
+    --card-padding: 20px; --grid-gap: 16px;
+    --cs1: #3A98AB; --cs2: #3A92BC; --cs3: #458BC6; --cs4: #5283CF; --cs5: #449696; --cs6: #7D81C7;
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-stack); background: var(--bg); color: var(--text-primary); font-size: 13px; line-height: 1.5; }
+
+  /* HEADER */
+  .sow-header { background: #1F262D; }
+  .header-inner { padding: 36px 40px 0; display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 24px; }
+  .domo-logo { width: 56px; height: 56px; display: block; margin-bottom: 16px; }
+  .header-eyebrow { font-size: 11px; font-weight: 400; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  .header-title { font-size: 22px; font-weight: 600; color: #fff; line-height: 1.25; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.55); }
+  .header-meta { text-align: right; }
+  .meta-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .meta-val { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7); }
+  .meta-block { margin-bottom: 12px; }
+  .revision-pill { display: inline-block; background: rgba(255,153,34,0.18); border: 1px solid rgba(255,153,34,0.4); border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 600; color: #FF9922; letter-spacing: 0.04em; margin-top: 8px; }
+  .header-accent-bar { height: 3px; background: linear-gradient(90deg, var(--cs1) 0%, var(--accent) 50%, var(--cs3) 100%); margin-top: 32px; }
+
+  /* NAV */
+  .sow-nav { background: var(--surface); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; overflow-x: auto; }
+  .nav-tab { padding: 13px 20px; font-size: 13px; font-weight: 400; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; user-select: none; transition-property: color, border-color; transition-duration: 150ms; transition-timing-function: ease-out; }
+  .nav-tab:hover { color: var(--text-primary); }
+  .nav-tab.active { color: var(--text-primary); font-weight: 600; border-bottom-color: var(--accent); }
+
+
+  /* PANELS */
+  .sow-panel { display: none; padding: 32px 40px 40px; }
+  .sow-panel.active { display: block; }
+
+  /* TYPE */
+  .section-eyebrow { font-size: 11px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 6px; }
+  .section-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 20px; }
+  .body-text { font-size: 13px; color: var(--text-primary); line-height: 1.6; margin-bottom: 14px; }
+  .divider { height: 1px; background: var(--border-light); margin: 24px 0; }
+
+  /* PRIORITY BANNER */
+  .priority-banner { background: #FFF0DD; border: 1px solid rgba(255,153,34,0.35); border-left: 4px solid var(--at-risk); border-radius: var(--radius-card); padding: 16px 20px; margin-bottom: 28px; }
+  .priority-banner-title { font-size: 12px; font-weight: 600; color: var(--at-risk-text); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .priority-banner-body { font-size: 13px; color: #7A5010; line-height: 1.6; }
+
+  /* KPI ROW */
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); margin-bottom: 28px; }
+  .kpi-card { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); }
+  .kpi-label { font-size: 11px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-secondary); margin-bottom: 6px; }
+  .kpi-value { font-size: 28px; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+  .kpi-card.hi .kpi-value { color: var(--complete-text); }
+
+  /* STRATEGIC PILLARS */
+  .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); margin-bottom: 28px; }
+  .pillar { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); display: flex; gap: 14px; align-items: flex-start; }
+  .pillar-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; flex-shrink: 0; margin-top: 1px; }
+  .pillar-label { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 5px; }
+  .pillar-text { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* CURRENT STATE TABLE */
+  .state-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); margin-bottom: 24px; }
+  .state-card { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); }
+  .state-card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border-light); }
+  .state-card.current .state-card-title { color: var(--at-risk-text); }
+  .state-card.future  .state-card-title { color: var(--on-track-text); }
+  .state-row { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: var(--text-primary); padding: 7px 0; border-bottom: 1px solid var(--border-light); line-height: 1.5; }
+  .state-row:last-child { border-bottom: none; }
+  .state-pip { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+
+  /* PAIN CARDS */
+  .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); margin-bottom: 24px; }
+  .pcard { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); border-left: 4px solid var(--border); }
+  .pcard.c-risk   { border-left-color: var(--at-risk); }
+  .pcard.c-behind { border-left-color: var(--behind); }
+  .pcard.c-accent { border-left-color: var(--accent); }
+  .pcard.c-track  { border-left-color: var(--on-track); }
+  .pcard-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 6px; }
+  .pcard-text { font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+
+  /* CALLOUT */
+  .callout { border-radius: var(--radius-card); padding: 16px 20px; margin-top: 16px; border-left: 4px solid; }
+  .c-accent { background: var(--complete-bg); border-left-color: var(--accent); }
+  .c-risk   { background: var(--at-risk-bg);  border-left-color: var(--at-risk); }
+  .c-track  { background: var(--on-track-bg); border-left-color: var(--on-track); }
+  .callout-title { font-size: 12px; font-weight: 600; margin-bottom: 5px; }
+  .c-accent .callout-title { color: var(--complete-text); }
+  .c-risk .callout-title   { color: var(--at-risk-text); }
+  .c-track .callout-title  { color: var(--on-track-text); }
+  .callout-body { font-size: 13px; line-height: 1.6; }
+  .c-accent .callout-body { color: #3F6B7C; }
+  .c-risk .callout-body   { color: #7A5010; }
+  .c-track .callout-body  { color: #3A6348; }
+
+  /* PHASE CARDS */
+  .phase-card { background: var(--surface); border-radius: var(--radius-card); box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden; cursor: pointer; transition-property: box-shadow; transition-duration: 150ms; transition-timing-function: ease-out; }
+  .phase-card:hover { box-shadow: var(--shadow-hover); }
+  .phase-card.priority { box-shadow: var(--shadow), 0 0 0 2px var(--accent); }
+  .phase-card.priority:hover { box-shadow: var(--shadow-hover), 0 0 0 2px var(--accent-pressed); }
+  .phase-header { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 14px; padding: 18px 20px; }
+  .phase-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; flex-shrink: 0; }
+  .phase-title { font-size: 13px; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .phase-desc { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+  .phase-right { text-align: right; display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+  .phase-weeks { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+  .phase-hrs { font-size: 11px; color: var(--text-secondary); }
+  .phase-chevron { font-size: 10px; color: var(--text-secondary); transition-property: transform; transition-duration: 150ms; }
+  .phase-card.open .phase-chevron { transform: rotate(180deg); }
+  .phase-body { display: none; border-top: 1px solid var(--border-light); padding: 20px; background: var(--bg); }
+  .phase-card.open .phase-body { display: block; }
+  .dl-list { list-style: none; }
+  .dl-list .dl-item { border-bottom: 1px solid var(--border-light); cursor: pointer; transition-property: background; transition-duration: 150ms; transition-timing-function: ease-out; }
+  .dl-list .dl-item:last-child { border-bottom: none; }
+  .dl-list .dl-item:hover { background: var(--surface); }
+  .dl-list .dl-summary { display: grid; grid-template-columns: auto 1fr auto; align-items: flex-start; gap: 10px; padding: 10px 4px; font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+  .dl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .dl-chevron { font-size: 9px; color: var(--text-secondary); flex-shrink: 0; margin-top: 6px; transition-property: transform; transition-duration: 150ms; }
+  .dl-list .dl-item.open .dl-chevron { transform: rotate(180deg); }
+  .dl-detail { display: none; padding: 4px 4px 14px 22px; }
+  .dl-list .dl-item.open .dl-detail { display: block; }
+  .dl-detail-block { margin-bottom: 10px; }
+  .dl-detail-block:last-child { margin-bottom: 0; }
+  .dl-detail-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 4px; }
+  .dl-detail-body { font-size: 13px; color: var(--text-primary); line-height: 1.55; }
+  .dl-audience-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .dl-audience-pill { background: var(--bg); border: 1px solid var(--border-light); border-radius: 999px; padding: 3px 10px; font-size: 11px; color: var(--text-secondary); }
+
+  /* ARCH BOX */
+  .arch-box { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); margin-top: 16px; }
+  .arch-box h4 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 14px; }
+  .arch-flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; }
+  .arch-step { background: var(--bg); border-radius: var(--radius-btn); padding: 10px 14px; font-size: 12px; font-weight: 600; color: var(--text-primary); text-align: center; flex: 1; min-width: 90px; }
+  .arch-step.hl { background: var(--complete-bg); color: var(--complete-text); }
+  .arch-arrow { font-size: 16px; color: var(--border); padding: 0 4px; flex-shrink: 0; }
+  .arch-sub { font-size: 11px; color: var(--text-secondary); font-weight: 400; display: block; margin-top: 3px; }
+
+  /* LOE TABLE */
+  .loe-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .loe-table thead th { background: var(--table-header); color: var(--text-secondary); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-light); }
+  .loe-table thead th:last-child { text-align: right; }
+  .loe-table tbody tr { border-bottom: 1px solid var(--border-light); }
+  .loe-table tbody tr:nth-child(even) { background: var(--table-stripe); }
+  .loe-table tbody tr:hover { background: #F1F6FA; }
+  .loe-table tbody tr.priority-row { background: var(--complete-bg); }
+  .loe-table tbody tr.priority-row:hover { background: #cce8f6; }
+  .loe-table td { padding: 10px 14px; color: var(--text-primary); vertical-align: top; }
+  .loe-table td:last-child { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .loe-table .section-row td { background: var(--nav-bg); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); padding: 8px 14px; border-bottom: 1px solid var(--border-light); }
+  .loe-table tfoot td { padding: 12px 14px; font-weight: 600; background: var(--complete-bg); color: var(--complete-text); border-top: 2px solid var(--accent); }
+  .loe-table tfoot td:last-child { text-align: right; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .loe-table.dv td:last-child { text-align: left; font-weight: 400; font-variant-numeric: normal; color: var(--text-primary); }
+  .loe-table.dv td.num { text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--text-primary); }
+  .loe-table.dv thead th.num { text-align: center; }
+  .loe-table.dv { margin-bottom: 28px; }
+  .loe-note { font-size: 12px; color: var(--text-primary); margin-top: 14px; background: var(--accent-muted); border-radius: var(--radius-btn); padding: 12px 16px; border-left: 4px solid var(--accent); line-height: 1.6; }
+
+  /* SOLUTIONS, SCOPE & EFFORT — work-item table inside an open solution card. Tightens table padding so the inner table reads compactly. */
+  .loe-phase-table { margin: 0; }
+  .loe-phase-table thead th { padding: 10px 16px; }
+  .loe-phase-table tbody td { padding: 9px 16px; }
+  .loe-phase-table tbody td:first-child { font-weight: 500; white-space: nowrap; }
+  .loe-phase-table tbody td:nth-child(2) { color: var(--text-secondary); font-size: 12px; line-height: 1.5; white-space: normal; }
+  .loe-phase-table tbody td.num { white-space: nowrap; }
+  .loe-phase-table tfoot td { padding: 11px 16px; font-size: 13px; }
+  .loe-phase-table tfoot td.num { font-size: 14px; }
+
+  /* Section labels inside an open solution card — separates Deliverables from Level of Effort visually. */
+  .solution-section-label {
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-secondary); margin: 4px 0 10px;
+    padding-bottom: 6px; border-bottom: 1px solid var(--border-light);
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .solution-section-label .solution-section-count {
+    margin-left: auto; font-size: 10px; font-weight: 500; color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+
+  /* Collapsible Level of Effort block — defaults closed even when its parent solution is open.
+     Header always shows the solution total so reviewers see hours without expanding the table. */
+  .solution-loe-block { margin-top: 18px; }
+  .solution-loe-toggle {
+    display: flex; align-items: baseline; gap: 10px; cursor: pointer;
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-secondary); padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-light);
+    transition-property: color; transition-duration: 150ms; transition-timing-function: ease-out;
+  }
+  .solution-loe-toggle:hover { color: var(--text-primary); }
+  .solution-loe-toggle .solution-loe-count {
+    font-size: 10px; font-weight: 500; color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .solution-loe-toggle .solution-loe-total {
+    margin-left: auto;
+    font-size: 13px; font-weight: 700; text-transform: none; letter-spacing: 0;
+    color: var(--complete-text); font-variant-numeric: tabular-nums;
+  }
+  .solution-loe-toggle .solution-loe-chevron {
+    font-size: 9px; color: var(--text-secondary); flex-shrink: 0;
+    transition-property: transform; transition-duration: 150ms;
+  }
+  .solution-loe-block.open .solution-loe-toggle .solution-loe-chevron { transform: rotate(180deg); }
+  .solution-loe-body { display: none; padding-top: 10px; }
+  .solution-loe-block.open .solution-loe-body { display: block; }
+
+  /* LOE category tags — colored badges flagging which capability area each work item exercises. */
+  .loe-cat-tag {
+    display: inline-block; vertical-align: 1px; margin-left: 6px;
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 2px 7px; border-radius: var(--radius-badge); white-space: nowrap;
+  }
+  .loe-cat-data-source-connections { background: rgba(58,152,171,0.15);  color: #1F6F82; }
+  .loe-cat-etl                     { background: rgba(58,146,188,0.15);  color: #1F6A8E; }
+  .loe-cat-visualize               { background: rgba(68,150,150,0.15);  color: #2A6464; }
+  .loe-cat-ai                      { background: rgba(125,129,199,0.15); color: #4F5495; }
+  .loe-cat-workflows               { background: rgba(82,131,207,0.15);  color: #3A5FA0; }
+  .loe-cat-domo-everywhere         { background: rgba(255,153,34,0.15);  color: #C47A10; }
+
+  /* LOE engagement total — closing summary tile beneath the per-solution cards. */
+  .loe-engagement-summary {
+    background: var(--complete-bg); border-radius: var(--radius-card); border-top: 3px solid var(--accent);
+    padding: 18px 24px; margin-top: 8px; box-shadow: var(--shadow);
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .loe-engagement-summary-label { font-size: 13px; font-weight: 600; color: var(--complete-text); line-height: 1.5; }
+  .loe-engagement-summary-value { font-size: 22px; font-weight: 700; color: var(--complete-text); font-variant-numeric: tabular-nums; }
+  .dv-subhead { font-size: 16px; font-weight: 600; color: var(--text-primary); margin: 32px 0 14px; padding: 0 0 10px; border-bottom: 2px solid var(--accent); letter-spacing: -0.2px; display: flex; align-items: center; gap: 10px; }
+  .dv-subhead::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+  .dv-subhead .dv-subhead-count { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; }
+  .dv-totals { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); margin-bottom: 24px; }
+  .loe-table.dv tr.parent-row td:first-child { font-weight: 700; }
+  .loe-table.dv tr.parent-row { background: #F1F6FA; }
+  .loe-table.dv tr.parent-row:hover { background: #E6EFF6; }
+
+  /* BADGE */
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 8px; border-radius: var(--radius-badge); }
+  .b-core      { background: var(--complete-bg);  color: var(--complete-text); }
+  .b-impact    { background: var(--on-track-bg); color: var(--on-track-text); }
+  .b-quick-win { background: #FFF3CD; color: #B8860B; }
+  .b-strategic { background: var(--behind-bg);   color: var(--behind-text); }
+  .b-phased    { background: #F0F0F4; color: #6B7280; }
+
+  /* TIMELINE */
+  .tl-month-row { display: grid; grid-template-columns: 140px 1fr 72px; margin-bottom: 8px; }
+  .tl-months { display: grid; grid-template-columns: repeat(7,1fr); font-size: 10px; color: var(--text-secondary); text-align: center; font-weight: 400; text-transform: uppercase; letter-spacing: 0.05em; }
+  .tl-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .tl-label { width: 140px; font-size: 12px; font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+  .tl-track { flex: 1; background: var(--border-light); border-radius: 20px; height: 26px; position: relative; overflow: hidden; }
+  .tl-bar { height: 100%; border-radius: 20px; display: flex; align-items: center; padding-left: 10px; font-size: 11px; color: #fff; font-weight: 600; position: absolute; }
+  .tl-hrs { width: 72px; text-align: right; font-size: 12px; font-weight: 600; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+  .tl-total { border-top: 1px solid var(--border-light); margin-top: 6px; padding-top: 10px; }
+  .tl-total .tl-label { color: var(--text-primary); }
+  .tl-total .tl-hrs   { color: var(--text-primary); }
+
+  .milestone-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 20px; }
+  .m-tile { background: var(--surface); border-radius: var(--radius-card); padding: 16px 14px; box-shadow: var(--shadow); border-top: 4px solid var(--border-light); }
+  .m-tile.m-priority { border-top-color: var(--accent); background: var(--complete-bg); }
+  .m-date { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .m-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .m-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+
+  .pilot-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--grid-gap); margin-bottom: 20px; }
+  .pilot-card { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); }
+  .pilot-step { font-size: 28px; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; margin-bottom: 6px; }
+  .pilot-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .pilot-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  .assume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); }
+  .assume-block { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); }
+  .assume-block h4 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 14px; }
+  .assume-list { list-style: none; }
+  .assume-list li { font-size: 13px; color: var(--text-primary); padding: 7px 0; border-bottom: 1px solid var(--border-light); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+  .assume-list li:last-child { border-bottom: none; }
+  .a-pip { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+
+  .sow-footer { background: #1F262D; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-legal { font-size: 11px; color: rgba(255,255,255,0.35); font-weight: 300; }
+  .footer-note { font-size: 11px; color: rgba(255,255,255,0.45); font-style: italic; }
+
+  /* ROI TAB — RATE CONTROL */
+  .rate-control { background: var(--surface); border-radius: var(--radius-card); padding: 18px 22px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; border-left: 4px solid var(--accent); }
+  .rate-control-block { display: flex; flex-direction: column; gap: 4px; }
+  .rate-control-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); }
+  .rate-control-input-wrap { display: flex; align-items: center; gap: 6px; font-size: 18px; font-weight: 600; color: var(--text-primary); }
+  .rate-control-input-wrap input { width: 88px; font-family: inherit; font-size: 22px; font-weight: 600; color: var(--complete-text); padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius-btn); background: var(--complete-bg); text-align: center; outline: none; transition: border-color 150ms ease-out, box-shadow 150ms ease-out; font-variant-numeric: tabular-nums; }
+  .rate-control-input-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(153,204,238,0.25); }
+  /* Hide native number-input spinner controls — input remains fully editable via keyboard/typing */
+  .rate-control-input-wrap input::-webkit-outer-spin-button,
+  .rate-control-input-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .rate-control-input-wrap input { -moz-appearance: textfield; appearance: textfield; }
+  .rate-control-currency { font-size: 18px; color: var(--text-secondary); font-weight: 500; }
+  .rate-control-suffix { font-size: 13px; color: var(--text-secondary); font-weight: 400; }
+  .rate-control-note { flex: 1; min-width: 220px; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* ROI TAB — COST TABLE */
+  .loe-table.roi-cost-table thead th { text-align: left; }
+  .loe-table.roi-cost-table thead th.num,
+  .loe-table.roi-cost-table tbody td.num,
+  .loe-table.roi-cost-table tfoot td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .loe-table.roi-cost-table tbody td.num { font-weight: 600; }
+  .loe-table.roi-cost-table tbody td.num.cost-rec { color: var(--complete-text); }
+  .loe-table.roi-cost-table tfoot td { background: var(--complete-bg); color: var(--complete-text); border-top: 2px solid var(--accent); padding: 12px 14px; font-weight: 600; }
+  .loe-table.roi-cost-table tfoot td.num { font-size: 14px; }
+
+  /* ROI TAB — DRIVERS TABLE */
+  .loe-table.roi-driver-table thead th { text-align: left; }
+  .loe-table.roi-driver-table thead th.num,
+  .loe-table.roi-driver-table tbody td.num,
+  .loe-table.roi-driver-table tfoot td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .loe-table.roi-driver-table tbody td.num.cons { color: var(--text-primary); }
+  .loe-table.roi-driver-table tbody td.num.stretch { color: var(--complete-text); }
+  .loe-table.roi-driver-table tbody td:nth-child(2) { color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
+  .loe-table.roi-driver-table tfoot td { background: var(--complete-bg); color: var(--complete-text); border-top: 2px solid var(--accent); padding: 12px 14px; font-weight: 600; }
+  .loe-table.roi-driver-table tfoot td.num { font-size: 15px; }
+
+  /* ROI TAB — SUMMARY TILES */
+  .roi-summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); margin-bottom: 24px; }
+  .roi-tile { background: var(--surface); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow); border-top: 4px solid var(--accent); display: flex; flex-direction: column; gap: 6px; }
+  .roi-tile.featured { border-top-color: var(--on-track); background: linear-gradient(180deg, var(--on-track-bg) 0%, var(--surface) 100%); }
+  .roi-tile-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); }
+  .roi-tile-value { font-size: 24px; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; line-height: 1.15; }
+  .roi-tile.featured .roi-tile-value { color: var(--on-track-text); }
+  .roi-tile-sub { font-size: 11px; color: var(--text-secondary); line-height: 1.4; margin-top: auto; }
+
+  /* MOMENTUM METHODOLOGY SECTION */
+  .momentum-section { background: var(--surface); border-radius: var(--radius-card); padding: 28px 28px 24px; box-shadow: var(--shadow); margin-top: 16px; }
+  .momentum-svg-wrap { width: 100%; overflow-x: auto; padding: 8px 0 4px; }
+  .momentum-svg { display: block; width: 100%; min-width: 920px; height: auto; }
+  .momentum-svg .m-stage-circle { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+  .momentum-svg .m-stage-circle.start { stroke: var(--at-risk); stroke-width: 2.5; }
+  .momentum-svg .m-stage-circle.end { stroke: var(--on-track); stroke-width: 2.5; }
+  .momentum-svg .m-icon { fill: none; stroke: var(--text-primary); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .momentum-svg .m-icon.start { stroke: var(--at-risk-text); }
+  .momentum-svg .m-icon.end { stroke: var(--on-track-text); }
+  .momentum-svg .m-label { fill: var(--text-primary); font-family: var(--font-stack); font-size: 13px; font-weight: 600; }
+  .momentum-svg .m-desc { fill: var(--text-secondary); font-family: var(--font-stack); font-size: 10.5px; font-weight: 400; }
+  .momentum-svg .m-iter-label { fill: var(--complete-text); font-family: var(--font-stack); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .momentum-summary-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); margin-top: 24px; }
+  .momentum-pillar { background: var(--bg); border-radius: var(--radius-btn); padding: 14px 16px; }
+  .momentum-pillar-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--complete-text); margin-bottom: 4px; }
+  .momentum-pillar-text { font-size: 12px; color: var(--text-primary); line-height: 1.5; }
+
+  /* CREDIT IMPACT TAB */
+  .credit-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); margin-bottom: 24px; }
+  .credit-tile { background: var(--surface); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow); border-top: 4px solid var(--accent); display: flex; flex-direction: column; gap: 6px; }
+  .credit-tile.year1 { border-top-color: var(--cs1); }
+  .credit-tile.year3 { border-top-color: var(--cs3); }
+  .credit-tile.year5 { border-top-color: var(--cs5); }
+  .credit-tile-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); }
+  .credit-tile-value { font-size: 24px; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; line-height: 1.15; }
+  .credit-tile-sub { font-size: 11px; color: var(--text-secondary); line-height: 1.4; margin-top: auto; }
+
+  .credit-method-block { background: var(--surface); border-radius: var(--radius-card); padding: 18px 22px; box-shadow: var(--shadow); border-left: 4px solid var(--cs2); margin-bottom: 24px; }
+  .credit-method-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 10px; }
+  .credit-method-list { list-style: none; }
+  .credit-method-list li { font-size: 12px; color: var(--text-primary); padding: 6px 0; border-bottom: 1px solid var(--border-light); display: flex; gap: 8px; align-items: flex-start; line-height: 1.55; }
+  .credit-method-list li:last-child { border-bottom: none; }
+  .credit-method-list li::before { content: "▸"; color: var(--cs2); font-size: 11px; flex-shrink: 0; margin-top: 2px; }
+
+  .credit-envelope { background: var(--complete-bg); border-radius: var(--radius-card); padding: 18px 22px; border-left: 4px solid var(--accent); margin-bottom: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items: center; }
+  .credit-envelope-block { display: flex; flex-direction: column; gap: 4px; }
+  .credit-envelope-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--complete-text); }
+  .credit-envelope-value { font-size: 18px; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+  .credit-envelope-pct { color: var(--complete-text); }
+  .credit-envelope-note { grid-column: 1 / -1; font-size: 11px; color: var(--text-secondary); line-height: 1.5; padding-top: 6px; border-top: 1px solid rgba(63,69,77,0.08); }
+
+  .loe-table.credit-table thead th { text-align: left; }
+  .loe-table.credit-table thead th.num,
+  .loe-table.credit-table tbody td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .loe-table.credit-table tbody td.num { font-weight: 600; }
+  .loe-table.credit-table tbody td:nth-child(3) { color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
+  .loe-table.credit-table tr.cat-row td { background: #F1F6FA; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); padding: 7px 14px; }
+  .loe-table.credit-table tbody td.cat-cell { font-weight: 600; color: var(--text-primary); }
+  .credit-recs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); margin-top: 8px; }
+  .credit-rec { background: var(--surface); border-radius: var(--radius-card); padding: var(--card-padding); box-shadow: var(--shadow); border-left: 4px solid var(--on-track); }
+  .credit-rec-title { font-size: 12px; font-weight: 600; color: var(--on-track-text); margin-bottom: 6px; }
+  .credit-rec-body { font-size: 12px; color: var(--text-primary); line-height: 1.55; }
+
+  .credit-empty { background: var(--surface); border-radius: var(--radius-card); padding: 36px 28px; box-shadow: var(--shadow); border: 1px dashed var(--border); text-align: center; }
+  .credit-empty-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+  .credit-empty-body { font-size: 12px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; margin: 0 auto; }
+
+
+{% if feedback is defined and feedback.enabled %}
+  /* FEEDBACK PANEL */
+  .fb-trigger {
+    position: fixed; bottom: 28px; right: 28px; background: #1F262D; color: #fff;
+    border: none; border-radius: 24px; padding: 10px 20px; font-size: 13px;
+    font-weight: 600; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    z-index: 900; display: flex; align-items: center; gap: 7px;
+    letter-spacing: 0.01em; transition: background 150ms;
+  }
+  .fb-trigger:hover { background: #2E3740; }
+  .fb-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1000;
+    display: none; align-items: flex-end; justify-content: flex-end;
+  }
+  .fb-overlay.open { display: flex; }
+  .fb-panel {
+    background: var(--surface); width: 400px; max-width: 95vw;
+    height: 70vh; max-height: 600px; border-radius: 12px 12px 0 0;
+    display: flex; flex-direction: column;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.12); margin-right: 28px; overflow: hidden;
+  }
+  .fb-panel-header {
+    padding: 14px 20px; background: #1F262D; color: #fff;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; font-weight: 600; flex-shrink: 0;
+  }
+  .fb-close { background: none; border: none; color: rgba(255,255,255,0.55); font-size: 22px; cursor: pointer; line-height: 1; padding: 0 2px; }
+  .fb-close:hover { color: #fff; }
+  .fb-thread { flex: 1; overflow-y: auto; padding: 14px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .fb-loading, .fb-empty, .fb-error { font-size: 13px; color: var(--text-secondary); text-align: center; padding: 24px 0; }
+  .fb-error { color: var(--alert); }
+  .fb-comment { background: var(--surface); border: 1px solid var(--border-light); border-radius: 8px; padding: 11px 13px; }
+  .fb-comment-client { border-left: 3px solid var(--accent); }
+  .fb-comment-sa { border-left: 3px solid var(--on-track); }
+  .fb-comment-meta { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; flex-wrap: wrap; }
+  .fb-comment-author { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+  .fb-comment-type { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .fb-type-client { background: var(--accent-muted); color: var(--complete-text); }
+  .fb-type-sa { background: var(--on-track-bg); color: var(--on-track-text); }
+  .fb-comment-date { font-size: 11px; color: var(--text-secondary); margin-left: auto; }
+  .fb-comment-body { font-size: 13px; color: var(--text-primary); line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+  .fb-reply-btn { background: none; border: 1px solid var(--border); border-radius: 4px; color: var(--text-secondary); font-size: 11px; cursor: pointer; padding: 3px 10px; margin-top: 7px; }
+  .fb-reply-btn:hover { border-color: var(--accent); color: var(--text-primary); }
+  .fb-replies { margin-top: 9px; padding-left: 12px; border-left: 2px solid var(--border-light); display: flex; flex-direction: column; gap: 7px; }
+  .fb-compose { padding: 11px 20px 15px; border-top: 1px solid var(--border-light); flex-shrink: 0; display: flex; flex-direction: column; gap: 7px; }
+  .fb-input {
+    width: 100%; font-family: var(--font-stack); font-size: 13px; color: var(--text-primary);
+    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-btn);
+    padding: 7px 11px; outline: none; resize: none;
+  }
+  .fb-input:focus { border-color: var(--accent); }
+  .fb-textarea { resize: vertical; min-height: 70px; }
+  .fb-compose-actions { display: flex; justify-content: space-between; align-items: center; }
+  .fb-status { font-size: 12px; color: var(--text-secondary); }
+  .fb-submit {
+    background: #1F262D; color: #fff; border: none; border-radius: var(--radius-btn);
+    padding: 7px 18px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 150ms;
+  }
+  .fb-submit:hover { background: #2E3740; }
+  .fb-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+{% endif %}
+</style>
+</head>
+<body>
+
+<div>
+  <!-- HEADER -->
+  <div class="sow-header">
+    <div class="header-inner">
+      <div>
+        <svg class="domo-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Domo"><path fill="#9ce" d="M150.53,328.62a106.55,106.55,0,0,1,25,49.83,106.85,106.85,0,0,1,209.41,0V292.91L491.76,399.73,598.89,292.91v85.56A106.86,106.86,0,0,1,800,353.65V0H0V292.91H70.82A106.55,106.55,0,0,1,150.53,328.62Z"/><path fill="#9ce" d="M703.6,506.56A106.86,106.86,0,0,1,598.89,421v85.56h-36V378.8l-71.12,71.42L420.34,378.8V506.56H384.93V421a106.85,106.85,0,0,1-209.41,0,106.87,106.87,0,0,1-104.7,85.55H0V800H800V445.82A106.83,106.83,0,0,1,703.6,506.56Z"/><path fill="#9ce" d="M280.22,471a71.29,71.29,0,1,0-71.28-71.29A71.29,71.29,0,0,0,280.22,471Z"/><path fill="#9ce" d="M142.1,399.73a71.28,71.28,0,0,0-66.61-71.11H35.4V470.85H75.46A71.28,71.28,0,0,0,142.1,399.73Z"/><path fill="#9ce" d="M703.6,471a71.29,71.29,0,1,0-71.28-71.29A71.28,71.28,0,0,0,703.6,471Z"/><path fill="#fff" d="M150.53,470.85a106.54,106.54,0,0,0,25-49.84,106.85,106.85,0,0,0,209.41,0v85.56h35.41V378.8l71.42,71.42,71.12-71.42V506.56h36V421A106.86,106.86,0,0,0,800,445.82V353.65a106.86,106.86,0,0,0-201.11,24.82V292.91L491.76,399.73,384.93,292.91v85.56a106.85,106.85,0,0,0-209.41,0,106.88,106.88,0,0,0-104.7-85.54H0V506.56H70.82A106.57,106.57,0,0,0,150.53,470.85ZM703.6,328.45a71.29,71.29,0,1,1-71.28,71.28A71.28,71.28,0,0,1,703.6,328.45Zm-423.38,0a71.29,71.29,0,1,1-71.28,71.28A71.29,71.29,0,0,1,280.22,328.45Zm-244.82.17H75.49a71.27,71.27,0,0,1,0,142.23H35.4Z"/></svg>
+        <div class="header-eyebrow">{{ engagement.eyebrow }}</div>
+        <div class="header-title">{{ engagement.title|safe }}</div>
+        <div class="header-sub">{{ engagement.subtitle }}</div>
+      </div>
+      <div class="header-meta">
+        <div class="meta-block"><div class="meta-label">Prepared for</div><div class="meta-val">{{ client.name }}</div></div>
+        {% if meta.prepared_by %}<div class="meta-block"><div class="meta-label">Prepared by</div><div class="meta-val">{% for p in meta.prepared_by %}{{ p.name if p is mapping else p }}{% if not loop.last %} &amp; {% endif %}{% endfor %}</div></div>{% endif %}
+        <div class="meta-block"><div class="meta-label">Revision date</div><div class="meta-val">{{ meta.generated_date_display }}</div></div>
+        <div class="meta-block"><div class="meta-label">Version</div><div class="meta-val">{{ meta.sow_version }} · {{ meta.confidentiality }}</div></div>
+        {% if meta.revision_label %}<div><span class="revision-pill">⚑ {{ meta.revision_label }}</span></div>{% endif %}
+      </div>
+    </div>
+    <div class="header-accent-bar"></div>
+  </div>
+
+  <!-- NAV -->
+  <div class="sow-nav" id="sowNav">
+    <div class="nav-tab active" data-tab="exec">Executive Summary</div>
+    <div class="nav-tab" data-tab="solutions">Scope &amp; Effort</div>
+    <div class="nav-tab" data-tab="data">Data Sources &amp; Visualizations</div>
+    <div class="nav-tab" data-tab="impl">Implementation Strategy</div>
+    <div class="nav-tab" data-tab="timeline">Timeline</div>
+    <div class="nav-tab" data-tab="assumptions">Assumptions</div>
+    <div class="nav-tab" data-tab="roi">ROI &amp; Investment</div>
+    {% if not hide_credit_impact %}<div class="nav-tab" data-tab="credits">Credit Impact</div>{% endif %}
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- EXEC SUMMARY — REVISED                                       -->
+  <!-- ============================================================ -->
+  <div class="sow-panel active" id="tab-exec">
+
+    <!-- STRATEGIC CONTEXT -->
+    <div class="section-eyebrow">{{ executive_summary.strategic_context.eyebrow }}</div>
+    <div class="section-title">{{ executive_summary.strategic_context.title }}</div>
+    {% for paragraph in executive_summary.strategic_context.paragraphs %}
+    <p class="body-text">{{ paragraph|safe }}</p>
+    {% endfor %}
+
+    <div class="divider"></div>
+
+    <!-- STRATEGIC PILLARS -->
+    <div class="section-eyebrow">Strategic Pillars</div>
+    <div class="section-title" style="margin-bottom: 16px;">{{ executive_summary.pillars_title|default('Outcomes Driving This Engagement') }}</div>
+    <div class="pillar-grid">
+      {% for pillar in executive_summary.pillars %}
+      <div class="pillar">
+        <div class="pillar-num" style="background: var({{ pillar.color_var_resolved }});">{{ loop.index }}</div>
+        <div>
+          <div class="pillar-label">{{ pillar.label|safe }}</div>
+          <div class="pillar-text">{{ pillar.text|safe }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CURRENT VS FUTURE STATE -->
+    <div class="section-eyebrow">Current vs. Future State</div>
+    <div class="section-title" style="margin-bottom: 16px;">What Changes — and What Becomes Possible</div>
+    <div class="state-grid">
+      <div class="state-card current">
+        <div class="state-card-title">{{ executive_summary.current_state.title }}</div>
+        {% for row in executive_summary.current_state.rows %}
+        <div class="state-row"><span class="state-pip" style="background: var(--at-risk);"></span>{{ row|safe }}</div>
+        {% endfor %}
+      </div>
+      <div class="state-card future">
+        <div class="state-card-title">{{ executive_summary.future_state.title }}</div>
+        {% for row in executive_summary.future_state.rows %}
+        <div class="state-row"><span class="state-pip" style="background: var(--on-track);"></span>{{ row|safe }}</div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    {% if executive_summary.phase_one_framing %}
+    <!-- IMMEDIATE PRIORITY CONTEXT (field name `phase_one_framing` retained for handoff compatibility; rendered language reads 'Solution 1') -->
+    <div class="section-eyebrow">Immediate Priority</div>
+    <div class="section-title" style="margin-bottom: 16px;">{{ executive_summary.phase_one_framing.title }}</div>
+    {% for paragraph in executive_summary.phase_one_framing.paragraphs %}
+    <p class="body-text">{{ paragraph|safe }}</p>
+    {% endfor %}
+    {% endif %}
+
+    <!-- KPI ROW -->
+    <div class="kpi-row" style="margin-top: 8px;">
+      {% for kpi in executive_summary.kpi_row %}
+      <div class="kpi-card{% if kpi.highlight %} hi{% endif %}"><div class="kpi-label">{{ kpi.label }}</div><div class="kpi-value">{{ kpi.value }}</div></div>
+      {% endfor %}
+    </div>
+
+    {% if executive_summary.closing_callout %}
+    <div class="callout c-{{ executive_summary.closing_callout.variant }}" style="margin-top: 8px;">
+      <div class="callout-title">{{ executive_summary.closing_callout.title }}</div>
+      <div class="callout-body">{{ executive_summary.closing_callout.body|safe }}</div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- SOLUTIONS, SCOPE & EFFORT — merged tab. Each solution card opens to show
+       (1) narrative description, (2) deliverables accordion, (3) optional
+       architecture-flow diagram, (4) the per-solution LOE work-item table.
+       The KPI tile row + closing loe-note from the prior LOE tab are lifted
+       to the top of this merged tab so the reader still sees the engagement-
+       level numbers up front. Cards collapsed by default; one click expands. -->
+  <div class="sow-panel" id="tab-solutions">
+    <div class="section-eyebrow">Delivery Roadmap</div>
+    <div class="section-title">{{ solutions|length }}-Solution Plan — AI-Accelerated Delivery</div>
+
+    <div class="kpi-row" style="margin-bottom:28px;">
+      {% for sol in solutions[:2] %}
+      <div class="kpi-card hi"><div class="kpi-label">Solution {{ sol.number }} — {{ sol.kpi_short_label|default(sol.title.split(' — ')[0]) }}</div><div class="kpi-value">{{ sol.hours.high }} hrs</div></div>
+      {% endfor %}
+      <div class="kpi-card"><div class="kpi-label">Full Roadmap Hours</div><div class="kpi-value">{{ totals.roadmap_high }}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Total Timeline</div><div class="kpi-value">{{ totals.total_weeks }} wk</div></div>
+    </div>
+
+    {% for sol in solutions %}
+    <div class="phase-card{% if sol.is_priority %} priority{% endif %}" onclick="togglePhase(this)">
+      <div class="phase-header">
+        <div class="phase-num" style="background:var({{ sol.color_var_resolved }});">{{ sol.number }}</div>
+        <div>
+          <div class="phase-title">Solution {{ sol.number }} — {{ sol.title }}{% if sol.badges %}{% set _bn = {"core":"Core","impact":"Impact","quick-win":"Quick Win","strategic":"Strategic","phased":"Phased"} %}{% for b in sol.badges %} <span class="badge b-{{ b }}">{{ _bn[b] }}</span>{% endfor %}{% endif %}</div>
+          <div class="phase-desc">{{ sol.subtitle|safe }}</div>
+        </div>
+        <div class="phase-right"><span class="phase-weeks">{{ sol.weeks_label }}</span><span class="phase-hrs">{{ sol.hours.high }} hrs</span><span class="phase-chevron">▼</span></div>
+      </div>
+      <div class="phase-body">
+        {% if sol.description %}<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;line-height:1.5;">{{ sol.description|safe }}</p>{% endif %}
+
+        <div class="solution-section-label">Deliverables <span class="solution-section-count">{{ sol.deliverables|length }}</span></div>
+        <ul class="dl-list">
+          {% for deliverable in sol.deliverables %}
+          <li class="dl-item" onclick="toggleDeliverable(event, this)">
+            <div class="dl-summary">
+              <span class="dl-dot" style="background:var({{ sol.color_var_resolved }});"></span>
+              <span class="dl-title">{{ deliverable.title|safe }}</span>
+              <span class="dl-chevron">▼</span>
+            </div>
+            <div class="dl-detail">
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">What it includes</div>
+                <div class="dl-detail-body">{{ deliverable.description|safe }}</div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Who it's for</div>
+                <div class="dl-detail-body">
+                  <div class="dl-audience-list">
+                    {% for who in deliverable.audience %}<span class="dl-audience-pill">{{ who }}</span>{% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="dl-detail-block">
+                <div class="dl-detail-label">Outcome &amp; value</div>
+                <div class="dl-detail-body">{{ deliverable.outcome_value|safe }}</div>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% if sol.architecture_flow %}
+        <div class="arch-box">
+          <h4>{{ sol.architecture_flow.title }}</h4>
+          <div class="arch-flow">
+            {% for step in sol.architecture_flow.steps %}
+            <div class="arch-step{% if step.highlight %} hl{% endif %}">{{ step.title }}{% if step.subtitle %}<span class="arch-sub">{{ step.subtitle }}</span>{% endif %}</div>
+            {% if not loop.last %}<div class="arch-arrow">→</div>{% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="solution-loe-block">
+          <div class="solution-loe-toggle" onclick="toggleLoe(event, this.parentElement)">
+            <span>Level of Effort</span>
+            <span class="solution-loe-count">{{ sol.loe_rows|length }} work items</span>
+            <span class="solution-loe-total">Solution {{ sol.number }} Total: {{ sol.hours.high }} hrs</span>
+            <span class="solution-loe-chevron">▼</span>
+          </div>
+          <div class="solution-loe-body">
+            <table class="loe-table loe-phase-table">
+              <thead><tr>
+                <th>Work Item</th>
+                <th>Description</th>
+                <th class="num">Hours</th>
+              </tr></thead>
+              <tbody>
+                {% for row in sol.loe_rows %}
+                <tr>
+                  <td>{{ row.work_item }}{% if row.category %} <span class="loe-cat-tag loe-cat-{{ row.category|lower|replace(' ', '-') }}">{{ row.category }}</span>{% endif %}</td>
+                  <td>{{ row.description|safe }}</td>
+                  <td class="num">{{ row.hours.high }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot><tr>
+                <td colspan="2"><strong>Solution {{ sol.number }} Total Hours</strong></td>
+                <td class="num"><strong>{{ sol.hours.high }} hrs</strong></td>
+              </tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    <div class="loe-engagement-summary">
+      <div class="loe-engagement-summary-label">Total Engagement (All Solutions · includes Solution Design, QA/UAT, Rollout &amp; Project Management)</div>
+      <div class="loe-engagement-summary-value">{{ totals.roadmap_high }} hrs</div>
+    </div>
+
+    <div class="loe-note">{{ loe_summary.loe_note|safe }}</div>
+  </div>
+
+  <!-- ROI & INVESTMENT -->
+  <div class="sow-panel" id="tab-roi">
+    <div class="section-eyebrow">Investment &amp; Value</div>
+    <div class="section-title">Return on Investment Analysis</div>
+    <p class="body-text">{{ roi.intro|safe }}</p>
+
+    <!-- INVESTMENT KPI ROW -->
+    <div class="kpi-row" style="margin-bottom:28px;">
+      <div class="kpi-card hi"><div class="kpi-label">Total Investment</div><div class="kpi-value">${{ "{:,}".format(totals.cost_high) }}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Total Hours</div><div class="kpi-value">{{ totals.roadmap_high }} hrs</div></div>
+    </div>
+
+    <!-- INVESTMENT BREAKDOWN -->
+    <div class="section-eyebrow" style="margin-top:8px;">Investment Summary</div>
+    <div class="section-title">Solution-by-Solution Cost Breakdown</div>
+    <table class="loe-table roi-cost-table">
+      <thead><tr>
+        <th>Solution</th>
+        <th class="num">Hours</th>
+        <th class="num">Investment</th>
+      </tr></thead>
+      <tbody>
+        {% for sol in solutions %}
+        <tr{% if sol.is_priority %} class="priority-row"{% endif %}>
+          <td>Solution {{ sol.number }} — {{ sol.title }}{% if sol.is_priority %} · Immediate Priority{% endif %}</td>
+          <td class="num">{{ sol.hours.high }} hrs</td>
+          <td class="num">${{ "{:,}".format(sol.hours.high * engagement.rate_default) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot><tr>
+        <td><strong>Total Engagement Investment</strong></td>
+        <td class="num"><strong>{{ totals.roadmap_high }} hrs</strong></td>
+        <td class="num"><strong>${{ "{:,}".format(totals.cost_high) }}</strong></td>
+      </tr></tfoot>
+    </table>
+    <div class="loe-note">{{ roi.investment_framing|safe }}</div>
+
+    <!-- ROI DRIVERS -->
+    <div class="section-eyebrow" style="margin-top:32px;">Quantifiable Value Drivers</div>
+    <div class="section-title">Annual Return on Investment</div>
+    <p class="body-text">{{ roi.drivers_intro|safe }}</p>
+    <table class="loe-table roi-driver-table">
+      <thead><tr>
+        <th>Value Driver</th>
+        <th>How Domo Delivers It</th>
+        <th class="num">Conservative<br>Annual Value</th>
+        <th class="num">Stretch<br>Annual Value</th>
+      </tr></thead>
+      <tbody>
+        {% for driver in roi.drivers %}
+        <tr>
+          <td><strong>{{ driver.name }}</strong></td>
+          <td>{{ driver.delivery|safe }}</td>
+          <td class="num cons">${{ "{:,}".format(driver.annual_conservative) }}</td>
+          <td class="num stretch">${{ "{:,}".format(driver.annual_stretch) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot><tr>
+        <td colspan="2"><strong>Total Annual Value (Year 1 onward)</strong></td>
+        <td class="num"><strong>${{ "{:,}".format(totals.annual_conservative) }}</strong></td>
+        <td class="num"><strong>${{ "{:,}".format(totals.annual_stretch) }}</strong></td>
+      </tr></tfoot>
+    </table>
+
+    <!-- PAYBACK & MULTI-YEAR -->
+    <div class="section-eyebrow" style="margin-top:32px;">Payback &amp; Multi-Year Return</div>
+    <div class="section-title">3-Year Return Projection</div>
+    <div class="roi-summary-grid">
+      <div class="roi-tile">
+        <div class="roi-tile-label">Payback Period</div>
+        <div class="roi-tile-value" id="roiPayback">{{ totals.payback_stretch_months }} – {{ totals.payback_conservative_months }} months</div>
+        <div class="roi-tile-sub">Time to recover the investment from realized annual value</div>
+      </div>
+      <div class="roi-tile">
+        <div class="roi-tile-label">Annual Value Generated</div>
+        <div class="roi-tile-value" id="roiAnnual">{{ totals.annual_conservative_short }} – {{ totals.annual_stretch_short }}</div>
+        <div class="roi-tile-sub">Recurring annual return once platform is live and adopted</div>
+      </div>
+      <div class="roi-tile featured">
+        <div class="roi-tile-label">3-Year Net Value</div>
+        <div class="roi-tile-value" id="roi3yrNet">{{ totals.net_3yr_conservative_short }} – {{ totals.net_3yr_stretch_short }}</div>
+        <div class="roi-tile-sub">Cumulative value over 3 years, net of investment</div>
+      </div>
+      <div class="roi-tile">
+        <div class="roi-tile-label">3-Year ROI Multiple</div>
+        <div class="roi-tile-value" id="roiMultiple">{{ totals.roi_multiple_conservative }}× – {{ totals.roi_multiple_stretch }}×</div>
+        <div class="roi-tile-sub">Total return on consulting investment over 3 years (gross)</div>
+      </div>
+    </div>
+
+    <!-- WHY DOMO -->
+    <div class="callout c-accent" style="margin-top:24px;">
+      <div class="callout-title">{{ roi.why_domo_callout.title }}</div>
+      <div class="callout-body">{{ roi.why_domo_callout.body|safe }}</div>
+    </div>
+  </div>
+
+  <!-- CREDIT IMPACT -->
+  {% if not hide_credit_impact %}
+  <div class="sow-panel" id="tab-credits">
+    <div class="section-eyebrow">Platform Consumption Forecast</div>
+    <div class="section-title">Credit Impact — Years 1, 3, &amp; 5</div>
+    {% if credit_impact and credit_totals %}
+    <p class="body-text">{{ credit_impact.intro|safe }}</p>
+
+    <!-- ANNUAL TOTALS -->
+    <div class="credit-summary-grid">
+      <div class="credit-tile year1">
+        <div class="credit-tile-label">Year 1 Forecast</div>
+        <div class="credit-tile-value">{{ credit_totals.y1_display }}</div>
+        <div class="credit-tile-sub">credits / year — go-live and initial adoption</div>
+      </div>
+      <div class="credit-tile year3">
+        <div class="credit-tile-label">Year 3 Forecast</div>
+        <div class="credit-tile-value">{{ credit_totals.y3_display }}</div>
+        <div class="credit-tile-sub">credits / year — broad adoption, expanded use cases</div>
+      </div>
+      <div class="credit-tile year5">
+        <div class="credit-tile-label">Year 5 Forecast</div>
+        <div class="credit-tile-value">{{ credit_totals.y5_display }}</div>
+        <div class="credit-tile-sub">credits / year — mature platform, AI-driven scale</div>
+      </div>
+    </div>
+
+    {% if credit_totals.envelope %}
+    <div class="credit-envelope">
+      <div class="credit-envelope-block">
+        <span class="credit-envelope-label">{{ credit_totals.envelope.label }}</span>
+        <span class="credit-envelope-value">{{ credit_totals.envelope.annual_credits_short }} credits / yr</span>
+      </div>
+      <div class="credit-envelope-block">
+        <span class="credit-envelope-label">Year 1 vs. Envelope</span>
+        <span class="credit-envelope-value credit-envelope-pct">~{{ credit_totals.envelope.y1_pct }}%</span>
+      </div>
+      <div class="credit-envelope-block">
+        <span class="credit-envelope-label">Year 3 vs. Envelope</span>
+        <span class="credit-envelope-value credit-envelope-pct">~{{ credit_totals.envelope.y3_pct }}%</span>
+      </div>
+      {% if credit_totals.envelope.note %}
+      <div class="credit-envelope-note">{{ credit_totals.envelope.note|safe }}</div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- METHODOLOGY -->
+    <div class="credit-method-block">
+      <div class="credit-method-title">{{ credit_impact.methodology.title|default('Forecast Methodology & Assumptions') }}</div>
+      <ul class="credit-method-list">
+        {% for item in credit_impact.methodology['items'] %}
+        <li>{{ item|safe }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- DRIVER TABLE — Solution × Category × Driver × Y1/Y3/Y5 -->
+    <div class="section-eyebrow" style="margin-top:8px;">Drivers by Solution &amp; Category</div>
+    <div class="section-title">Where the Credits Are Spent</div>
+    <table class="loe-table credit-table">
+      <thead><tr>
+        <th>Category</th>
+        <th>Driver</th>
+        <th class="num">Year 1<br>(credits)</th>
+        <th class="num">Year 3<br>(credits)</th>
+        <th class="num">Year 5<br>(credits)</th>
+      </tr></thead>
+      <tbody>
+        {% for group in credit_totals.solution_groups %}
+        <tr class="cat-row"><td colspan="5">Solution {{ group.solution_number }} — {{ group.solution_title }}{% if group.is_priority %} · Immediate Priority{% endif %}</td></tr>
+        {% for cat in group.categories %}
+        {% for d in cat.drivers %}
+        <tr{% if group.is_priority %} class="priority-row"{% endif %}>
+          <td class="cat-cell">{% if loop.first %}{{ cat.name }}{% endif %}</td>
+          <td>{{ d.driver|safe }}</td>
+          <td class="num">{{ d.y1.display }}</td>
+          <td class="num">{{ d.y3.display }}</td>
+          <td class="num">{{ d.y5.display }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+      </tbody>
+      <tfoot><tr>
+        <td colspan="2"><strong>Annual Total — All Drivers</strong></td>
+        <td class="num"><strong>{{ credit_totals.y1_display }}</strong></td>
+        <td class="num"><strong>{{ credit_totals.y3_display }}</strong></td>
+        <td class="num"><strong>{{ credit_totals.y5_display }}</strong></td>
+      </tr></tfoot>
+    </table>
+
+    {% if credit_impact.recommendations %}
+    <div class="section-eyebrow" style="margin-top:32px;">Efficiency Patterns &amp; Re-Forecast Triggers</div>
+    <div class="section-title">How the Architecture Manages Credit Consumption</div>
+    <div class="credit-recs-grid">
+      {% for rec in credit_impact.recommendations %}
+      <div class="credit-rec">
+        <div class="credit-rec-title">{{ rec.title }}</div>
+        <div class="credit-rec-body">{{ rec.body|safe }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- DIRECTIONAL CALLOUT -->
+    <div class="callout c-{{ credit_impact.directional_callout.variant|default('risk') }}" style="margin-top:24px;">
+      <div class="callout-title">{{ credit_impact.directional_callout.title }}</div>
+      <div class="callout-body">{{ credit_impact.directional_callout.body|safe }}</div>
+    </div>
+
+    {% else %}
+    <div class="credit-empty">
+      <div class="credit-empty-title">Credit Forecast Not Yet Provided</div>
+      <div class="credit-empty-body">A credit consumption forecast was not included with this proposal. Domo's standard practice is to model platform consumption alongside the consulting investment so the full commercial picture is visible during scoping. Request a credit forecast from your Domo team — typically a 1–2 day exercise for an engagement of this shape — and the populated forecast will appear here.</div>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <!-- TIMELINE -->
+  <div class="sow-panel" id="tab-timeline">
+    <div class="section-eyebrow">{{ timeline.subtitle|default('Delivery Schedule') }}</div>
+    <div class="section-title">{{ timeline.title }}</div>
+    <div class="tl-month-row">
+      <div></div>
+      <div class="tl-months" style="grid-template-columns: repeat({{ timeline.months|length }},1fr);">
+        {% for month in timeline.months %}<span>{{ month }}</span>{% endfor %}
+      </div>
+      <div style="font-size:10px;color:var(--text-secondary);text-align:right;text-transform:uppercase;letter-spacing:.05em;">Hours</div>
+    </div>
+    {% for sol in solutions %}
+    <div class="tl-row"><div class="tl-label">Solution {{ sol.number }} · {{ sol.timeline_label|default(sol.title.split(' — ')[0]) }}</div><div class="tl-track"><div class="tl-bar" style="background:var({{ sol.color_var_resolved }});left:{{ sol.bar_left_pct }}%;width:{{ sol.bar_width_pct }}%;">{{ sol.timeline_bar_text|default(sol.title.split(' — ')[0]) }}</div></div><div class="tl-hrs">{{ sol.hours.high }} hrs</div></div>
+    {% endfor %}
+    {% set _tl_ns = namespace(left=100, right=0, hrs=0) %}
+    {% for _s in solutions %}
+      {% if _s.bar_left_pct < _tl_ns.left %}{% set _tl_ns.left = _s.bar_left_pct %}{% endif %}
+      {% if (_s.bar_left_pct + _s.bar_width_pct) > _tl_ns.right %}{% set _tl_ns.right = _s.bar_left_pct + _s.bar_width_pct %}{% endif %}
+      {% set _tl_ns.hrs = _tl_ns.hrs + _s.hours.high %}
+    {% endfor %}
+    <div class="tl-row tl-total"><div class="tl-label">Total</div><div class="tl-track"><div class="tl-bar" style="background:#4A5568;left:{{ _tl_ns.left }}%;width:{{ _tl_ns.right - _tl_ns.left }}%;">All Solutions · {{ totals.total_weeks }} wks</div></div><div class="tl-hrs">{{ _tl_ns.hrs }} hrs</div></div>
+    <div class="divider"></div>
+    <div class="section-eyebrow">Key Milestones</div>
+    <div class="milestone-grid" style="grid-template-columns: repeat({{ timeline.milestones|length }}, 1fr);">
+      {% for milestone in timeline.milestones %}
+      <div class="m-tile{% if milestone.is_priority %} m-priority{% endif %}"{% if not milestone.is_priority %} style="border-top-color:var({{ milestone.color_var_resolved }});"{% endif %}><div class="m-date" style="color:var({{ milestone.color_var_resolved }});">{{ milestone.date }}</div><div class="m-title">{{ milestone.title }}</div><div class="m-desc">{{ milestone.description|safe }}</div></div>
+      {% endfor %}
+    </div>
+    {% if timeline.closing_callout %}
+    <div class="callout c-{{ timeline.closing_callout.variant }}" style="margin-top:20px;">
+      <div class="callout-title">{{ timeline.closing_callout.title }}</div>
+      <div class="callout-body">{{ timeline.closing_callout.body|safe }}</div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- DATA SOURCES & VISUALIZATIONS -->
+  <div class="sow-panel" id="tab-data">
+    <div class="section-eyebrow">Build Manifest</div>
+    <div class="section-title">Data Sources &amp; Visualizations</div>
+    <p class="body-text">{{ data_sources.intro|safe }}</p>
+
+    {% if data_sources.totals_kpi_row %}
+    <div class="dv-totals">
+      {% for kpi in data_sources.totals_kpi_row %}
+      <div class="kpi-card"><div class="kpi-label">{{ kpi.label }}</div><div class="kpi-value">{{ kpi.value }}</div></div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- DATA SOURCES TABLE -->
+    <div class="dv-subhead">Data Sources for Ingestion <span class="dv-subhead-count">{{ data_sources.data_source_rows|length }} components</span></div>
+    <table class="loe-table dv">
+      <thead><tr>
+        <th>Data Source Name</th>
+        <th class="num"># of Tables / Reports / Data Structures</th>
+        <th>Recommended Connection Approach</th>
+        <th>Comments</th>
+      </tr></thead>
+      <tbody>
+        {% for sol in solutions %}
+        {% set sol_rows = data_sources.data_source_rows|selectattr('solution_id', 'equalto', sol.id)|list %}
+        {% if sol_rows %}
+        <tr class="section-row"><td colspan="4">Solution {{ sol.number }} — {{ sol.title }}{% if sol.is_priority %} · Immediate Priority{% endif %}</td></tr>
+        {% for row in sol_rows %}
+        <tr class="{% if sol.is_priority %}priority-row {% endif %}parent-row"><td>{{ row.name|safe }}</td><td class="num">{{ row.count }}</td><td>{{ row.approach|safe }}</td><td>{{ row.comments|safe }}</td></tr>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- VISUALIZATIONS TABLE -->
+    <div class="dv-subhead">Visualizations to Be Created <span class="dv-subhead-count">{{ data_sources.visualization_rows|length }} components</span></div>
+    <table class="loe-table dv">
+      <thead><tr>
+        <th>Dashboard / App Name</th>
+        <th class="num"># of KPIs / Metrics</th>
+        <th class="num"># of Breakdowns / Filters</th>
+        <th>Comments</th>
+      </tr></thead>
+      <tbody>
+        {% for sol in solutions %}
+        {% set sol_visuals = data_sources.visualization_rows|selectattr('solution_id', 'equalto', sol.id)|list %}
+        {% if sol_visuals %}
+        <tr class="section-row"><td colspan="4">Solution {{ sol.number }} — {{ sol.title }}{% if sol.is_priority %} · Immediate Priority{% endif %}</td></tr>
+        {% for row in sol_visuals %}
+        <tr class="{% if sol.is_priority %}priority-row {% endif %}parent-row"><td>{{ row.name|safe }}</td><td class="num">{{ row.kpi_count }}</td><td class="num">{{ row.filter_count }}</td><td>{{ row.comments|safe }}</td></tr>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% if data_sources.manifest_summary %}
+    <div class="loe-note">{{ data_sources.manifest_summary|safe }}</div>
+    {% endif %}
+  </div>
+
+  <!-- IMPLEMENTATION STRATEGY -->
+  <div class="sow-panel" id="tab-impl">
+    <div class="section-eyebrow">Member Rollout Strategy</div>
+    <div class="section-title">Sequenced Pilot Approach — Change Management by Design</div>
+    <p class="body-text">{{ implementation_strategy.intro|safe }}</p>
+    <div class="pilot-grid">
+      {% for step in implementation_strategy.pilot_steps %}
+      <div class="pilot-card">
+        <div class="pilot-step">{{ step.step }}</div>
+        <div class="pilot-title">{{ step.title }}</div>
+        <div class="pilot-desc">{{ step.description|safe }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="divider"></div>
+    <div class="section-eyebrow">Member Communication Strategy</div>
+    <div class="section-title" style="margin-bottom:16px;">{{ implementation_strategy.communication_title|default('Guiding Principles') }}</div>
+    <div class="pain-grid">
+      {% for principle in implementation_strategy.communication_principles %}
+      <div class="pcard c-{{ principle.variant }}"><div class="pcard-label">{{ principle.label }}</div><div class="pcard-text">{{ principle.text|safe }}</div></div>
+      {% endfor %}
+    </div>
+    {% if implementation_strategy.ace_callout %}
+    <div class="callout c-accent">
+      <div class="callout-title">{{ implementation_strategy.ace_callout.title }}</div>
+      <div class="callout-body">{{ implementation_strategy.ace_callout.body|safe }}</div>
+    </div>
+    {% endif %}
+
+    <div class="divider"></div>
+
+    <!-- DOMO MOMENTUM METHODOLOGY -->
+    <div class="section-eyebrow">Delivery Methodology</div>
+    <div class="section-title">Domo Momentum — How Every Solution Is Delivered</div>
+    <p class="body-text">Every solution in this engagement is executed using <strong>Domo Momentum</strong>, our proven nine-stage delivery methodology. The framework opens with disciplined alignment (Kickoff through Data Strategy), drives value through iterative agile cycles (Build, Test, Review) that release working capability every sprint, and closes with the structural rigor — Governance and Deployment &amp; Adoption — that makes the platform durable and self-sustaining for {{ client.short_name|default(client.name) }}'s team. This is the same methodology behind Domo's most successful enterprise transformations.</p>
+
+    <div class="momentum-section">
+      <div class="momentum-svg-wrap">
+        <svg class="momentum-svg" viewBox="0 0 1280 460" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Domo Momentum methodology — nine-stage delivery framework">
+          <defs>
+            <linearGradient id="momSpine" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%"  stop-color="#FF9922" stop-opacity="0.9"/>
+              <stop offset="9%"  stop-color="#3A98AB" stop-opacity="0.9"/>
+              <stop offset="50%" stop-color="#5283CF" stop-opacity="0.9"/>
+              <stop offset="91%" stop-color="#449696" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#ADD4C1" stop-opacity="0.95"/>
+            </linearGradient>
+            <filter id="momShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="1.6"/>
+              <feOffset dx="0" dy="1.5"/>
+              <feComponentTransfer><feFuncA type="linear" slope="0.16"/></feComponentTransfer>
+              <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <marker id="momArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#5A9ABE"/>
+            </marker>
+          </defs>
+
+          <!-- Spine pill -->
+          <rect x="40" y="230" width="1200" height="16" rx="8" fill="url(#momSpine)" filter="url(#momShadow)"/>
+
+          <!-- Iteration loop — TOP arc: Review → Test → Build (forward) -->
+          <path d="M 614 218 Q 783 100 951 218" fill="none" stroke="#5A9ABE" stroke-width="2.2" stroke-dasharray="6 4" opacity="0.65" marker-end="url(#momArrow)"/>
+          <!-- Iteration loop — BOTTOM arc: Build → Test → Review (return, completes the cycle) -->
+          <path d="M 951 258 Q 783 342 614 258" fill="none" stroke="#5A9ABE" stroke-width="2.2" stroke-dasharray="6 4" opacity="0.65" marker-end="url(#momArrow)"/>
+          <text class="m-iter-label" x="783" y="92" text-anchor="middle">Iterative Delivery Cycles</text>
+
+          <!-- ============== STAGE 1 — Kickoff (label below, orange) ============== -->
+          <circle class="m-stage-circle start" cx="70" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon start" transform="translate(60 228)">
+            <path d="M 10 2 L 13 7 L 13 13 L 11 15 L 9 15 L 7 13 L 7 7 Z"/>
+            <circle cx="10" cy="8" r="1.4"/>
+            <path d="M 7 11 L 4 14 L 4 17 L 7 15"/>
+            <path d="M 13 11 L 16 14 L 16 17 L 13 15"/>
+            <path d="M 8.5 15 L 10 19 L 11.5 15"/>
+          </g>
+          <text class="m-label" x="70" y="293" text-anchor="middle">Kickoff</text>
+          <text class="m-desc" x="70" y="308" text-anchor="middle">Align on scope, services,<tspan x="70" dy="13">and project team</tspan></text>
+
+          <!-- ============== STAGE 2 — Solution Design (label above) ============== -->
+          <circle class="m-stage-circle" cx="213" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(203 228)">
+            <rect x="3" y="3" width="14" height="15" rx="1.5"/>
+            <rect x="6.5" y="1" width="7" height="3" rx="0.6"/>
+            <path d="M 6 11 L 9 14 L 14 8"/>
+          </g>
+          <text class="m-label" x="213" y="180" text-anchor="middle">Solution Design</text>
+          <text class="m-desc" x="213" y="195" text-anchor="middle">Clarify value, project objectives,<tspan x="213" dy="13">pain points, and success criteria</tspan></text>
+
+          <!-- ============== STAGE 3 — Measurement Planning (label below) ============== -->
+          <circle class="m-stage-circle" cx="355" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(345 228)">
+            <path d="M 3 17 L 17 17"/>
+            <path d="M 5 17 L 5 12"/>
+            <path d="M 9 17 L 9 8"/>
+            <path d="M 13 17 L 13 5"/>
+            <path d="M 14.5 7 L 17 4.5 L 17 7"/>
+          </g>
+          <text class="m-label" x="355" y="293" text-anchor="middle">Measurement Planning</text>
+          <text class="m-desc" x="355" y="308" text-anchor="middle">Map and define the metrics<tspan x="355" dy="13">and KPIs of interest</tspan></text>
+
+          <!-- ============== STAGE 4 — Data Strategy (label above) ============== -->
+          <circle class="m-stage-circle" cx="498" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(488 228)">
+            <circle cx="10" cy="4" r="1.6"/>
+            <circle cx="4.5" cy="15" r="1.6"/>
+            <circle cx="15.5" cy="15" r="1.6"/>
+            <path d="M 9.3 5.3 L 5.2 13.7"/>
+            <path d="M 10.7 5.3 L 14.8 13.7"/>
+            <path d="M 6 15 L 14 15"/>
+          </g>
+          <text class="m-label" x="498" y="180" text-anchor="middle">Data Strategy</text>
+          <text class="m-desc" x="498" y="195" text-anchor="middle">Identify the strategy to bring<tspan x="498" dy="13">in the necessary data</tspan></text>
+
+          <!-- ============== STAGE 5 — Build (label below) ============== -->
+          <circle class="m-stage-circle" cx="640" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(630 228)">
+            <path d="M 7 2 L 7 5"/>
+            <path d="M 13 2 L 13 5"/>
+            <path d="M 4 7 L 16 7 L 16 11 a 6 6 0 0 1 -12 0 Z"/>
+            <path d="M 10 17 L 10 19"/>
+          </g>
+          <text class="m-label" x="640" y="293" text-anchor="middle">Build</text>
+          <text class="m-desc" x="640" y="308" text-anchor="middle">Hands-on sessions to build connections,<tspan x="640" dy="13">ETLs, dashboards, workflows, and apps</tspan></text>
+
+          <!-- ============== STAGE 6 — Test (label above, anchors top of iter loop) ============== -->
+          <circle class="m-stage-circle" cx="783" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(773 228)">
+            <circle cx="10" cy="10" r="2.5"/>
+            <path d="M 10 2 L 10 4.5"/>
+            <path d="M 10 15.5 L 10 18"/>
+            <path d="M 2 10 L 4.5 10"/>
+            <path d="M 15.5 10 L 18 10"/>
+            <path d="M 4.3 4.3 L 6 6"/>
+            <path d="M 14 14 L 15.7 15.7"/>
+            <path d="M 4.3 15.7 L 6 14"/>
+            <path d="M 14 6 L 15.7 4.3"/>
+          </g>
+          <text class="m-label" x="783" y="180" text-anchor="middle">Test</text>
+          <text class="m-desc" x="783" y="195" text-anchor="middle">Provide guidance on validation<tspan x="783" dy="13">and business acceptance testing</tspan></text>
+
+          <!-- ============== STAGE 7 — Review (label below) ============== -->
+          <circle class="m-stage-circle" cx="925" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(915 228)">
+            <path d="M 2 5 L 11 5 a 1.5 1.5 0 0 1 1.5 1.5 L 12.5 11 a 1.5 1.5 0 0 1 -1.5 1.5 L 5 12.5 L 2.5 15 Z"/>
+            <path d="M 7 8 L 8.5 9.5 L 11 7"/>
+            <path d="M 9 13 L 17 13 a 1.3 1.3 0 0 1 1.3 1.3 L 18.3 17 a 1.3 1.3 0 0 1 -1.3 1.3 L 12 18.3 L 10 19.5 Z"/>
+          </g>
+          <text class="m-label" x="925" y="293" text-anchor="middle">Review</text>
+          <text class="m-desc" x="925" y="308" text-anchor="middle">Conduct show-and-tells of<tspan x="925" dy="13">releasable features</tspan></text>
+
+          <!-- ============== STAGE 8 — Governance (label above) ============== -->
+          <circle class="m-stage-circle" cx="1068" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon" transform="translate(1058 228)">
+            <path d="M 10 2 L 12 7 L 17.5 7 L 13 10.5 L 14.7 16 L 10 12.8 L 5.3 16 L 7 10.5 L 2.5 7 L 8 7 Z"/>
+          </g>
+          <text class="m-label" x="1068" y="180" text-anchor="middle">Governance</text>
+          <text class="m-desc" x="1068" y="195" text-anchor="middle">Best practices for access, permissions,<tspan x="1068" dy="13">user experience, and actionability</tspan></text>
+
+          <!-- ============== STAGE 9 — Deployment & Adoption (label below, green) ============== -->
+          <circle class="m-stage-circle end" cx="1210" cy="238" r="24" filter="url(#momShadow)"/>
+          <g class="m-icon end" transform="translate(1200 228)">
+            <path d="M 5 9 L 5 18 L 2 18 L 2 9 Z"/>
+            <path d="M 5 9 L 9 2 a 1.5 1.5 0 0 1 2.6 1.2 L 10 7 L 16 7 a 1.5 1.5 0 0 1 1.5 1.8 L 16 16 a 1.5 1.5 0 0 1 -1.5 1.5 L 5 17.5"/>
+          </g>
+          <text class="m-label" x="1210" y="293" text-anchor="middle">Deployment &amp; Adoption</text>
+          <text class="m-desc" x="1210" y="308" text-anchor="middle">Best practices for initial<tspan x="1210" dy="13">adoption activities</tspan></text>
+        </svg>
+      </div>
+
+      <div class="momentum-summary-row">
+        <div class="momentum-pillar">
+          <div class="momentum-pillar-label">Align</div>
+          <div class="momentum-pillar-text">Stages 1–4 establish scope, success criteria, the metrics that matter, and the data strategy that powers them — the foundation every solution is built on.</div>
+        </div>
+        <div class="momentum-pillar">
+          <div class="momentum-pillar-label">Iterate</div>
+          <div class="momentum-pillar-text">Stages 5–7 run as agile sprint cycles — Build, Test, Review — releasing working capability every sprint and absorbing feedback before it compounds into rework.</div>
+        </div>
+        <div class="momentum-pillar">
+          <div class="momentum-pillar-label">Operationalize</div>
+          <div class="momentum-pillar-text">Stages 8–9 lock in governance, security, and the adoption motion that makes Domo a self-sustaining capability {{ client.short_name|default(client.name) }}'s team owns and operates independently.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ASSUMPTIONS -->
+  <div class="sow-panel" id="tab-assumptions">
+    <div class="section-eyebrow">Project Governance</div>
+    <div class="section-title">Assumptions, Dependencies &amp; Out of Scope</div>
+    <div class="assume-grid">
+      <div class="assume-block">
+        <h4>{{ client.short_name|default(client.name) }} Responsibilities</h4>
+        <ul class="assume-list">
+          {% for item in assumptions.client_responsibilities %}
+          <li><span class="a-pip" style="background:var(--cs1);"></span>{{ item|safe }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="assume-block">
+        <h4>Domo Responsibilities</h4>
+        <ul class="assume-list">
+          {% for item in assumptions.domo_responsibilities %}
+          <li><span class="a-pip" style="background:var(--cs2);"></span>{{ item|safe }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="assume-block">
+        <h4>Technical Assumptions</h4>
+        <ul class="assume-list">
+          {% for item in assumptions.technical_assumptions %}
+          <li><span class="a-pip" style="background:var(--cs3);"></span>{{ item|safe }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="assume-block">
+        <h4>Out of Scope (This SOW)</h4>
+        <ul class="assume-list">
+          {% for item in assumptions.out_of_scope %}
+          <li><span class="a-pip" style="background:var(--at-risk);"></span>{{ item|safe }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% if assumptions.msp_callout %}
+    <div class="callout c-accent" style="margin-top:8px;">
+      <div class="callout-title">{{ assumptions.msp_callout.title }}</div>
+      <div class="callout-body">{{ assumptions.msp_callout.body|safe }}</div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- FOOTER -->
+  <div class="sow-footer">
+    <div class="footer-legal">{{ footer.legal|default('© ' ~ meta.generated_date_year ~ ' Domo, Inc. · Confidential & Proprietary · Prepared for ' ~ client.name) }}</div>
+    {% if footer.footnote %}<div class="footer-note">{{ footer.footnote|safe }}</div>{% endif %}
+  </div>
+</div>
+
+<script>
+  document.getElementById('sowNav').addEventListener('click', function(e) {
+    const tab = e.target.closest('.nav-tab');
+    if (!tab) return;
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.sow-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+  function togglePhase(card) { card.classList.toggle('open'); }
+  function toggleDeliverable(event, item) {
+    event.stopPropagation();
+    item.classList.toggle('open');
+  }
+  function toggleLoe(event, block) {
+    event.stopPropagation();
+    block.classList.toggle('open');
+  }
+
+
+
+{% if feedback is defined and feedback.enabled %}
+(function () {
+  var WORKER   = {{ feedback.worker_url | tojson }};
+  var PROP_ID  = {{ feedback.proposal_id | tojson }};
+  var PROP_SIG = {{ feedback.proposal_sig | tojson }};
+  var params   = new URLSearchParams(location.search);
+  var SA_MODE  = params.has('sa');
+  var SA_NAME  = params.get('sa_name') || '';
+
+  var trigger   = document.getElementById('fb-trigger');
+  var overlay   = document.getElementById('fb-overlay');
+  var closeBtn  = document.getElementById('fb-close');
+  var thread    = document.getElementById('fb-thread');
+  var authorEl  = document.getElementById('fb-author');
+  var msgEl     = document.getElementById('fb-message');
+  var submitBtn = document.getElementById('fb-submit');
+  var statusEl  = document.getElementById('fb-status');
+  var replyTo   = null;
+
+  if (SA_MODE && SA_NAME) { authorEl.value = SA_NAME; authorEl.readOnly = true; }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderComment(c, replies, depth) {
+    var isClient = c.author_type === 'client';
+    var d = new Date(c.created_at);
+    var date = isNaN(d) ? '' : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var kids = (replies[c.comment_id] || []).map(function(r){ return renderComment(r, {}, depth + 1); }).join('');
+    var replyBtn = (isClient && depth === 0)
+      ? '<button class="fb-reply-btn" data-id="' + esc(c.comment_id) + '">Reply</button>'
+      : '';
+    return '<div class="fb-comment fb-comment-' + esc(c.author_type) + '">'
+      + '<div class="fb-comment-meta">'
+      + '<span class="fb-comment-author">' + esc(c.author_name) + '</span>'
+      + '<span class="fb-comment-type fb-type-' + esc(c.author_type) + '">' + (isClient ? 'Client' : 'Domo SA') + '</span>'
+      + '<span class="fb-comment-date">' + date + '</span>'
+      + '</div>'
+      + '<div class="fb-comment-body">' + esc(c.message) + '</div>'
+      + replyBtn
+      + (kids ? '<div class="fb-replies">' + kids + '</div>' : '')
+      + '</div>';
+  }
+
+  function renderThread(comments) {
+    if (!comments.length) {
+      thread.innerHTML = '<div class="fb-empty">No feedback yet. Be the first to share your thoughts.</div>';
+      return;
+    }
+    var roots   = comments.filter(function(c){ return !c.parent_id; });
+    var replies = {};
+    comments.filter(function(c){ return c.parent_id; }).forEach(function(c){
+      (replies[c.parent_id] = replies[c.parent_id] || []).push(c);
+    });
+    thread.innerHTML = roots.map(function(c){ return renderComment(c, replies, 0); }).join('');
+
+    if (SA_MODE) {
+      thread.querySelectorAll('.fb-reply-btn').forEach(function(btn) {
+        btn.style.display = 'inline-block';
+        btn.addEventListener('click', function() {
+          replyTo = btn.dataset.id;
+          statusEl.textContent = 'Replying…';
+          msgEl.focus();
+        });
+      });
+    }
+  }
+
+  function loadComments() {
+    thread.innerHTML = '<div class="fb-loading">Loading…</div>';
+    fetch(WORKER + '/feedback?proposal_id=' + encodeURIComponent(PROP_ID) + '&sig=' + encodeURIComponent(PROP_SIG))
+      .then(function(r){ return r.json(); })
+      .then(function(d){ renderThread(d.comments || []); })
+      .catch(function(e){ thread.innerHTML = '<div class="fb-error">Could not load: ' + esc(e.message) + '</div>'; });
+  }
+
+  trigger.addEventListener('click', function() { overlay.classList.add('open'); loadComments(); });
+  closeBtn.addEventListener('click', function() { overlay.classList.remove('open'); replyTo = null; statusEl.textContent = ''; });
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) { overlay.classList.remove('open'); replyTo = null; } });
+
+  submitBtn.addEventListener('click', function() {
+    var author  = authorEl.value.trim();
+    var message = msgEl.value.trim();
+    if (!author)  { statusEl.textContent = 'Please enter your name.'; return; }
+    if (!message) { statusEl.textContent = 'Please enter a message.'; return; }
+    submitBtn.disabled = true;
+    statusEl.textContent = 'Sending…';
+    var payload = {
+      proposal_id: PROP_ID, sig: PROP_SIG,
+      author_type: SA_MODE ? 'sa' : 'client',
+      author_name: author, message: message
+    };
+    if (replyTo) payload.parent_id = replyTo;
+    fetch(WORKER + '/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
+    .then(function(res) {
+      if (!res.ok) throw new Error(res.d.error || 'Failed');
+      msgEl.value = ''; replyTo = null;
+      statusEl.textContent = 'Sent!';
+      loadComments();
+      setTimeout(function(){ statusEl.textContent = ''; }, 3000);
+    })
+    .catch(function(e){ statusEl.textContent = 'Error: ' + esc(e.message); })
+    .finally(function(){ submitBtn.disabled = false; });
+  });
+})();
+{% endif %}
+
+</script>
+
+
+{% if feedback is defined and feedback.enabled %}
+<!-- FEEDBACK PANEL -->
+<button id="fb-trigger" class="fb-trigger">&#x1F4AC; Feedback</button>
+<div id="fb-overlay" class="fb-overlay">
+  <div id="fb-panel" class="fb-panel">
+    <div class="fb-panel-header">
+      <span>Proposal Feedback</span>
+      <button id="fb-close" class="fb-close" aria-label="Close">&times;</button>
+    </div>
+    <div id="fb-thread" class="fb-thread">
+      <div class="fb-loading">Loading comments&hellip;</div>
+    </div>
+    <div class="fb-compose">
+      <input id="fb-author" type="text" placeholder="Your name" maxlength="80" class="fb-input">
+      <textarea id="fb-message" placeholder="Leave your feedback or question&hellip;" maxlength="2000" class="fb-input fb-textarea" rows="3"></textarea>
+      <div class="fb-compose-actions">
+        <span id="fb-status" class="fb-status"></span>
+        <button id="fb-submit" class="fb-submit">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+</body>
+</html>

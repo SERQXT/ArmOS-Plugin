@@ -1,0 +1,12 @@
+# Secrets — never commit
+.env
+*.enc
+
+# Real instance registry / MCP config carry customer URLs + token var wiring.
+# Only the sanitized templates/ and codex/*.example copies are tracked.
+instances.json
+.mcp.json
+codex/config.toml
+
+# OS cruft
+.DS_Store

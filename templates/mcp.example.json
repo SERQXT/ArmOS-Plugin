@@ -1,0 +1,23 @@
+{
+  "_comment": "Example project-level .mcp.json. Copy to .mcp.json in your PROJECT root and manage with /server. Token-gated servers reference an env var from .env via ${...}; NEVER hardcode a literal token here. Anonymous toolkits (domo-stark, domo-valuedynamx) need no header.",
+  "mcpServers": {
+    "domo-mcp": {
+      "type": "http",
+      "url": "https://<your-instance>.domo.com/api/ai/v1/assistant/mcp/toolkits/DOMO_BASIC_MCP",
+      "headers": {
+        "X-DOMO-DEVELOPER-TOKEN": "${DOMO_<YOUR_INSTANCE>_DEVELOPER_TOKEN}"
+      }
+    },
+    "domo-wings": {
+      "type": "http",
+      "url": "https://wings-travel.domo.com/api/ai/v1/assistant/mcp/toolkits/DOMO_BASIC_MCP",
+      "headers": {
+        "X-DOMO-DEVELOPER-TOKEN": "${DOMO_WINGS_DEVELOPER_TOKEN}"
+      }
+    },
+    "domo-stark": {
+      "type": "http",
+      "url": "https://starkenergyservices.domo.com/api/ai/v1/assistant/mcp/toolkits/domo_basic_mcp"
+    }
+  }
+}

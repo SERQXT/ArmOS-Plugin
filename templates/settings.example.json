@@ -1,0 +1,12 @@
+{
+  "_comment": "Example project-level .claude/settings.json wiring Claude Code to Domo's Snowflake Cortex Anthropic endpoint. Copy the non-_comment keys into your project's .claude/settings.json. The apiKeyHelper path points at the cortex-key-helper.sh you place under bin/ (see scripts/cortex-key-helper.sh in this plugin); it pulls a Snowflake PAT from the macOS Keychain (service name 'domo-ai-devkit-snowflake-pat') so no token is stored on disk.",
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://<YOUR-ORG>-<YOUR-CORTEX-ACCOUNT>.snowflakecomputing.com/api/v2/cortex",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
+    "CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS": "1"
+  },
+  "apiKeyHelper": "./bin/cortex-key-helper.sh",
+  "model": "opus"
+}

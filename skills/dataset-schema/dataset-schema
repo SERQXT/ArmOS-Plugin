@@ -1,0 +1,157 @@
+#!/usr/bin/env bash
+# dataset-schema — print the authoritative column/type schema of a Domo dataset.
+#
+# Uses Domo's instance query API (POST /api/query/v1/execute/{datasetId}),
+# which returns `columns` (names) index-aligned with `metadata` (types). This
+# is the same source the dataset "details" page reads, so it is exact — unlike
+# the natural-language SQL MCP tool, which infers columns and can be wrong.
+#
+# Works on ANY Domo instance, not just wings-travel: pass the instance (or a
+# full details-page URL) and the script resolves the matching developer token
+# from .env by convention.
+#
+# Usage:
+#   bin/dataset-schema <dataset-id>
+#   bin/dataset-schema <details-page-url>
+#   bin/dataset-schema -i <instance> <dataset-id>
+#   bin/dataset-schema -i acme.domo.com -t "$TOKEN" -j <dataset-id>
+#
+# Options:
+#   -i, --instance HOST   Domo instance: subdomain ("wings-travel"), host
+#                         ("acme.domo.com"), or full URL. Default: parsed from a
+#                         URL argument, else $DOMO_INSTANCE, else "wings-travel".
+#   -t, --token TOKEN     Developer token. Overrides all env resolution below.
+#   -j, --json            Emit raw JSON [{name,type}, ...] instead of a table.
+#       --sql "SQL"       Probe query (default: "SELECT * FROM table LIMIT 1").
+#   -h, --help            Show this help.
+#
+# Token resolution (first match wins), so it works beyond wings-travel:
+#   1. --token / -t
+#   2. $DOMO_SCHEMA_TOKEN
+#   3. $DOMO_<SUBDOMAIN>_DEVELOPER_TOKEN     e.g. DOMO_WINGS_TRAVEL_DEVELOPER_TOKEN
+#   4. $DOMO_<FIRST-SEGMENT>_DEVELOPER_TOKEN e.g. DOMO_WINGS_DEVELOPER_TOKEN (existing .env)
+#   5. $DOMO_DEVELOPER_TOKEN
+# To add another instance, drop its token into .env under one of these names,
+# e.g.  DOMO_SIMPLYTHANKYOU_DEVELOPER_TOKEN=...  for simplythankyou-co-uk-1.
+#
+# The token is never printed. Output goes to stdout; diagnostics to stderr.
+set -euo pipefail
+
+# --- resolve project root & load .env (same pattern as bin/armos) ---------
+SOURCE=$0
+while [ -h "$SOURCE" ]; do
+  DIR=$(cd -P "$(dirname "$SOURCE")" && pwd)
+  SOURCE=$(readlink "$SOURCE")
+  case $SOURCE in /*) ;; *) SOURCE="$DIR/$SOURCE" ;; esac
+done
+SCRIPT_DIR=$(cd -P "$(dirname "$SOURCE")" && pwd)
+# Find the project root by climbing for a marker, so this works whether the
+# script lives in bin/ or bundled in .claude/skills/dataset-schema/ (after
+# sync-skills.sh). Fall back to climbing from CWD.
+find_root() {
+  d=$1
+  while [ "$d" != "/" ]; do
+    if [ -f "$d/.mcp.json" ] || [ -f "$d/.env" ] || [ -d "$d/.git" ]; then
+      echo "$d"; return 0
+    fi
+    d=$(dirname "$d")
+  done
+  return 1
+}
+ROOT=$(find_root "$SCRIPT_DIR") || ROOT=$(find_root "$PWD") || ROOT=""
+if [ -n "$ROOT" ] && [ -f "$ROOT/.env" ]; then set -a; . "$ROOT/.env"; set +a; fi
+
+usage() { sed -n '2,40p' "$SOURCE" | sed 's/^# \{0,1\}//'; exit "${1:-0}"; }
+
+INSTANCE="" TOKEN="" JSON=0 SQL="SELECT * FROM table LIMIT 1" ARG=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -i|--instance) INSTANCE="$2"; shift 2 ;;
+    -t|--token)    TOKEN="$2";    shift 2 ;;
+    -j|--json)     JSON=1;        shift ;;
+    --sql)         SQL="$2";      shift 2 ;;
+    -h|--help)     usage 0 ;;
+    -*)            echo "dataset-schema: unknown option $1" >&2; usage 1 ;;
+    *)             ARG="$1";      shift ;;
+  esac
+done
+[ -n "$ARG" ] || { echo "dataset-schema: need a dataset id or details-page URL" >&2; usage 1; }
+
+# --- parse instance + dataset id from a URL if one was given -----------------
+DSID="$ARG"
+case "$ARG" in
+  http*://*)
+    host_from_url=$(printf '%s' "$ARG" | sed -E 's#^[a-z]+://([^/]+)/.*#\1#')
+    id_from_url=$(printf '%s' "$ARG" | sed -E 's#.*/datasources/([0-9a-fA-F-]{36}).*#\1#')
+    [ -n "$id_from_url" ] && [ "$id_from_url" != "$ARG" ] && DSID="$id_from_url"
+    [ -z "$INSTANCE" ] && INSTANCE="$host_from_url"
+    ;;
+esac
+
+# validate the dataset id looks like a UUID
+case "$DSID" in
+  [0-9a-fA-F]*-*-*-*-*) : ;;
+  *) echo "dataset-schema: '$DSID' does not look like a dataset UUID" >&2; exit 1 ;;
+esac
+
+# --- normalize instance -> host ("sub", "host.domo.com", or full host) -------
+[ -n "$INSTANCE" ] || INSTANCE="${DOMO_INSTANCE:-wings-travel}"
+case "$INSTANCE" in
+  *.*) HOST="$INSTANCE" ;;          # already a host (custom domain or *.domo.com)
+  *)   HOST="$INSTANCE.domo.com" ;; # bare subdomain
+esac
+SUB="${HOST%%.*}"  # first label, e.g. "wings-travel"
+
+# --- resolve token by convention (never printed) -----------------------------
+if [ -z "$TOKEN" ]; then
+  upper() { printf '%s' "$1" | tr '[:lower:]-' '[:upper:]_'; }
+  cand1="DOMO_$(upper "$SUB")_DEVELOPER_TOKEN"        # WINGS_TRAVEL
+  cand2="DOMO_$(upper "${SUB%%-*}")_DEVELOPER_TOKEN"  # WINGS (first segment)
+  for var in DOMO_SCHEMA_TOKEN "$cand1" "$cand2" DOMO_DEVELOPER_TOKEN; do
+    val="${!var:-}"
+    if [ -n "$val" ]; then TOKEN="$val"; TOKEN_SRC="$var"; break; fi
+  done
+else
+  TOKEN_SRC="--token"
+fi
+if [ -z "$TOKEN" ]; then
+  echo "dataset-schema: no token for $HOST. Set one in .env as" >&2
+  echo "  DOMO_$(printf '%s' "$SUB" | tr '[:lower:]-' '[:upper:]_')_DEVELOPER_TOKEN=... (or pass --token)" >&2
+  exit 1
+fi
+
+# --- call the query API ------------------------------------------------------
+URL="https://$HOST/api/query/v1/execute/$DSID"
+body=$(printf '{"sql":%s}' "$(printf '%s' "$SQL" | python3 -c 'import json,sys;print(json.dumps(sys.stdin.read()))')")
+resp=$(curl -sS -X POST "$URL" \
+  -H "X-DOMO-DEVELOPER-TOKEN: $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "$body") || { echo "dataset-schema: request to $HOST failed" >&2; exit 1; }
+
+echo "dataset-schema: $HOST  $DSID  (token: \$$TOKEN_SRC)" >&2
+
+# --- format columns + types --------------------------------------------------
+printf '%s' "$resp" | JSON=$JSON python3 -c '
+import json, os, sys
+raw = sys.stdin.read()
+try:
+    d = json.loads(raw)
+except Exception:
+    sys.stderr.write("dataset-schema: non-JSON response (auth/URL problem):\n" + raw[:400] + "\n")
+    sys.exit(1)
+cols = d.get("columns")
+meta = d.get("metadata") or []
+if not cols:
+    sys.stderr.write("dataset-schema: no schema in response: " + json.dumps(d)[:400] + "\n")
+    sys.exit(1)
+types = [ (m or {}).get("type", "") for m in meta ]
+types += [""] * (len(cols) - len(types))
+pairs = list(zip(cols, types))
+if os.environ.get("JSON") == "1":
+    print(json.dumps([{"name": c, "type": t} for c, t in pairs], indent=2))
+else:
+    w = max((len(c) for c in cols), default=0)
+    for c, t in pairs:
+        print(f"{c.ljust(w)}\t{t}")
+    sys.stderr.write(f"dataset-schema: {len(cols)} columns\n")
+'

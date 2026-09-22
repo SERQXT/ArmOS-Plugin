@@ -1,0 +1,17 @@
+{
+  "name": "My Domo App",
+  "version": "1.0.0",
+  "size": {
+    "width": 4,
+    "height": 4
+  },
+  "mapping": [
+    {
+      "dataSetId": "REPLACE_WITH_DATASET_UUID",
+      "alias": "mainData",
+      "fields": []
+    }
+  ],
+  "collections": [],
+  "fileName": "index.html"
+}
