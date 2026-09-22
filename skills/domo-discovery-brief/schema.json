@@ -1,0 +1,355 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://domo.com/skills/domo-discovery-brief/schema/v0.3.0",
+  "title": "Domo Discovery Brief Content Payload",
+  "description": "Source-of-truth payload for a Domo pre-proposal Discovery Brief. Designed as a structurally compatible subset of the engagement content schema — fields that overlap (client, stakeholders, pain_points, proposed solution shape) use the same names and shapes so domo-interactive-proposal-builder can consume this payload as starting context. Schema 0.3.0 renames `proposed_phase_shape` → `proposed_solution_shape` to match Domo's customer-facing engagement vocabulary, in lockstep with the proposal-builder rename.",
+  "type": "object",
+  "required": ["meta", "discovery", "client", "stakeholders", "current_state", "target_outcomes", "open_questions"],
+  "properties": {
+
+    "meta": {
+      "type": "object",
+      "required": ["schema_version", "brief_date"],
+      "properties": {
+        "schema_version": { "type": "string", "const": "0.3.0" },
+        "brief_date":     { "type": "string", "format": "date", "description": "Date this brief was authored." },
+        "brief_version":  { "type": "string", "default": "v1.0" },
+        "author":         { "type": "string", "description": "Domo team member who authored or commissioned the brief." },
+        "confidentiality":{ "type": "string", "default": "Internal — Pre-Sales" }
+      }
+    },
+
+    "discovery": {
+      "type": "object",
+      "description": "Context of the discovery itself — when it happened, who attended, what source material this brief was extracted from.",
+      "required": ["sources"],
+      "properties": {
+        "date":      { "type": "string", "format": "date", "description": "Discovery call date (or earliest if multiple)." },
+        "attendees": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "side"],
+            "properties": {
+              "name":  { "type": "string" },
+              "title": { "type": "string" },
+              "side":  { "type": "string", "enum": ["client", "domo"] }
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "description": "What source material this brief was built from.",
+          "items": {
+            "type": "object",
+            "required": ["type", "label"],
+            "properties": {
+              "type":  { "type": "string", "enum": ["transcript", "meeting_notes", "rfp_response", "email_thread", "scoping_conversation", "prior_engagement", "other"] },
+              "label": { "type": "string", "description": "Short identifier (e.g. 'March 18 proposal review')." }
+            }
+          }
+        }
+      }
+    },
+
+    "client": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name":         { "type": "string", "description": "Full client/organization name." },
+        "short_name":   { "type": "string", "description": "Acronym or shortened reference (e.g. 'PHA')." },
+        "industry":     { "type": "string" },
+        "size_signal":  { "type": "string", "description": "Free text — e.g. '150+ member orgs', 'mid-market healthcare', '$50M ARR'." },
+        "strategic_posture": { "type": "string", "description": "One-line on where the client is — growing, consolidating, distressed, transforming, etc." },
+        "prior_relationship": { "type": "string", "description": "Free text on existing Domo relationship if any (POC, prior SOW, license but no services, etc.)." }
+      }
+    },
+
+    "stakeholders": {
+      "type": "array",
+      "description": "Stakeholder map. Compatible with sow_payload.client.primary_stakeholders.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "title"],
+        "properties": {
+          "name":    { "type": "string" },
+          "title":   { "type": "string" },
+          "side":    { "type": "string", "enum": ["client", "domo"], "default": "client" },
+          "decision_authority": { "type": "string", "enum": ["decider", "influencer", "approver", "user", "blocker", "unknown"], "default": "unknown" },
+          "disposition":        { "type": "string", "enum": ["champion", "supporter", "neutral", "skeptic", "blocker", "unknown"], "default": "unknown" },
+          "key_concerns":       { "type": "string", "description": "What this stakeholder cares about most. Free text." },
+          "notes":              { "type": "string" }
+        }
+      }
+    },
+
+    "strategic_context": {
+      "type": "string",
+      "description": "Optional 1–3 paragraph framing of the client's situation at the system level — the *real* problem behind the surface ask. Becomes the seed for the SOW's Strategic Context section."
+    },
+
+    "current_state": {
+      "type": "object",
+      "required": ["pain_points"],
+      "properties": {
+        "tech_stack": {
+          "type": "array",
+          "description": "Tools, platforms, and systems the client uses today.",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name":    { "type": "string" },
+              "purpose": { "type": "string", "description": "What it's used for in this client's context." },
+              "status":  { "type": "string", "enum": ["active", "deprecated", "decommissioned", "interim", "planned"], "default": "active" }
+            }
+          }
+        },
+        "data_flow": {
+          "type": "string",
+          "description": "Free-text description of how data moves through the current stack today. Plain English, not architecture jargon."
+        },
+        "pain_points": {
+          "type": "array",
+          "description": "Specific, evidenced pain points. Each pain point has description + evidence + implied impact.",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["description", "evidence"],
+            "properties": {
+              "description":     { "type": "string", "description": "Specific pain point with numbers, time periods, or named systems where possible." },
+              "evidence":        { "type": "string", "description": "Verbatim quote, document reference, or paraphrased source statement that grounds this pain point." },
+              "implied_impact":  { "type": "string", "description": "What this costs the client today (revenue, time, reputation, etc.)." }
+            }
+          }
+        },
+        "what_works": {
+          "type": "array",
+          "description": "Things in the current state that should NOT be replaced. Often forgotten in scoping.",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "target_outcomes": {
+      "type": "object",
+      "required": ["business_outcomes"],
+      "properties": {
+        "business_outcomes": {
+          "type": "array",
+          "description": "Measurable business outcomes the client expects. Compatible with sow_payload.executive_summary.future_state.rows when reframed for client-facing voice.",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "success_criteria": {
+          "type": "array",
+          "description": "What 'done' looks like — observable conditions the client uses to validate the engagement succeeded.",
+          "items": { "type": "string" }
+        },
+        "strategic_implications": {
+          "type": "string",
+          "description": "What changes for the client beyond the engagement — adjacent capabilities unlocked, future investments enabled, market posture shifted."
+        }
+      }
+    },
+
+    "hidden_value": {
+      "type": "array",
+      "description": "Secondary use cases and adjacent value the client did NOT explicitly ask for, but that become possible once the explicit ask is solved. This is the gold of discovery.",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name":           { "type": "string", "description": "Short label (e.g. 'Member experience uplift')." },
+          "description":    { "type": "string", "description": "Frame as: client asked for X; with the foundation we build for X, Y also becomes possible at marginal additional cost." },
+          "marginal_cost":  { "type": "string", "description": "Optional rough sense of incremental scope (e.g. 'no additional cost — leverages Solution 1 architecture')." }
+        }
+      }
+    },
+
+    "proposed_solution_shape": {
+      "type": "array",
+      "description": "Draft solution shape — names, weeks, hour ranges. Compatible with the proposal builder's `solutions[]` array (the proposal builder adds detailed LOE rows during enrichment). Mark clearly as a DRAFT to be refined downstream. Renamed from `proposed_phase_shape` in schema 0.3.0 to match Domo's customer-facing engagement vocabulary.",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "rough_hours", "rationale"],
+        "properties": {
+          "id":          { "type": "string", "pattern": "^p[0-9]+$", "description": "Stable identifier (e.g. 'p1'). Will carry through to the proposal." },
+          "title":       { "type": "string" },
+          "weeks_label": { "type": "string", "description": "Rough timing (e.g. 'Weeks 1–5' or 'After Solution 1'). May be unset if the brief doesn't have enough info." },
+          "rough_hours": {
+            "type": "object",
+            "required": ["low", "high"],
+            "properties": {
+              "low":  { "type": "integer", "minimum": 1 },
+              "high": { "type": "integer", "minimum": 1 }
+            }
+          },
+          "rationale":   { "type": "string", "description": "Why this solution is shaped this way. Explains sequencing, scope choice, dependencies." },
+          "key_deliverables": {
+            "type": "array",
+            "description": "3–6 high-signal deliverables. The proposal builder will expand each into the full deliverable object form.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "out_of_scope_initial": {
+      "type": "array",
+      "description": "Things the client mentioned but that should NOT be part of this engagement (different SOW, different vendor, future state, separate solution).",
+      "items": { "type": "string" }
+    },
+
+    "risks_and_dependencies": {
+      "type": "array",
+      "description": "Things that could derail or delay the engagement, and external factors the engagement depends on.",
+      "items": {
+        "type": "object",
+        "required": ["description"],
+        "properties": {
+          "description": { "type": "string" },
+          "type":        { "type": "string", "enum": ["risk", "dependency", "constraint"], "default": "risk" },
+          "severity":    { "type": "string", "enum": ["low", "medium", "high", "critical"], "default": "medium" }
+        }
+      }
+    },
+
+    "commercial_signals": {
+      "type": "object",
+      "description": "Commercial context surfaced *during* discovery — what stakeholders said. Distinct from external_guidance, which captures context the brief author brings in from outside the source material.",
+      "properties": {
+        "timing_pressure": { "type": "string", "description": "When does this need to happen, and why. E.g. 'contract by May 15 to position June go-live before next collection cycle'." },
+        "budget_signals":  { "type": "string", "description": "What the client said about budget (or didn't say). Direct figures, ranges, or reaction patterns." },
+        "rate_context":    { "type": "string", "description": "Anything affecting the rate negotiation — discount expectations, comparison to other vendors, etc." },
+        "competing_solutions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name":     { "type": "string" },
+              "status":   { "type": "string", "enum": ["evaluating", "incumbent", "ruled_out", "wildcard"], "default": "evaluating" },
+              "notes":    { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "external_guidance": {
+      "type": "object",
+      "description": "External pricing, delivery, and timeline guidance the brief author brings in from *outside* the source material — Salesforce, prior call notes, account team tribal knowledge, Domo internal context. Strictly distinct from commercial_signals (what stakeholders said in the discovery itself). Downstream the proposal builder should treat external_guidance as internal context — high-trust for sizing decisions, but never quoted verbatim to the customer the way commercial_signals quotes can be. Entire section is optional; omit if the author has nothing to add beyond the source material.",
+      "properties": {
+        "account_economics": {
+          "type": "object",
+          "description": "Account-level commercial footprint that frames the size and shape of the engagement.",
+          "properties": {
+            "acv":                  { "type": "string", "description": "Annual Contract Value as a string (e.g. '$420K', '$1.2M'). String rather than number to allow ranges, approximations, or 'unknown'." },
+            "tcv":                  { "type": "string", "description": "Total Contract Value across the current term." },
+            "contract_term":        { "type": "string", "description": "Length of the current contract — e.g. '3 years', 'annual'." },
+            "renewal_window":       { "type": "string", "description": "When the next renewal lands and any decision-cycle nuance — e.g. 'Q3 2026, formal review starts April'." },
+            "license_footprint":    { "type": "string", "description": "What the customer has licensed today — user counts, modules, environments (e.g. 'Standard tier, 800 users, HIPAA-eligible env, no AI Service add-on yet')." },
+            "expansion_potential":  { "type": "string", "description": "Account team's read on expansion headroom — e.g. 'AI Service add-on already discussed for FY27; MSP add-on flagged by Nadia.'" }
+          }
+        },
+        "pricing_guidance": {
+          "type": "object",
+          "description": "Pricing posture the brief author wants downstream artifacts (scope, proposal, SOW) to respect.",
+          "properties": {
+            "rate_posture":            { "type": "string", "description": "Default-rate-vs-discount stance. E.g. 'standard $275/hr, no discount needed', 'expect to lead with $250/hr given strategic account status'." },
+            "discount_authority":      { "type": "string", "description": "Who has authority to approve which discount levels, and any pre-cleared concessions." },
+            "package_preference":      { "type": "string", "description": "Preferred commercial package shape — fixed-fee per solution, T&M, hybrid, retainer, etc." },
+            "competitive_pressure":    { "type": "string", "description": "Known competitive context the author wants the scope to account for, even if the customer didn't surface it on the call." },
+            "target_total_investment": { "type": "string", "description": "Optional anchor for downstream sizing — a target Total Investment ceiling or sweet-spot number the proposal should land near (e.g. '~$160K ceiling', '$120K–$180K sweet spot'). Used by the proposal builder as a sanity check against the LOE math, not as a binding constraint." },
+            "notes":                   { "type": "string", "description": "Free-text catch-all for pricing context that doesn't fit the structured fields." }
+          }
+        },
+        "delivery_guidance": {
+          "type": "object",
+          "description": "Delivery model and team-shape guidance the author wants the engagement designed around.",
+          "properties": {
+            "preferred_model":     { "type": "string", "description": "Preferred delivery shape — e.g. 'AI-accelerated solo SA + part-time architect', 'full pod (SA + IC + PM)', 'embedded for 90 days then handoff'." },
+            "team_composition":    { "type": "string", "description": "Specific named resources or roles to staff or avoid (e.g. 'Marcus Brown must stay on Solution 1 — owns the POC scaffolding')." },
+            "phasing_preference":  { "type": "string", "description": "Sequential vs parallel sequencing preference across solutions, plus any solution-overlap constraints. Field name retained for handoff compatibility." },
+            "customer_capacity":   { "type": "string", "description": "Author's read on how much the customer can absorb — staffing, change capacity, training tolerance." },
+            "notes":               { "type": "string", "description": "Free-text catch-all for delivery context." }
+          }
+        },
+        "timeline_guidance": {
+          "type": "object",
+          "description": "Timeline anchors and constraints sourced from outside the discovery — internal account plans, Salesforce close dates, regulatory deadlines the customer didn't mention.",
+          "properties": {
+            "target_start":     { "type": "string", "description": "Target engagement start date or window (e.g. 'late May 2026', 'within two weeks of contract execution')." },
+            "must_finish_by":   { "type": "string", "description": "Hard finish-by date or window driven by external factors (member-facing rollout, fiscal-year boundary, regulatory cycle)." },
+            "blackout_periods": { "type": "string", "description": "Known dark periods — customer fiscal close, holiday freezes, executive offsites, etc. Free text or comma-separated." },
+            "sequencing_constraints": { "type": "string", "description": "External sequencing constraints — dependencies on other vendor projects, regulatory filings, AMS or platform replacements running in parallel." },
+            "notes":            { "type": "string", "description": "Free-text catch-all for timeline context." }
+          }
+        },
+        "anecdotal_context": {
+          "type": "string",
+          "description": "Free-text catch-all for ancillary, anecdotal, or political context the brief author knows from outside the discovery and wants downstream artifacts to take into account. Examples: prior CSM relationship history, executive-level personality reads, organizational dynamics not surfaced on the call, recent customer wins or losses elsewhere. Plain English, no structure required."
+        }
+      }
+    },
+
+    "stakeholder_dynamics": {
+      "type": "object",
+      "description": "Internal dynamics surfaced during discovery — decision criteria, objections, champions, politics.",
+      "properties": {
+        "decision_criteria": {
+          "type": "array",
+          "description": "Explicit criteria stakeholders said they would use to evaluate the proposal.",
+          "items": { "type": "string" }
+        },
+        "concerns_raised": {
+          "type": "array",
+          "description": "Specific concerns or objections raised during discovery.",
+          "items": { "type": "string" }
+        },
+        "internal_dynamics": {
+          "type": "string",
+          "description": "Free text on internal politics, alignment between stakeholders, organizational change capacity, etc."
+        }
+      }
+    },
+
+    "key_quotes": {
+      "type": "array",
+      "description": "Verbatim quotes from stakeholders that should drive the SOW narrative. 3–8 typically. Verbatim is more powerful than paraphrase in the SOW.",
+      "items": {
+        "type": "object",
+        "required": ["quote", "speaker"],
+        "properties": {
+          "quote":    { "type": "string", "description": "Verbatim text. Use ellipsis (…) for elision but never paraphrase." },
+          "speaker":  { "type": "string", "description": "Stakeholder name." },
+          "title":    { "type": "string", "description": "Speaker's title at time of quote." },
+          "context":  { "type": "string", "description": "What was being discussed when this was said." }
+        }
+      }
+    },
+
+    "open_questions": {
+      "type": "array",
+      "description": "Things Claude could NOT determine from the source material. The most important section of the brief on first capture. Empty Open Questions sections almost always mean the AI hallucinated something. Each question is specific and actionable for the human reviewer.",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "required": ["question"],
+        "properties": {
+          "question": { "type": "string", "description": "Specific, actionable question for the human reviewer." },
+          "category": { "type": "string", "enum": ["client", "stakeholders", "current_state", "target_outcomes", "scope", "commercial", "technical", "other"], "default": "other" },
+          "blocking": { "type": "boolean", "default": false, "description": "True if this question must be answered before the SOW can be built. False if the SOW can be drafted with assumptions." }
+        }
+      }
+    },
+
+    "brief_author_notes": {
+      "type": "string",
+      "description": "Optional free-text section for the brief author (Claude or human) to note things that don't fit neatly elsewhere — observations, hypotheses, things to validate."
+    }
+  }
+}

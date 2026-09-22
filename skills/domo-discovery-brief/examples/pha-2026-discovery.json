@@ -1,0 +1,406 @@
+{
+  "meta": {
+    "schema_version": "0.3.0",
+    "brief_date": "2026-04-23",
+    "brief_version": "v1.0",
+    "author": "Mark Lees",
+    "confidentiality": "Internal — Pre-Sales"
+  },
+
+  "discovery": {
+    "date": "2026-04-23",
+    "attendees": [
+      { "name": "Maya Chen",      "title": "SVP, Quality & Compliance",          "side": "client" },
+      { "name": "David Reeves", "title": "Sr. Director, Technology",           "side": "client" },
+      { "name": "Mark Lees",       "title": "Solutions Director",                 "side": "domo" },
+      { "name": "Anika Patel",          "title": "Implementation Consultant",          "side": "domo" },
+      { "name": "Marcus Brown",           "title": "Technical Resource",                 "side": "domo" }
+    ],
+    "sources": [
+      { "type": "scoping_conversation", "label": "March 18, 2026 proposal review with PHA" },
+      { "type": "prior_engagement",     "label": "Marcus Brown's existing QHR portal POC scaffolding" },
+      { "type": "meeting_notes",        "label": "Notes from Aaron Cole re: existing Data 360 crosswalk scripts" }
+    ]
+  },
+
+  "client": {
+    "name": "Pacific Healthcare Association",
+    "short_name": "PHA",
+    "industry": "Healthcare association — Healthcare quality reporting consortium",
+    "size_signal": "150+ member member healthcare organizations with parent/child site hierarchy",
+    "strategic_posture": "Mid-transformation. Decommissioned legacy QHR portal, currently on interim SharePoint site, looking to consolidate fragmented stack onto Domo before the next collection cycle forces a temporary fix.",
+    "prior_relationship": "Existing Domo platform license including HIPAA-eligible environment. Active POC scaffolding from Marcus Brown. ACE support package included (80 hours/year)."
+  },
+
+  "stakeholders": [
+    {
+      "name": "Maya Chen", "title": "SVP, Quality & Compliance", "side": "client",
+      "decision_authority": "decider",
+      "disposition": "supporter",
+      "key_concerns": "Member experience cannot be compromised — PHA is a member-facing organization. Wants change management built into rollout, not an afterthought. Pushing for one transition, not two."
+    },
+    {
+      "name": "David Reeves", "title": "Sr. Director, Technology", "side": "client",
+      "decision_authority": "approver",
+      "disposition": "champion",
+      "key_concerns": "Wants the data team to become self-sufficient on Domo over time. Concerned about the dual-login experience while AMS replacement is pending. Confirmed the 'one transition, not two' principle as a goal."
+    },
+    {
+      "name": "Aaron Cole", "title": "Data Team — Owner of existing QHR crosswalk scripts", "side": "client",
+      "decision_authority": "user",
+      "disposition": "neutral",
+      "key_concerns": "Existing Data 360 crosswalk scripts and QA logic are tribal knowledge. Solution 2 success depends on porting his work cleanly."
+    },
+    {
+      "name": "Nadia Park", "title": "Domo MSP Lead", "side": "domo",
+      "decision_authority": "influencer",
+      "disposition": "champion",
+      "key_concerns": "MSP add-on is a natural fit during Year 1 ramp-up. Will present separately as complement to implementation SOW."
+    }
+  ],
+
+  "strategic_context": "PHA's data infrastructure challenge isn't a single problem — it's a collection of compounding constraints. PHI clinical data flows through ad-hoc transfers, financial and operational data through manual spreadsheet intake, and QA/ETL through a patchwork of SQL scripts, MS Access, Data 360, and Tableau. The headline symptom is a 12-to-18-month lag from data collection to published QHR report, which has eroded PHA's analytical credibility with its membership. Leadership has identified closing this gap as the single most important outcome. The window is narrow: PHA needs a permanent intake channel before the next collection cycle forces them to point members at the interim SharePoint site, which would mean two member-facing transitions instead of one. Domo is positioned to consolidate the full stack (Tableau, AWS, Data 360, Access, custom portals) into a single environment PHA can operate independently long-term.",
+
+  "current_state": {
+    "tech_stack": [
+      { "name": "QHR Portal (legacy)",      "purpose": "PHI clinical data submission from member orgs", "status": "decommissioned" },
+      { "name": "Interim SharePoint site",  "purpose": "Bridge for PHI submissions until permanent solution is live", "status": "interim" },
+      { "name": "Email + spreadsheet intake","purpose": "Non-PHI financial, staffing, quality/compliance data collection", "status": "active" },
+      { "name": "Microsoft Access",         "purpose": "Intermediate data store and ETL staging", "status": "active" },
+      { "name": "Data 360",                 "purpose": "QHR taxonomy crosswalk and data transformation (Aaron Cole's scripts)", "status": "active" },
+      { "name": "SQL scripts (custom)",     "purpose": "Manual data QA and pipeline operations", "status": "active" },
+      { "name": "Tableau",                  "purpose": "Reporting; PDF distribution to members via email", "status": "active" },
+      { "name": "AWS",                      "purpose": "Hosting infrastructure for legacy QHR portal", "status": "deprecated" }
+    ],
+    "data_flow": "Members submit PHI via the (now decommissioned) QHR portal — currently being directed to interim SharePoint. Files land in AWS infrastructure. Data is manually QA'd via SQL and Access, transformed through Data 360 crosswalks (Aaron Cole's scripts), then loaded into Tableau for reporting. Reports get exported as static PDF and emailed to members annually. Non-PHI financial and operational data follows a parallel manual path through email + spreadsheet intake. The combined cycle stretches 12 to 18 months from data collection to published report.",
+    "pain_points": [
+      {
+        "description": "QHR reporting lag of 12 to 18 months from data collection to published report",
+        "evidence": "PHA's QHR report for 2024 data — collected by end of Q2 2025 — was not published until early 2026.",
+        "implied_impact": "Member trust in PHA's analytical relevance has eroded. Member retention and renewal at risk if the lag continues."
+      },
+      {
+        "description": "Decommissioned legacy QHR portal leaves no permanent submission channel",
+        "evidence": "Interim SharePoint site has been prepared as a bridge, but using it would mean directing members through a temporary process and re-transitioning to Domo within the same year.",
+        "implied_impact": "Two member-facing transitions in one year — communication burden, rollout fatigue, friction at exactly the wrong moment."
+      },
+      {
+        "description": "Manual ETL and crosswalk work across SQL scripts, Access, and Data 360",
+        "evidence": "Aaron Cole maintains the QHR taxonomy crosswalk by hand. EHR column changes from vendor updates require manual rework each cycle.",
+        "implied_impact": "Significant analyst capacity locked in repetitive plumbing work. Single-point-of-failure risk if Aaron Cole is unavailable."
+      },
+      {
+        "description": "Static PDF email distribution — no member self-service",
+        "evidence": "Reports produced in Tableau, exported to PDF, distributed via email annually.",
+        "implied_impact": "Members can't access their own data on demand or compare against peer benchmarks. PHA's value proposition as a data resource is muted."
+      },
+      {
+        "description": "Submission tracking happens in spreadsheets — no real-time visibility",
+        "evidence": "PHA staff currently track who has submitted via manual spreadsheet maintenance.",
+        "implied_impact": "Reminder cycles are slow and error-prone. Late submissions are caught after the fact rather than prevented."
+      },
+      {
+        "description": "QHR taxonomy crosswalk requires recurring manual rework",
+        "evidence": "EHR vendors update column names and coding values; Aaron Cole reconciles each change by hand.",
+        "implied_impact": "Each EHR vendor update creates rework cycles and risk of silent data corruption if changes aren't caught in time."
+      },
+      {
+        "description": "Fragmented vendor stack — Tableau, AWS, Data 360, Access, custom portals",
+        "evidence": "Multiple vendors, multiple training surfaces, multiple integration points across the data team.",
+        "implied_impact": "License cost, training burden, integration fragility, and unclear single-vendor accountability when issues surface."
+      }
+    ],
+    "what_works": [
+      "Domo platform license including HIPAA-eligible environment is already in place",
+      "Marcus Brown's existing POC scaffolding is reusable directly into Solution 1",
+      "Aaron Cole's existing Data 360 crosswalk scripts have proven QA logic that can be ported",
+      "ACE support package (80 hours/year) is included and can run concurrent with implementation"
+    ]
+  },
+
+  "target_outcomes": {
+    "business_outcomes": [
+      "Reduce QHR reporting cycle from 12–18 months to near-real-time after validated submission",
+      "Establish a permanent, Domo-native PHI submission channel before the next collection cycle",
+      "Replace manual spreadsheet collection of non-PHI data with governed Domo Forms with required-field validation",
+      "Provide members with self-service access to their own data, peer benchmarks, and trend analysis (replacing annual PDF emails)",
+      "Consolidate Tableau, AWS, Data 360, Access, and custom-built portals into a single Domo environment",
+      "Build a foundation PHA's data team can operate independently long-term"
+    ],
+    "success_criteria": [
+      "Solution 1 QHR PHI Intake Portal live by end of June 2026 — before PHA needs to direct members to interim SharePoint",
+      "Member experience does not degrade through the transition — pilot cohort completes upload smoothly with feedback incorporated before broader rollout",
+      "AI validation agent operational by mid-August, eliminating manual QA on intake",
+      "QHR reporting available near-real-time on validated submission by late September",
+      "All four non-PHI forms (PMPM, Financial Ratios, Staffing, Quality/Compliance) live by late October",
+      "Quality intelligence engine and extended EHR coverage operational by late November"
+    ],
+    "strategic_implications": "This engagement repositions PHA from a data-publishing organization with a 12–18 month lag to a real-time data platform for the PHA community. It elevates PHA's value proposition to its membership, builds the foundation for member-facing analytics products PHA could potentially monetize in the future, and establishes the operational model for adding adjacent capabilities (predictive submission prompts, longitudinal quality audits, peer benchmarking) without rebuilding the foundation."
+  },
+
+  "hidden_value": [
+    {
+      "name": "Member experience uplift drives retention and growth",
+      "description": "Client asked for a faster reporting cycle; with the self-service member dashboards built on top of the validated pipeline, PHA's value proposition strengthens and member retention/growth becomes a quantifiable outcome rather than a hope.",
+      "marginal_cost": "Already in scope as Solution 3 — included in baseline LOE"
+    },
+    {
+      "name": "Vendor stack consolidation savings",
+      "description": "Client framed Domo as the new platform; what they haven't yet quantified is the eliminated license, infrastructure, and integration cost from retiring Tableau, Data 360, MS Access, and the AWS-hosted QHR portal. Retired vendor spend is recurring annual savings on top of capability gains.",
+      "marginal_cost": "No additional consulting cost — savings come from decommissioning"
+    },
+    {
+      "name": "Staff capacity recaptured for higher-value work",
+      "description": "Manual ETL/QA/crosswalk work eliminated through agentic validation and Magic ETL recaptures analyst FTE time. Aaron Cole's tribal knowledge gets codified into the platform rather than living as recurring manual work.",
+      "marginal_cost": "Captured automatically through Solution 2 deliverables"
+    },
+    {
+      "name": "Predictive submission prompts and quality intelligence",
+      "description": "Solution 5 adds longitudinal quality tracking and AI-generated submission nudges per org. Once Solution 2's agent framework is in place, this is a configuration exercise rather than a new build — high-value capability at marginal additional cost.",
+      "marginal_cost": "Reuses Solution 2 logs and agent framework — Solution 5 LOE is small for the capability gained"
+    },
+    {
+      "name": "Foundation for adjacent member-facing data products",
+      "description": "Once members are in a self-service Domo portal authenticated via PHA's login wall, PHA has the infrastructure to add adjacent products (e.g. policy advocacy data tools, member benchmarking products, training analytics) with marginal additional engineering. Future revenue lever PHA hasn't yet articulated."
+    }
+  ],
+
+  "proposed_solution_shape": [
+    {
+      "id": "p1",
+      "title": "QHR PHI Intake Portal — Immediate Priority",
+      "weeks_label": "Weeks 1–5",
+      "rough_hours": { "low": 58, "high": 80 },
+      "rationale": "Solution 1 must hit late-June go-live to avoid directing members to the interim SharePoint site. Scope is intentionally narrow — upload portal, Filesets governance, PHA staff submission tracker, no visualization layer. The Fileset/AppDB architecture is designed to scale into all subsequent solutions without rebuild.",
+      "key_deliverables": [
+        "Member-facing custom app embedded behind phaonline.org member login",
+        "Domo Filesets PHI upload with org-level partitioning (HIPAA-isolated)",
+        "Member authentication and RBAC for 150+ orgs with parent/child hierarchy",
+        "PHA staff submission tracker dashboard",
+        "Pilot onboarding for 5–10 early-adopter member orgs"
+      ]
+    },
+    {
+      "id": "p2",
+      "title": "Agentic QHR Validation & Taxonomy Engine",
+      "weeks_label": "Weeks 4–12 (overlaps with Solution 1 UAT)",
+      "rough_hours": { "low": 112, "high": 158 },
+      "rationale": "Adds intelligence on top of Solution 1's data plumbing. AI agent reviews uploaded files, flags issues, routes for human approval. Taxonomy crosswalk ports Aaron Cole's existing Data 360 logic with AI-assisted translation. Big 3 EHR vendors first (~80% of submission volume); long tail in Solution 5.",
+      "key_deliverables": [
+        "Agentic validation pipeline against required field checklist",
+        "Human-in-loop approval workflow for PHA staff",
+        "QHR taxonomy crosswalk engine (ported from Aaron Cole's Data 360 scripts)",
+        "EHR pathway routing for top 3 vendors with column-change detection"
+      ]
+    },
+    {
+      "id": "p3",
+      "title": "QHR Analytics Dashboard & Member Reporting",
+      "weeks_label": "Weeks 10–17",
+      "rough_hours": { "low": 82, "high": 118 },
+      "rationale": "Replaces the Tableau → PDF → email distribution model with self-service member dashboards. Members see their own data plus anonymized peer benchmarks in near-real time. Retires the 12–18 month lag.",
+      "key_deliverables": [
+        "Member-facing QHR portal (self-service, PDP-scoped per Member ID)",
+        "PHA staff aggregate dashboard with org/region/EHR drill-downs",
+        "5-year historical data integration for trend continuity",
+        "On-demand PDF export"
+      ]
+    },
+    {
+      "id": "p4",
+      "title": "Non-PHI Form Ingestion & Financial Dashboards",
+      "weeks_label": "Weeks 14–21",
+      "rough_hours": { "low": 96, "high": 136 },
+      "rationale": "Sequenced after the QHR PHI portal launch per Mia's directive. PHA's financial collection is already underway and concludes within the original window, so this work picks up once QHR is established and member experience is stable. ~50 Tableau visuals migrate to Domo using Pacific Drift palette.",
+      "key_deliverables": [
+        "Domo Forms for PMPM, Financial Ratios, Staffing, Quality/Compliance",
+        "~50 Tableau visual migrations to Domo (consolidated into 4 dashboards)",
+        "Staggered form calendar matching annual collection schedule"
+      ]
+    },
+    {
+      "id": "p5",
+      "title": "Data Quality Intelligence, Extended EHR Coverage & SSO",
+      "weeks_label": "Weeks 19–26",
+      "rough_hours": { "low": 66, "high": 98 },
+      "rationale": "Extends coverage to the full membership and establishes durable quality intelligence. EHR coverage expanded beyond Big 3 to all 15 vendors. SSO planning scopes future AMS integration.",
+      "key_deliverables": [
+        "Data quality audit engine with longitudinal per-org tracking",
+        "Extended EHR pathway coverage for 12 additional vendors",
+        "Predictive submission prompts (AI-generated nudges)",
+        "SSO planning for future AMS integration"
+      ]
+    }
+  ],
+
+  "out_of_scope_initial": [
+    "Migration or data extraction from the interim SharePoint site (PHA's responsibility)",
+    "Direct live EHR API connections / automated data pulls (future state beyond Solution 5)",
+    "SSO / single sign-on implementation (pending AMS replacement — separate engagement)",
+    "Modification or maintenance of PHA's existing Tableau environment",
+    "Managed Services / ongoing platform administration (separate Domo MSP engagement to be presented by Nadia Park's team)",
+    "AWS infrastructure or Data 360 decommissioning (PHA's internal responsibility once Domo is live)"
+  ],
+
+  "risks_and_dependencies": [
+    {
+      "type": "dependency",
+      "severity": "critical",
+      "description": "Contract execution by approximately May 15 to enable team mobilization within one week and Solution 1 late-June go-live."
+    },
+    {
+      "type": "dependency",
+      "severity": "high",
+      "description": "Aaron Cole's existing Data 360 crosswalk scripts and QA logic must be shared before Solution 2 architecture begins."
+    },
+    {
+      "type": "dependency",
+      "severity": "high",
+      "description": "David/IT must enable Domo app embedding on phaonline.org behind the existing member login wall before Solution 1 UAT."
+    },
+    {
+      "type": "dependency",
+      "severity": "medium",
+      "description": "EHR system mapping (which org uses which EHR) must be provided from existing PHA records before Solution 2 routing logic is built."
+    },
+    {
+      "type": "risk",
+      "severity": "medium",
+      "description": "Pilot cohort selection — 5 to 10 orgs need to be identified by Mia. Wrong cohort selection (e.g. all sympathetic orgs, no critical voices) reduces feedback signal quality."
+    },
+    {
+      "type": "constraint",
+      "severity": "medium",
+      "description": "PHA accepts dual-login experience as interim state until AMS replacement enables SSO. Communication strategy must explain this clearly."
+    }
+  ],
+
+  "commercial_signals": {
+    "timing_pressure": "Contract execution by approximately May 15 to position Solution 1 go-live in late June, before PHA would need to direct members to an interim SharePoint solution. Full five-solution engagement completes within six months (late November 2026).",
+    "budget_signals": "Not explicitly discussed during March 18 review. Existing license investment indicates PHA is committed; the question is consulting scope, not platform commitment.",
+    "rate_context": "Standard $275/hr Domo blended consulting rate assumed. AI-accelerated delivery model produces 40–50% leaner estimates than traditional integrators — this is a competitive lever if rate is challenged.",
+    "competing_solutions": [
+      { "name": "Custom rebuild of legacy QHR portal", "status": "ruled_out", "notes": "Would not consolidate the broader stack and creates ongoing maintenance burden PHA's data team can't sustain." },
+      { "name": "Continuing fragmented stack (Tableau + AWS + Data 360 + Access)", "status": "ruled_out", "notes": "Cycle lag is the headline problem — staying on this stack means staying with the lag." }
+    ]
+  },
+
+  "external_guidance": {
+    "account_economics": {
+      "acv": "$340K (FY26)",
+      "tcv": "$1.02M across the current 3-year term (FY25–FY27)",
+      "contract_term": "3-year platform agreement, mid-term",
+      "renewal_window": "Q3 FY27 — formal renewal review begins April 2027; account team wants services momentum visible by then",
+      "license_footprint": "Standard tier with HIPAA-eligible environment, ~250 user seats provisioned (active usage closer to 80), AI Service add-on not yet purchased, ACE support package (80 hours/year) already included",
+      "expansion_potential": "Strong — Nadia Park's MSP team flagged for Year 1 ramp; AI Service add-on is the natural FY27 expansion lever once Solution 2's agentic validation proves credit pull-through; member-facing analytics products in Solution 3 open a use-case-billing conversation"
+    },
+    "pricing_guidance": {
+      "rate_posture": "Standard $275/hr blended consulting rate. Account team has not pre-cleared a discount and does not believe one is needed — PHA's existing license commitment and the late-June calendar pressure are the primary leverage points, not rate.",
+      "discount_authority": "Solutions Director (Mark Lees) has authority up to 10% on services for strategic accounts; anything beyond requires VP approval. Hold the line at standard rate unless the customer raises rate as a blocker.",
+      "package_preference": "Fixed-fee per solution preferred over T&M. Solution boundaries align with PHA's review cadence and make scope-change conversations cleaner if they arise mid-engagement.",
+      "competitive_pressure": "No active vendor competing for this scope — the competing solutions in the brief (custom rebuild, status-quo stack) are internal options, not external bidders. Rate negotiation should be framed against PHA's *internal* alternatives, not against a phantom competitor.",
+      "target_total_investment": "$160K–$180K sweet spot; $200K ceiling. Account team's read is that anything above $200K triggers a procurement review cycle that would jeopardize the late-June Solution 1 go-live. Sizing should aim for the sweet spot with the AI-accelerated delivery model and use the high-end Total Investment as the ceiling commitment number on the proposal.",
+      "notes": "PHA has historically priced consulting against an internal benchmark of ~$200/hr from prior vendors. The $275/hr rate has not been raised as a concern in any prior conversation — likely because the AI-accelerated hour count is materially lower than the traditional-integrator equivalent."
+    },
+    "delivery_guidance": {
+      "preferred_model": "AI-accelerated solo Solutions Architect lead (Anika Patel) with Marcus Brown retained as the Solution 1 technical resource and Mark Lees as part-time Solutions Director / engagement architect. No full pod; PHA's data team has the capacity to absorb a leaner delivery shape and the SOW math leans on AI-acceleration.",
+      "team_composition": "Marcus Brown must stay on Solution 1 — he owns the existing POC scaffolding and the relationship with Aaron Cole's Data 360 logic. Anika Patel is the right SA for the agentic validation work in Solution 2 (recent comparable build at a sister healthcare association). Avoid rotating the SA mid-engagement; Maya Chen explicitly values continuity.",
+      "phasing_preference": "Solution 2 overlaps with Solution 1 UAT (weeks 4–12) — enables agentic validation to come online concurrent with the broader pilot rollout rather than serializing. Solution 4 (non-PHI forms) holds until Solution 1 is stable per Maya's 'one transition, not two' principle.",
+      "customer_capacity": "PHA's data team is capable but stretched. Aaron Cole is single-threaded on the QHR taxonomy work. David Reeves can sponsor but cannot operate day-to-day. Plan for ~4–6 hours/week of customer-side capacity per solution, not 10+. Enablement and knowledge transfer must be embedded continuously — a final-week handoff workshop will not stick.",
+      "notes": "Account team's strong preference is for in-person kickoff in San Francisco (PHA HQ) — Maya and David both place high value on face time at engagement start. Budget travel for one consultant for kickoff."
+    },
+    "timeline_guidance": {
+      "target_start": "Late May 2026 — within one week of contract execution. Account team is positioning May 15 as the contract execution target.",
+      "must_finish_by": "End of November 2026 — full five-solution engagement. Solution 1 hard finish: late June 2026 to avoid directing members to interim SharePoint.",
+      "blackout_periods": "PHA's annual member conference is mid-September 2026 — Maya and David are unavailable that week and the Solution 3 dashboard rollout should not coincide with conference week. Late-November US holidays compress the Solution 5 close.",
+      "sequencing_constraints": "AMS replacement project (separate vendor selection) is in flight at PHA and concludes Q4 2026 — SSO planning in Solution 5 must remain *planning only* (not implementation) until AMS vendor is selected. Do not let SSO scope creep ahead of PHA's AMS decision.",
+      "notes": "Contract execution by May 15 is genuinely calendar-driven, not artificially urgent — slipping it past late May means Solution 1 cannot hit the late-June member-facing window."
+    },
+    "anecdotal_context": "Maya Chen and David Reeves are aligned and trust each other — that's unusual and load-bearing for the engagement. Don't engineer scope decisions that force them to negotiate with each other; bring decisions to them as a unified pair. Maya is the executive sponsor and the harder review on member experience; David is the operational champion and the easier review on technical scope. Aaron Cole is friendly but quiet — his contribution will be Solution 2 architecture review and crosswalk hand-off, not co-design. Nadia Park's MSP team has informally flagged interest in operating the Solution 5 quality intelligence engine as part of the Year 1 ramp; that's a separate engagement we should not surface in the implementation SOW but should keep teed up for a follow-on conversation. PHA leadership has recently lost two member organizations to a competing healthcare association over reporting timeliness — the 12–18 month lag isn't an abstract concern, it's tied to real renewal risk for PHA's own membership business."
+  },
+
+  "stakeholder_dynamics": {
+    "decision_criteria": [
+      "Solution 1 go-live before next collection cycle (calendar-pressured)",
+      "Member experience preserved through transition — Mia's red line",
+      "One transition, not two — Derek confirmed this principle",
+      "Foundation PHA's team can operate independently long-term",
+      "Reusable architecture — Solution 1 patterns must scale into Solutions 2–5 without rebuild"
+    ],
+    "concerns_raised": [
+      "Members are PHA's customers — any friction during the transition is unacceptable",
+      "Long-tenured members have years of context with how PHA operates; communication must acknowledge the change rather than minimize it",
+      "Data team needs to become self-sufficient — implementation should teach, not just deliver",
+      "Dual-login experience while AMS replacement is pending is a known interim friction"
+    ],
+    "internal_dynamics": "Mia and Derek are aligned on the strategic outcome and on the 'one transition, not two' principle. Mia leads on member experience and change management; Derek leads on technology and team capability. Aaron Cole's tribal knowledge is a Solution 2 dependency. Nadia Park's MSP team will present separately as a complementary engagement during Year 1 ramp."
+  },
+
+  "key_quotes": [
+    {
+      "quote": "PHA is a member-facing organization and member experience cannot be compromised.",
+      "speaker": "Maya Chen", "title": "SVP, Quality & Compliance",
+      "context": "Pushing back on any sequenced rollout that risks member friction during transition."
+    },
+    {
+      "quote": "We tell members once. Here is the new platform, and here is how you will submit data going forward. No interim step, no second announcement when Domo is ready.",
+      "speaker": "Maya Chen", "title": "SVP, Quality & Compliance",
+      "context": "Establishing the 'one transition, not two' principle."
+    },
+    {
+      "quote": "The goal is for the data team to become self-sufficient.",
+      "speaker": "David Reeves", "title": "Sr. Director, Technology",
+      "context": "Setting expectation for Domo's role as enabler, not perpetual operator."
+    },
+    {
+      "quote": "We're producing a 2024 QHR report in early 2026. That's the gap our members are talking about.",
+      "speaker": "David Reeves", "title": "Sr. Director, Technology",
+      "context": "Quantifying the reporting cycle lag and member feedback that's driving leadership's prioritization."
+    }
+  ],
+
+  "open_questions": [
+    {
+      "category": "scope",
+      "blocking": false,
+      "question": "Are there other non-PHI data types beyond PMPM, Financial Ratios, Staffing, and Quality/Compliance that PHA collects annually? Solution 4 assumes these four are the complete set."
+    },
+    {
+      "category": "stakeholders",
+      "blocking": false,
+      "question": "Who will be PHA's designated internal project lead day-to-day? Mia and Derek are executive sponsors; the operational lead has not been named."
+    },
+    {
+      "category": "scope",
+      "blocking": true,
+      "question": "Has PHA confirmed which 5–10 member orgs will be the Solution 1 pilot cohort? Pilot selection drives the kickoff calendar."
+    },
+    {
+      "category": "technical",
+      "blocking": false,
+      "question": "What's the exact embedding mechanism for phaonline.org — iframe, JS embed, or full-page redirect? Affects Solution 1 architecture detail but not LOE."
+    },
+    {
+      "category": "scope",
+      "blocking": false,
+      "question": "Are the 50 Tableau visuals listed (36 PMPM + 14 Financial Ratio) the complete migration set, or does PHA have additional dashboards beyond those two reports? Solution 4 LOE assumes the 50."
+    },
+    {
+      "category": "commercial",
+      "blocking": false,
+      "question": "Is the rate negotiation expected to apply to all solutions at $275/hr, or are there volume-based or solution-specific adjustments PHA wants to discuss?"
+    },
+    {
+      "category": "current_state",
+      "blocking": false,
+      "question": "How many distinct EHR vendors does the long tail of 12 (beyond Big 3) include? Solution 5 LOE assumes 12 routing rule sets — exact list affects scope."
+    },
+    {
+      "category": "client",
+      "blocking": false,
+      "question": "Does PHA have public commitments (regulatory, accreditation, or member-facing) tied to QHR reporting cadence that should inform the Solution 1 deadline beyond the late-June target?"
+    }
+  ],
+
+  "brief_author_notes": "The March 18 review surfaced the 'one transition, not two' principle as the operational anchor for the rollout. This shifted Solution 1 scope from 'QHR + non-PHI forms' to 'QHR only' so the immediate priority hits late-June without forcing members through the interim SharePoint site. The non-PHI work moves to Solution 4 (Weeks 14–21). This sequencing is the most important scope decision in the brief and should be reinforced explicitly in the SOW's Executive Summary."
+}

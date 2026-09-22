@@ -1,0 +1,13 @@
+{
+  "name": "ArmOS-Plugin",
+  "version": "0.1.0",
+  "description": "ArmOS packages Domo skills and tools as one Claude Code plugin: ~210 skills across App Studio, cards, beast modes, ETL, AppDB, Code Engine, datasets/SQL, filesets, the PS discover/align/build/adopt pipeline, proposals, and Compass portfolio intelligence, plus the /server MCP repoint command.",
+  "author": { "name": "Arminas Juknevicius" },
+  "homepage": "https://github.com/SERQXT/ArmOS-Plugin",
+  "repository": "https://github.com/SERQXT/ArmOS-Plugin",
+  "license": "MIT",
+  "keywords": ["domo", "armos", "professional-services", "app-studio", "beast-mode", "etl", "appdb", "code-engine", "compass"],
+  "mcpServers": {},
+  "skills": ["./skills/"],
+  "commands": ["./commands/"]
+}

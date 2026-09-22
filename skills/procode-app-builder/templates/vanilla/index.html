@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Domo App</title>
+
+  <!-- Phoenix Charts CDN -->
+  <link rel="stylesheet" href="https://cdn.domo.com/libs/phoenix/3.2.0/phoenix.min.css">
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1 class="app-title">My Domo App</h1>
+      <p class="app-subtitle">Powered by Domo SDK + Phoenix Charts</p>
+    </header>
+
+    <div class="app-content">
+      <!-- KPI Summary Row -->
+      <div class="kpi-row" id="kpi-row">
+        <div class="kpi-card" id="kpi-total">
+          <span class="kpi-label">Total</span>
+          <span class="kpi-value">--</span>
+        </div>
+        <div class="kpi-card" id="kpi-average">
+          <span class="kpi-label">Average</span>
+          <span class="kpi-value">--</span>
+        </div>
+        <div class="kpi-card" id="kpi-count">
+          <span class="kpi-label">Count</span>
+          <span class="kpi-value">--</span>
+        </div>
+      </div>
+
+      <!-- Chart Container -->
+      <div class="chart-section">
+        <div id="chart-container" class="chart-container"></div>
+      </div>
+
+      <!-- Data Table -->
+      <div class="table-section">
+        <table id="data-table" class="data-table">
+          <thead id="table-head"></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Domo SDK (ryuu.js) — ALWAYS include this in every Pro-Code app -->
+  <script src="https://unpkg.com/ryuu.js"></script>
+  <!-- Phoenix Charts -->
+  <script src="https://cdn.domo.com/libs/phoenix/3.2.0/phoenix.min.js"></script>
+
+  <!-- App Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

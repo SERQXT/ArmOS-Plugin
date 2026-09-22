@@ -1,0 +1,34 @@
+# ArmOS — Domo MCP servers for OpenAI Codex CLI
+#
+# Copy the [mcp_servers.*] blocks you need into ~/.codex/config.toml (or a
+# project-local ./.codex/config.toml), then export the matching DOMO_*_DEVELOPER_TOKEN
+# environment variables in your shell profile.
+#
+# Secret handling: `env_http_headers` maps a header NAME to an ENVIRONMENT VARIABLE
+# NAME. Codex reads the value from that env var at runtime, so no token is ever
+# written to this file. This mirrors the ${VAR} indirection used in the Claude
+# Code .mcp.json — never paste a literal token here.
+#
+# Naming convention (kept identical to the Claude Code side):
+#   - `domo-mcp` is the primary / active-customer server. Repoint its url + token
+#     var per engagement (use the /server prompt, or edit this file).
+#   - Every additional customer gets its own server named `domo-<instance>`.
+#   - Anonymous toolkits (e.g. domo-stark) need no header at all.
+
+# --- Primary / active-customer server (repoint per engagement) ---
+[mcp_servers.domo-mcp]
+url = "https://<your-instance>.domo.com/api/ai/v1/assistant/mcp/toolkits/DOMO_BASIC_MCP"
+env_http_headers = { "X-DOMO-DEVELOPER-TOKEN" = "DOMO_<YOUR_INSTANCE>_DEVELOPER_TOKEN" }
+
+# --- Additional per-customer server ---
+[mcp_servers.domo-wings]
+url = "https://wings-travel.domo.com/api/ai/v1/assistant/mcp/toolkits/DOMO_BASIC_MCP"
+env_http_headers = { "X-DOMO-DEVELOPER-TOKEN" = "DOMO_WINGS_DEVELOPER_TOKEN" }
+
+# --- Anonymous toolkit — no token, no header ---
+[mcp_servers.domo-stark]
+url = "https://starkenergyservices.domo.com/api/ai/v1/assistant/mcp/toolkits/domo_basic_mcp"
+
+# If your Codex build does not connect to streamable-HTTP MCP servers out of the
+# box, opt into the Rust MCP client (top level of config.toml, not per-server):
+#   experimental_use_rmcp_client = true

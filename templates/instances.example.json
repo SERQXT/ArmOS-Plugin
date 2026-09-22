@@ -1,0 +1,16 @@
+{
+  "_comment": "Registry of Domo instances ArmOS talks to, keyed by instance name. Copy to .claude/instances.json in your PROJECT root. Convention: 'domo-mcp' is the primary / active-customer server (repoint it, or swap its token, per customer via /server). Every ADDITIONAL customer gets its own server named 'domo-<instance>' in .mcp.json using the same layout: an X-DOMO-DEVELOPER-TOKEN header set to ${DOMO_<INSTANCE_UPPER_SNAKE>_DEVELOPER_TOKEN}. Token values live in .env (git-ignored), referenced here by env var name only. Use /server to list instances or add a new one.",
+  "instances": {
+    "your-instance": {
+      "server": "domo-mcp",
+      "url": "https://your-instance.domo.com/api/ai/v1/assistant/mcp/toolkits/DOMO_BASIC_MCP",
+      "tokenVar": "DOMO_YOUR_INSTANCE_DEVELOPER_TOKEN"
+    },
+    "starkenergyservices": {
+      "server": "domo-stark",
+      "url": "https://starkenergyservices.domo.com/api/ai/v1/assistant/mcp/toolkits/domo_basic_mcp",
+      "tokenVar": null,
+      "note": "Anonymous toolkit — connects without a developer token, so it has no header in .mcp.json."
+    }
+  }
+}

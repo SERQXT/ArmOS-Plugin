@@ -1,0 +1,2377 @@
+{
+  "ConcatFields": {
+    "type": "ConcatFields",
+    "id": "3ca1881a-0f06-488d-822f-7e205a1f087c",
+    "name": "Combine Columns",
+    "dependsOn": [
+      "b5e6e56a-fdc4-4da2-acf1-461e94b0e63d"
+    ],
+    "gui": {
+      "x": 432,
+      "y": 150,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "b5e6e56a-fdc4-4da2-acf1-461e94b0e63d",
+    "targetFieldName": "Concat ID",
+    "removeSelectedFields": false,
+    "fields": [
+      {
+        "name": "pitch"
+      },
+      {
+        "name": "account id"
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "Constant": {
+    "type": "Constant",
+    "id": "6644be60-97b9-47d8-8592-fce5c3144b30",
+    "name": "Add Constants",
+    "dependsOn": [
+      "d45b9b8c-68df-437f-bdeb-59f3e477189d"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 448,
+      "y": 64,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "d45b9b8c-68df-437f-bdeb-59f3e477189d",
+    "fields": [
+      {
+        "type": "STRING",
+        "name": "Deal Structure",
+        "value": "Recurring",
+        "expr": null
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "DateCalculator": {
+    "type": "DateCalculator",
+    "id": "e7effdc7-a177-40a3-93bd-7130ac9f7394",
+    "name": "Date Operations",
+    "dependsOn": [
+      "d6b5814d-2545-4f3e-8d57-716c76c95fa3"
+    ],
+    "gui": {
+      "x": 228,
+      "y": 84,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "d6b5814d-2545-4f3e-8d57-716c76c95fa3",
+    "calculations": [
+      {
+        "fieldName": "Release month",
+        "calcType": "MONTH_OF_DATE",
+        "fieldA": "release_date",
+        "constantA": null,
+        "exprA": null,
+        "fieldB": null,
+        "constantB": null,
+        "exprB": null,
+        "fieldC": null,
+        "constantC": null,
+        "exprC": null,
+        "settings": null
+      },
+      {
+        "fieldName": "Release year",
+        "calcType": "YEAR_OF_DATE",
+        "fieldA": "release_date",
+        "constantA": null,
+        "exprA": null,
+        "fieldB": null,
+        "constantB": null,
+        "exprB": null,
+        "fieldC": null,
+        "constantC": null,
+        "exprC": null,
+        "settings": null
+      },
+      {
+        "fieldName": "Current month",
+        "calcType": "MONTH_OF_DATE",
+        "fieldA": null,
+        "constantA": null,
+        "exprA": "CURDATE()",
+        "fieldB": null,
+        "constantB": null,
+        "exprB": null,
+        "fieldC": null,
+        "constantC": null,
+        "exprC": null,
+        "settings": null
+      },
+      {
+        "fieldName": "Current year",
+        "calcType": "YEAR_OF_DATE",
+        "fieldA": null,
+        "constantA": null,
+        "exprA": "CURDATE()",
+        "fieldB": null,
+        "constantB": null,
+        "exprB": null,
+        "fieldC": null,
+        "constantC": null,
+        "exprC": null,
+        "settings": null
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "Denormaliser": {
+    "type": "Denormaliser",
+    "id": "ee7a8d0e-da50-496e-9250-ff901fb49161",
+    "name": "Pivot",
+    "dependsOn": [
+      "1f509750-3e8f-4311-adf9-507b4165c123"
+    ],
+    "settings": {},
+    "gui": {
+      "x": 408,
+      "y": 396,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "1f509750-3e8f-4311-adf9-507b4165c123",
+    "keyField": "PARTNER_NAME",
+    "group": [
+      {
+        "name": "ACCOUNT_NAME"
+      },
+      {
+        "name": "POPULATION_NAME"
+      }
+    ],
+    "fields": [
+      {
+        "fieldName": "POPULATION_NAME",
+        "keyValue": "Databricks",
+        "targetName": "Databricks Population",
+        "targetType": "STRING"
+      },
+      {
+        "fieldName": "POPULATION_NAME",
+        "keyValue": "Snowflake",
+        "targetName": "Snowflake Population",
+        "targetType": "STRING"
+      },
+      {
+        "fieldName": "POPULATION_NAME",
+        "keyValue": "Brooklyn Data Co.",
+        "targetName": "Brooklyn Data Co Population",
+        "targetType": "STRING"
+      },
+      {
+        "fieldName": "POPULATION_NAME",
+        "keyValue": "Keyrus",
+        "targetName": "Keyrus Population",
+        "targetType": "STRING"
+      },
+      {
+        "fieldName": "POPULATION_NAME",
+        "keyValue": "RevOpsforce",
+        "targetName": "RevOpsforce Population",
+        "targetType": "STRING"
+      },
+      {
+        "fieldName": "POPULATION_NAME",
+        "keyValue": "SPS Commerce",
+        "targetName": "SPS Commerce Population",
+        "targetType": "STRING"
+      },
+      {
+        "fieldName": "POPULATION_NAME",
+        "keyValue": "Slalom",
+        "targetName": "Slalom Population",
+        "targetType": "STRING"
+      },
+      {
+        "fieldName": "POPULATION_NAME",
+        "keyValue": "Tiger Analytics",
+        "targetName": "Tiger Analytics Population",
+        "targetType": "STRING"
+      },
+      {
+        "fieldName": "POPULATION_NAME",
+        "keyValue": "Dremio",
+        "targetName": "Dremio Population",
+        "targetType": "STRING"
+      },
+      {
+        "fieldName": "POPULATION_NAME",
+        "keyValue": "Zirous",
+        "targetName": "Zirous Population",
+        "targetType": "STRING"
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "ExpressionEvaluator": {
+    "type": "ExpressionEvaluator",
+    "id": "ExpressionEvaluator-8d1419c2-28e3-4499-8caf-40d5185bf76d",
+    "name": "Add Formula 1",
+    "dependsOn": [
+      "GroupBy-7f61ea17-c979-4a5c-a16b-47258485332f"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 512,
+      "y": 128,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "GroupBy-7f61ea17-c979-4a5c-a16b-47258485332f",
+    "expressions": [
+      {
+        "expression": "CASE WHEN `Wins` < 2 THEN 0 ELSE `ROI` END",
+        "fieldName": "ROI",
+        "settings": {}
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "Filter": {
+    "type": "Filter",
+    "id": "e5083fc7-0cd2-4d95-9267-8272052e05cf",
+    "name": "Filter Rows",
+    "dependsOn": [
+      "713db49b-49b2-49c4-9440-f80c744052ea"
+    ],
+    "gui": {
+      "x": 360,
+      "y": 132,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "713db49b-49b2-49c4-9440-f80c744052ea",
+    "filterList": [
+      {
+        "leftField": null,
+        "rightField": null,
+        "rightValue": null,
+        "rightExpr": null,
+        "operator": null,
+        "expression": "DATEDIFF(CURRENT_DATE(), `sales play cadence start date`) <= 730 AND DATEDIFF(CURRENT_DATE(), `sales play cadence start date`) >= 0",
+        "andFilterList": []
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "FixedInput": {
+    "type": "FixedInput",
+    "id": "FixedInput-067fe2dc-e5bc-4c4b-8cf4-dcd165f94ad9",
+    "name": "Manual Overrides",
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 320,
+      "y": 192,
+      "color": 3238043,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "schema": [
+      {
+        "name": "Object Type ID",
+        "dataType": "STRING"
+      },
+      {
+        "name": "Object Type Name",
+        "dataType": "STRING"
+      }
+    ],
+    "rows": [
+      [
+        "TEMPLATE",
+        "Approval Template"
+      ],
+      [
+        "DATA_APP",
+        "Studio App"
+      ],
+      [
+        "DATA_APP_VIEW",
+        "App Studio Page"
+      ],
+      [
+        "WORKFLOW_MODEL",
+        "Workflow"
+      ],
+      [
+        "WORKFLOW_MODEL_VERSION",
+        "Workflow Version"
+      ],
+      [
+        "WORKFLOW_INSTANCE",
+        "Workflow Execution"
+      ],
+      [
+        "ENIGMA_FORM_INSTANCE",
+        "Form Instance"
+      ],
+      [
+        "EXECUTOR_APPLICATION",
+        "Governance Toolkit Application"
+      ],
+      [
+        "EXECUTOR_JOB",
+        "Governance Toolkit Job"
+      ],
+      [
+        "WORKBENCH_AGENT",
+        "Workbench Agent"
+      ],
+      [
+        "WORKBENCH_JOB",
+        "Workbench Job"
+      ],
+      [
+        "WORKBENCH_SCHEDULE",
+        "Workbench Job Schedule"
+      ]
+    ],
+    "columnSettings": {
+      "Object Type ID": {},
+      "Object Type Name": {}
+    },
+    "tables": [
+      {}
+    ]
+  },
+  "GenerateTableAction": {
+    "type": "GenerateTableAction",
+    "id": "2",
+    "dependsOn": [
+      "085f995b-0afb-47cf-9036-d1668ca55b51",
+      "1",
+      "4798b704-5d25-4cbb-a1fd-bc30779c60a9"
+    ],
+    "tableName": "transform_data_1",
+    "selectStatement": "/* Select columns */\n\nSELECT\n\t\t`Account Id`\n        ,`Domo Account Number`\n        ,`Account Name`\n        ,`Customer Type`\n        ,`Account Type`\n        ,CASE WHEN `Account Type` = 'Enterprise' OR `Account Type` = 'Strategic' THEN 'Enterprise' ELSE 'Corporate' END AS `Sales Team`\n        ,`Billing Country`\n        ,`Revenue (USD)`\n        ,`New Logo Domo Opty Number`\n        ,`New Logo Close Date`\n        ,CASE WHEN MONTH(`New Logo Close Date`) = 1 THEN YEAR(`New Logo Close Date`) - 1 ELSE YEAR(`New Logo Close Date`) END AS `Cohort Year`\n\t\t,`Account ACV (New Logo)`\n        ,`Original Account Status` AS `Account Status`\n        ,`Cancelled Date`\n        ,CASE WHEN MONTH(CURRENT_DATE) <= 4 THEN YEAR(CURRENT_DATE) - 1 ELSE YEAR(CURRENT_DATE) END AS `Current FY`\n                \nFROM `salesforce_accounts_master`\n\nWHERE `Account Status` <> 'Free' AND `New Logo Close Date` IS NOT NULL AND `Account Id` <> '0013800001AIdqMAAT'",
+    "gui": {
+      "x": null,
+      "y": null,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "inputs": [
+      "085f995b-0afb-47cf-9036-d1668ca55b51",
+      "1",
+      "4798b704-5d25-4cbb-a1fd-bc30779c60a9"
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "GroupBy": {
+    "type": "GroupBy",
+    "id": "fc4c48a9-f0d5-4702-82d1-b11412ed6956",
+    "name": "Group By",
+    "dependsOn": [
+      "e5083fc7-0cd2-4d95-9267-8272052e05cf"
+    ],
+    "gui": {
+      "x": 492,
+      "y": 132,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "e5083fc7-0cd2-4d95-9267-8272052e05cf",
+    "addLineNumber": false,
+    "giveBackRow": false,
+    "allRows": false,
+    "groups": [
+      {
+        "name": "lead id"
+      }
+    ],
+    "fields": [
+      {
+        "name": "all_cadence_names_rolling",
+        "source": null,
+        "type": null,
+        "valuefield": null,
+        "expression": "LISTAGG(`sales play cadence name`, ' | ')",
+        "settings": null
+      },
+      {
+        "name": "count_cadence_names",
+        "source": null,
+        "type": null,
+        "valuefield": null,
+        "expression": "COUNT(DISTINCT(`sales play cadence name`))",
+        "settings": null
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "JsonExpandAction": {
+    "type": "JsonExpandAction",
+    "id": "JsonExpandAction-00bbb293-0cd6-481f-b6d8-25b125c23441",
+    "name": "JSON Expander [First & Last Name]",
+    "dependsOn": [
+      "TextGeneration-8523764e-00a0-4470-a9db-00a9d455b86d"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 384,
+      "y": 128,
+      "color": 16620179,
+      "colorSource": null,
+      "sampleJson": "{\n  \"First Name\": \"Michelle\",\n  \"Last Name\": \"Smith\"\n}"
+    },
+    "input": "TextGeneration-8523764e-00a0-4470-a9db-00a9d455b86d",
+    "operations": [
+      {
+        "sourceColumn": "ParsedName",
+        "operation": {
+          "operation": "MapFlatten",
+          "settings": {},
+          "parserMode": null,
+          "entryOperations": {},
+          "remainderOperation": null
+        }
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "Limit": {
+    "type": "Limit",
+    "id": "Limit-ad492438-f21d-4593-a9fb-190de97100ad",
+    "name": "Limit",
+    "dependsOn": [
+      "LoadFromVault-4e0330eb-2bf8-46a4-b3d7-933bfd80416c"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 160,
+      "y": 160,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "LoadFromVault-4e0330eb-2bf8-46a4-b3d7-933bfd80416c",
+    "limit": 150000,
+    "offset": 1,
+    "tables": [
+      {}
+    ]
+  },
+  "LoadFromIce": {
+    "type": "LoadFromIce",
+    "id": "ba354a46-471b-4e8f-b94f-cc6f8c48665d",
+    "name": "Prod Dataflow Completions",
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 64,
+      "y": 64,
+      "color": 3238043,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "propagateAi": false,
+    "dataSourceId": "de7ec8e8-8f00-487d-bb2a-309e74d42963",
+    "sqlQuery": "SELECT \n\"timestamp\",\n\"Environment\",\n\"Customer\",\n\"id\",\n\"dataFlowVersionId\",\n\"DataFlow Type\",\n\"minActionBeginTime\",\n\"maxActionEndTime\",\n\"totalRowsRead\",\n\"totalRowsWritten\",\n\"activeOptimizations\",\n\"success\",\n\"maxMemoryUsedBytes\"\n\nFROM \"Prod Dataflow Completions\"\n\nWHERE \"Environment\" in ('prod9', 'prod101') and \"timestamp\" > now() - interval 60 day and \"Dataflow Type\" in ('MAGIC')",
+    "filterPolicy": "LEGACY",
+    "sourceType": "ADRENALINE",
+    "executeFlowWhenUpdated": false,
+    "onlyLoadNewVersions": false,
+    "partialLoadingDefined": false,
+    "tables": [
+      {}
+    ]
+  },
+  "LoadFromVault": {
+    "type": "LoadFromVault",
+    "id": "085f995b-0afb-47cf-9036-d1668ca55b51",
+    "gui": {
+      "x": null,
+      "y": null,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "targetTableName": "salesforce_accounts_master",
+    "propagateAi": false,
+    "filterPolicy": "LEGACY",
+    "dataSourceId": "085f995b-0afb-47cf-9036-d1668ca55b51",
+    "executeFlowWhenUpdated": true,
+    "pseudoDataSource": false,
+    "truncateTextColumns": false,
+    "truncateRows": false,
+    "onlyLoadNewVersions": false,
+    "tables": [
+      {}
+    ]
+  },
+  "MakoVectorOutputAction": {
+    "type": "MakoVectorOutputAction",
+    "id": "a536d0cf-cb20-4084-8e10-807d56e2cf17",
+    "name": "Vector Output",
+    "dependsOn": [
+      "31b010cb-fef1-494f-aa0c-b23903c52c8e"
+    ],
+    "settings": {},
+    "gui": {
+      "x": 552,
+      "y": 60,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "31b010cb-fef1-494f-aa0c-b23903c52c8e",
+    "indexId": "gong_usecases",
+    "embeddingModel": "domo.domo_ai.domo-embed-text-multilingual-v1:cohere",
+    "upsertId": "account",
+    "content": "record",
+    "outputType": "UPSERT",
+    "tables": [
+      {}
+    ]
+  },
+  "MergeJoin": {
+    "type": "MergeJoin",
+    "id": "0d79b4ff-7e02-406d-9ce2-502f45bed53a",
+    "name": "Join Data",
+    "dependsOn": [
+      "9e4fb69d-1048-4752-8faa-eb787f5a1cc4",
+      "4040a1d9-5498-40b6-87f2-be35c926fb53"
+    ],
+    "gui": {
+      "x": 672,
+      "y": 312,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "joinType": "INNER",
+    "step1": "9e4fb69d-1048-4752-8faa-eb787f5a1cc4",
+    "step2": "4040a1d9-5498-40b6-87f2-be35c926fb53",
+    "keys1": [
+      "a_id"
+    ],
+    "keys2": [
+      "account id"
+    ],
+    "schemaModification1": [
+      {
+        "name": "a_id",
+        "rename": "",
+        "remove": true
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "Metadata": {
+    "type": "Metadata",
+    "id": "ed9e4866-90a5-4325-a407-6bdb474b4be4",
+    "name": "Set Column Type",
+    "dependsOn": [
+      "d13d6f26-9a16-41a0-8f59-7ccb00c26dc2"
+    ],
+    "gui": {
+      "x": 348,
+      "y": 150,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "d13d6f26-9a16-41a0-8f59-7ccb00c26dc2",
+    "fields": [
+      {
+        "name": "Amount",
+        "rename": null,
+        "type": "DOUBLE",
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "Previous Amount",
+        "rename": null,
+        "type": "DOUBLE",
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "MLInferenceAction": {
+    "type": "MLInferenceAction",
+    "id": "1f611b2e-a575-402b-bf84-80ba1b3479bd",
+    "name": "AutoML Inference",
+    "dependsOn": [
+      "b2eaa486-231c-4a3a-9b4a-f5275c290020"
+    ],
+    "settings": {},
+    "notes": [],
+    "gui": {
+      "x": 228,
+      "y": 96,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "b2eaa486-231c-4a3a-9b4a-f5275c290020",
+    "includeInputData": true,
+    "mlModelId": 194,
+    "modelSchema": {
+      "name": null,
+      "tables": [
+        {
+          "columns": [
+            {
+              "name": "Entry Date Wk",
+              "id": "Entry Date Wk",
+              "type": "DATE"
+            },
+            {
+              "name": "Project Display Name",
+              "id": "Project Display Name",
+              "type": "STRING"
+            },
+            {
+              "name": "Project ID",
+              "id": "Project ID",
+              "type": "STRING"
+            },
+            {
+              "name": "Hour Type",
+              "id": "Hour Type",
+              "type": "STRING"
+            },
+            {
+              "name": "Account Id",
+              "id": "Account Id",
+              "type": "STRING"
+            },
+            {
+              "name": "Project Hours Purchased",
+              "id": "Project Hours Purchased",
+              "type": "DOUBLE"
+            },
+            {
+              "name": "Account Revenue Band",
+              "id": "Account Revenue Band",
+              "type": "STRING"
+            },
+            {
+              "name": "Account Type",
+              "id": "Account Type",
+              "type": "STRING"
+            },
+            {
+              "name": "Vertical Team",
+              "id": "Vertical Team",
+              "type": "STRING"
+            },
+            {
+              "name": "User",
+              "id": "User",
+              "type": "STRING"
+            },
+            {
+              "name": "Project Status",
+              "id": "Project Status",
+              "type": "STRING"
+            },
+            {
+              "name": "Account Name",
+              "id": "Account Name",
+              "type": "STRING"
+            },
+            {
+              "name": "Hours",
+              "id": "Hours",
+              "type": "DECIMAL"
+            }
+          ]
+        }
+      ]
+    },
+    "inferenceColumn": "Hours",
+    "inferenceColumnRename": "Hours_prediction",
+    "inferenceResponse": "Prediction",
+    "columnSettings": {},
+    "tables": [
+      {}
+    ]
+  },
+  "NormalizeAll": {
+    "type": "NormalizeAll",
+    "id": "9571eabb-4cfc-4c0e-b8e4-42d4eec78cee",
+    "name": "Dynamic Unpivot",
+    "dependsOn": [
+      "e7ffcd26-f227-4907-bb0e-75b4006120a2"
+    ],
+    "settings": {},
+    "gui": {
+      "x": 1152,
+      "y": 372,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "e7ffcd26-f227-4907-bb0e-75b4006120a2",
+    "idFields": [
+      "Account Name",
+      "Date",
+      "Consumption Month#",
+      "account id",
+      "# Months on Consumption"
+    ],
+    "keyField": "Metric",
+    "valueField": "Metric Value",
+    "tables": [
+      {}
+    ]
+  },
+  "Normalizer": {
+    "type": "Normalizer",
+    "id": "Normalizer-8a7b1cae-755c-45b0-ab3a-d9e980469137",
+    "name": "Unpivot",
+    "dependsOn": [
+      "SelectValues-1b6a0c18-6f53-40b0-9d16-168ff284a318"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 352,
+      "y": 192,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "SelectValues-1b6a0c18-6f53-40b0-9d16-168ff284a318",
+    "typefield": "Date Type",
+    "fields": [
+      {
+        "sourceField": "Created",
+        "typefieldValue": "Created",
+        "destField": "Date"
+      },
+      {
+        "sourceField": "Resolved",
+        "typefieldValue": "Resolved",
+        "destField": "Date"
+      },
+      {
+        "sourceField": "Closed",
+        "typefieldValue": "Closed",
+        "destField": "Date"
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "NumericCalculator": {
+    "type": "NumericCalculator",
+    "id": "d58fb952-4859-4173-b6ce-cafaec80ae1b",
+    "name": "Calculator",
+    "dependsOn": [
+      "2ce92fa3-d82d-47d5-a84d-357720e9a4bb"
+    ],
+    "gui": {
+      "x": 792,
+      "y": 120,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "2ce92fa3-d82d-47d5-a84d-357720e9a4bb",
+    "calculations": [
+      {
+        "fieldName": "Upsell Target Balance",
+        "calcType": "SUBTRACT",
+        "fieldA": "Upsell Target",
+        "constantA": null,
+        "exprA": null,
+        "fieldB": "FY21 Forcus Closed Won Total",
+        "constantB": null,
+        "exprB": null,
+        "fieldC": null,
+        "constantC": null,
+        "exprC": null,
+        "settings": null
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "Order": {
+    "type": "Order",
+    "id": "94c81200-36a5-41ad-8bdd-6f6d6f420b35",
+    "name": "Order",
+    "dependsOn": [
+      "713bb100-f6ab-4661-82a7-3a2db18dc074"
+    ],
+    "settings": {},
+    "gui": {
+      "x": 624,
+      "y": 108,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "713bb100-f6ab-4661-82a7-3a2db18dc074",
+    "orderBy": [
+      {
+        "orderType": "DESCENDING",
+        "expression": {
+          "type": "Field",
+          "context": null,
+          "table": null,
+          "name": "TPC Submitted Date"
+        },
+        "settings": null,
+        "invert": true
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "PublishToVault": {
+    "type": "PublishToVault",
+    "id": "10",
+    "dependsOn": [
+      "9"
+    ],
+    "gui": {
+      "x": null,
+      "y": null,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "inputs": [
+      "9"
+    ],
+    "query": "SELECT * FROM transform_data_5",
+    "dataSource": {
+      "guid": "ae1a8898-f5f4-4e9d-84cb-7d61d33af46d",
+      "type": "DataFlow",
+      "name": "ACCTG: SFDC - Customer Life"
+    },
+    "versionChainType": "REPLACE",
+    "schemaSource": "DATAFLOW",
+    "partitioned": false,
+    "tables": [
+      {}
+    ]
+  },
+  "PublishToWriteback": {
+    "type": "PublishToWriteback",
+    "id": "abc2dff7-2297-4617-8d65-91206cec89a7",
+    "name": "Resolved Cases NPS Reminder",
+    "dependsOn": [
+      "a6c9c03b-3e6c-4788-9112-ac7870eb3967"
+    ],
+    "settings": {},
+    "gui": {
+      "x": 1488,
+      "y": 216,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "inputs": [
+      "a6c9c03b-3e6c-4788-9112-ac7870eb3967"
+    ],
+    "dataSource": {
+      "guid": "af1126eb-831e-4544-9f2d-3eba09ee2fd4",
+      "type": "DataFlow",
+      "name": "Resolved Cases NPS Reminder",
+      "cloudId": "domo"
+    },
+    "versionChainType": "REPLACE",
+    "schemaSource": "DATAFLOW",
+    "writebackInfo": {
+      "guid": "9caa7944-9250-4e91-a2d9-01e8b2383e76"
+    },
+    "partitioned": false,
+    "tables": [
+      {}
+    ]
+  },
+  "PythonEngineAction": {
+    "type": "PythonEngineAction",
+    "id": "PythonEngineAction-a4d91265-03c2-4b67-8c50-d27f368f43c5",
+    "name": "Python Script",
+    "dependsOn": [
+      "MergeJoin-419fa12e-70fb-4c26-aef3-bec5bd2f29fc"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 736,
+      "y": 128,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "inputs": [
+      "MergeJoin-419fa12e-70fb-4c26-aef3-bec5bd2f29fc"
+    ],
+    "removeByDefault": true,
+    "condaEnv": "domo-2",
+    "script": "# Import the domomagic package into the script\nfrom domomagic import *\nimport pandas as pd\nimport json\nimport re\n\n# read data from inputs into a data frame\ninput1 = read_dataframe('Join Data')\n\n# ============================================\n# TRANSFORMATION FUNCTIONS\n# ============================================\n\ndef strip_html_tags(html_text):\n    \"\"\"Extract plain text from HTML using regex\"\"\"\n    if not html_text or pd.isna(html_text):\n        return \"\"\n    \n    text = str(html_text)\n    \n    # Remove style and script blocks entirely\n    text = re.sub(r'<style[^>]*>.*?</style>', '', text, flags=re.DOTALL | re.IGNORECASE)\n    text = re.sub(r'<script[^>]*>.*?</script>', '', text, flags=re.DOTALL | re.IGNORECASE)\n    \n    # Replace common block elements with spaces\n    text = re.sub(r'<br\\s*/?>', ' ', text, flags=re.IGNORECASE)\n    text = re.sub(r'</?(?:p|div|li|ul|ol|h[1-6]|tr|td|th)[^>]*>', ' ', text, flags=re.IGNORECASE)\n    \n    # Remove all remaining HTML tags\n    text = re.sub(r'<[^>]+>', '', text)\n    \n    # Decode common HTML entities\n    text = text.replace('&nbsp;', ' ')\n    text = text.replace('&amp;', '&')\n    text = text.replace('&lt;', '<')\n    text = text.replace('&gt;', '>')\n    text = text.replace('&quot;', '\"')\n    text = text.replace('&#39;', \"'\")\n    text = text.replace('&apos;', \"'\")\n    text = re.sub(r'&#(\\d+);', lambda m: chr(int(m.group(1))), text)\n    \n    # Clean up whitespace\n    text = re.sub(r'\\s+', ' ', text).strip()\n    \n    # Truncate for synthesized_rationale\n    if len(text) > 500:\n        text = text[:497] + \"...\"\n    \n    return text\n\ndef parse_multi_value(value, delimiter=';'):\n    \"\"\"Parse semicolon-separated values into list\"\"\"\n    if not value or pd.isna(value):\n        return []\n    return [v.strip() for v in str(value).split(delimiter) if v.strip()]\n\ndef determine_contribution(polarity, is_primary=True):\n    \"\"\"Determine contribution text based on polarity\"\"\"\n    if is_primary:\n        if polarity == \"Opportunity\":\n            return \"Primary driver - indicates expansion opportunity\"\n        elif polarity == \"Risk\":\n            return \"Primary driver - indicates risk requiring mitigation\"\n        else:\n            return \"Context driver - provides additional account insight\"\n    return \"Supporting signal - provides additional context\"\n\ndef determine_sentiment(polarity):\n    \"\"\"Map polarity to sentiment\"\"\"\n    sentiment_map = {\n        \"Opportunity\": \"Positive\",\n        \"Risk\": \"Negative\",\n        \"Enrichment\": \"Neutral\"\n    }\n    return sentiment_map.get(polarity, \"Neutral\")\n\ndef safe_str(val):\n    \"\"\"Safely convert to string, handling None/NaN\"\"\"\n    if val is None or pd.isna(val):\n        return None\n    return str(val)\n\ndef safe_float(val, default=0.0):\n    \"\"\"Safely convert to float\"\"\"\n    if val is None or pd.isna(val):\n        return default\n    try:\n        return float(val)\n    except:\n        return default\n\ndef safe_int(val, default=1):\n    \"\"\"Safely convert to int\"\"\"\n    if val is None or pd.isna(val):\n        return default\n    try:\n        return int(float(val))\n    except:\n        return default\n\ndef format_date_only(date_str):\n    \"\"\"Convert datetime string to date-only format YYYY-MM-DD\"\"\"\n    if not date_str or pd.isna(date_str):\n        return \"\"\n    date_str = str(date_str).strip()\n    # Handle formats like \"2025-10-28 00:00:00\" or \"2025-10-28T00:00:00\"\n    if ' ' in date_str:\n        return date_str.split(' ')[0]\n    elif 'T' in date_str:\n        return date_str.split('T')[0]\n    # Already in YYYY-MM-DD format\n    return date_str[:10] if len(date_str) >= 10 else date_str\n\ndef transform(df):\n    \"\"\"Transform CSV input to actions output format.\"\"\"\n    \n    output_rows = []\n    \n    for idx, row in df.iterrows():\n        # Basic fields\n        action_id = safe_str(row.get('action_id', '')) or ''\n        signal_id = safe_str(row.get('signal_id', '')) or ''\n        account_id = safe_str(row.get('account_id', '')) or ''\n        account_name = safe_str(row.get('account_name', '')) or ''\n        recommended_action = safe_str(row.get('recommended_action', '')) or ''\n        priority = safe_str(row.get('priority', '')) or ''\n        polarity = safe_str(row.get('polarity', '')) or ''\n        confidence = safe_float(row.get('confidence'), 0.0)\n        created_at = safe_str(row.get('created_at', '')) or ''\n        \n        # Format last_seen_date as YYYY-MM-DD only (e.g., \"2025-10-25\")\n        last_seen_date = format_date_only(row.get('last_seen_date', ''))\n        \n        # Play codes and names\n        play_1_code = safe_str(row.get('play_1_code'))\n        play_2_code = safe_str(row.get('play_2_code'))\n        play_3_code = safe_str(row.get('play_3_code'))\n        play_1_name = safe_str(row.get('play_1_name'))\n        play_2_name = safe_str(row.get('play_2_name'))\n        play_3_name = safe_str(row.get('play_3_name'))\n        play_1_description = safe_str(row.get('play_1_description'))\n        play_2_description = safe_str(row.get('play_2_description'))\n        play_3_description = safe_str(row.get('play_3_description'))\n        play_1_loe = safe_str(row.get('play_1_loe'))\n        play_2_loe = safe_str(row.get('play_2_loe'))\n        play_3_loe = safe_str(row.get('play_3_loe'))\n        \n        rationale_text = safe_str(row.get('rationale_text'))\n        \n        # Clean up '-NA-' values\n        if play_3_code and play_3_code.strip() in (\"'-NA-\", \"-NA-\", \"NA\", \"\"):\n            play_3_code = None\n            play_3_name = None\n        \n        action_count = safe_int(row.get('action_count'), 1)\n        signal_count = safe_int(row.get('signal_count'), 1)\n        \n        # Build signal_ids array\n        signal_ids = [\"signal:\" + signal_id] if signal_id else []\n        \n        # Extract synthesized rationale from HTML\n        rationale_text = row.get('rationale_text', '')\n        synthesized_rationale = strip_html_tags(rationale_text)\n        \n        # Build supporting_signals array\n        signal_name = safe_str(row.get('signal_name')) or ''\n        signal_category = safe_str(row.get('signal_category')) or ''\n        \n        # Build signal_title with better empty handling\n        if signal_name and signal_category:\n            signal_title = signal_name + \" (\" + signal_category + \")\"\n        elif signal_name:\n            signal_title = signal_name\n        elif signal_category:\n            signal_title = signal_category\n        else:\n            signal_title = \"\"\n        \n        supporting_signals = []\n        if signal_id:\n            key_evidence = synthesized_rationale[:200] + \"...\" if len(synthesized_rationale) > 200 else synthesized_rationale\n            supporting_signals.append({\n                \"signal_id\": \"signal:\" + signal_id,\n                \"signal_title\": signal_title,\n                \"signal_category\": signal_category,\n                \"contribution\": determine_contribution(polarity, True),\n                \"key_evidence\": key_evidence\n            })\n        \n        # Build source_trail array\n        source_types = parse_multi_value(row.get('signal_source_type', ''))\n        source_ids = parse_multi_value(row.get('signal_source_id', ''))\n        source_dates = parse_multi_value(row.get('signal_source_date', ''))\n        source_attendees = safe_str(row.get('signal_source_attendees')) or ''\n        source_author = safe_str(row.get('signal_source_author'))\n        \n        source_trail = []\n        if source_types or source_ids:\n            max_sources = max(len(source_types), len(source_ids), 1)\n            for i in range(max_sources):\n                excerpt = synthesized_rationale[:200] + \"...\" if len(synthesized_rationale) > 200 else synthesized_rationale\n                src_type = source_types[i] if i < len(source_types) else (source_types[0] if source_types else \"unknown\")\n                src_id = source_ids[i] if i < len(source_ids) else (source_ids[0] if source_ids else \"\")\n                src_date = source_dates[i] if i < len(source_dates) else (source_dates[0] if source_dates else \"\")\n                \n                # Build src_title with better empty handling\n                if signal_name and signal_category:\n                    src_title = signal_name + \" (\" + signal_category + \")\"\n                elif signal_name:\n                    src_title = signal_name\n                elif signal_category:\n                    src_title = signal_category\n                else:\n                    src_title = \"\"\n                \n                source_trail.append({\n                    \"source_type\": src_type,\n                    \"source_id\": src_id,\n                    \"source_date\": src_date,\n                    \"source_title\": src_title,\n                    \"source_attendees\": source_attendees,\n                    \"source_author\": source_author,\n                    \"excerpt\": excerpt,\n                    \"sentiment\": determine_sentiment(polarity)\n                })\n        \n        # Build complete evidence_chain object\n        evidence_chain = {\n            \"synthesized_rationale\": synthesized_rationale,\n            \"supporting_signals\": supporting_signals,\n            \"source_trail\": source_trail\n        }\n        \n        # Build output row\n        output_row = {\n            'action_id': action_id,\n            'account_id': account_id,\n            'account_name': account_name,\n            'recommended_action': recommended_action,\n            'priority': priority,\n            'polarity': polarity,\n            'confidence': confidence,\n            'created_at': created_at,\n            'last_seen_date': last_seen_date,\n            'play_1_code': play_1_code,\n            'play_2_code': play_2_code,\n            'play_3_code': play_3_code,\n            'play_1_name': play_1_name,\n            'play_2_name': play_2_name,\n            'play_3_name': play_3_name,\n            'action_count': action_count,\n            'signal_count': signal_count,\n            'signal_ids': json.dumps(signal_ids),\n            'evidence_chain': json.dumps(evidence_chain),\n        \t'play_1_description' : play_1_description,\n\t        'play_2_description' : play_2_description,\n            'play_3_description' : play_3_description,\n            'play_1_loe' : play_1_loe,\n            'play_2_loe' : play_2_loe,\n            'play_3_loe' : play_3_loe,\n            'rationale_text' : rationale_text\n        }\n        \n        output_rows.append(output_row)\n    \n    return pd.DataFrame(output_rows)\n\n# ============================================\n# EXECUTE TRANSFORMATION\n# ============================================\n\noutput = transform(input1)\n\n# write a data frame so it's available to the next action\nwrite_dataframe(output)",
+    "additions": [
+      {
+        "name": "action_id",
+        "dataType": "STRING"
+      },
+      {
+        "name": "account_id",
+        "dataType": "STRING"
+      },
+      {
+        "name": "account_name",
+        "dataType": "STRING"
+      },
+      {
+        "name": "recommended_action",
+        "dataType": "STRING"
+      },
+      {
+        "name": "priority",
+        "dataType": "STRING"
+      },
+      {
+        "name": "polarity",
+        "dataType": "STRING"
+      },
+      {
+        "name": "confidence",
+        "dataType": "DOUBLE"
+      },
+      {
+        "name": "created_at",
+        "dataType": "STRING"
+      },
+      {
+        "name": "last_seen_date",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_1_code",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_2_code",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_3_code",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_1_name",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_2_name",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_3_name",
+        "dataType": "STRING"
+      },
+      {
+        "name": "action_count",
+        "dataType": "LONG"
+      },
+      {
+        "name": "signal_count",
+        "dataType": "LONG"
+      },
+      {
+        "name": "signal_ids",
+        "dataType": "STRING"
+      },
+      {
+        "name": "evidence_chain",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_1_description",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_2_description",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_3_description",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_1_loe",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_2_loe",
+        "dataType": "STRING"
+      },
+      {
+        "name": "play_3_loe",
+        "dataType": "STRING"
+      },
+      {
+        "name": "rationale_text",
+        "dataType": "STRING"
+      }
+    ],
+    "fillMissingWithNull": true,
+    "accountPermission": {
+      "mask": 16
+    },
+    "tables": [
+      {}
+    ]
+  },
+  "REngineAction": {
+    "type": "REngineAction",
+    "id": "eb915a8e-ce70-4764-9c26-9808c02bca6c",
+    "name": "R Script",
+    "dependsOn": [
+      "ef627d96-cf14-4294-aa83-e6c4f2821a90"
+    ],
+    "gui": {
+      "x": 180,
+      "y": 78,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "inputs": [
+      "ef627d96-cf14-4294-aa83-e6c4f2821a90"
+    ],
+    "removeByDefault": true,
+    "script": "\nis_domo <- TRUE\n\nlibrary(dplyr)\n\nif( is_domo ){\n    library(domomagic)\n    sales_activity <- read.dataframe('Sales Team Activity')    \n}else{\n    sales_activity <- rdomoapi::ds_get('879e1af7-a273-419b-bec8-18d5eff24b0f',r_friendly_names=FALSE)\n}\n\nsa_rel <- sales_activity %>% select(`activity id`,`dedicated pitches`) %>%\n    filter(`dedicated pitches` != '')\n\nff <- function(activity_id,pitches){\n    pp <- data.frame(pitch=unlist(pitches))\n    pp$activity_id <- activity_id\n    return(pp)\n}\n\naccount_w_pitches <- mapply(ff,as.list(sa_rel$`activity id`),strsplit(sa_rel$`dedicated pitches`,';'),SIMPLIFY=FALSE) %>%\n    bind_rows()\n\nif( is_domo ){\n    out <- account_w_pitches\n    if( nrow(account_w_pitches) == 0 ){\n        out <- data.frame(pitch='test',activity_id='test')\n    }\n    write.dataframe(out)\n}\n",
+    "additions": [
+      {
+        "name": "pitch",
+        "dataType": "STRING"
+      },
+      {
+        "name": "activity_id",
+        "dataType": "STRING"
+      }
+    ],
+    "fillMissingWithNull": true,
+    "accountPermission": {
+      "mask": 16
+    },
+    "tables": [
+      {}
+    ]
+  },
+  "ReplaceString": {
+    "type": "ReplaceString",
+    "id": "04dc7f1d-bd56-4968-a8d3-e94967e4c117",
+    "name": "Name Adjustments",
+    "dependsOn": [
+      "b2b8e219-db16-44d6-8b76-87ce6ab74294"
+    ],
+    "settings": {},
+    "gui": {
+      "x": 240,
+      "y": 48,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "b2b8e219-db16-44d6-8b76-87ce6ab74294",
+    "fields": [
+      {
+        "inStreamName": "Advisor",
+        "outStreamName": null,
+        "useRegex": false,
+        "replaceString": "Zach",
+        "replaceByString": "Zachary",
+        "setEmptyString": false,
+        "replaceFieldByString": null,
+        "wholeWord": false,
+        "caseSensitive": false
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "SelectValues": {
+    "type": "SelectValues",
+    "id": "b78ec27d-f69d-4fc9-80c1-a72816892e53",
+    "name": "Select Columns",
+    "dependsOn": [
+      "a10ec22a-2d2d-4e8c-80cf-7d2297bbd523"
+    ],
+    "gui": {
+      "x": 264,
+      "y": 192,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "a10ec22a-2d2d-4e8c-80cf-7d2297bbd523",
+    "fields": [
+      {
+        "name": "dayid",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "ad",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "description_line_1",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "description_line_2",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "display_url",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "destination_url",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "final_url",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "mobile_final_url",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "tracking_template",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "custom_parameter",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "campaign",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "ad_group",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "status",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "campaign_type",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "campaign_subtype",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "clicks",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "impressions",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "avg_position",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "converted_clicks",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "conversions",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "view_through_conv",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "ad_type",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "ad_id",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "device_preference_type",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "approval_status",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "ad_policies",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "disapproval_reasons",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "image_url",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "id",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "dwupdatedate",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "campaign_name",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "ad_group_name",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "description",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "headline",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "headlinepart1",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "headlinepart2",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "videoviewrate",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "videoviews",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "conversionvalue",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "device",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "keyword",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "match_type",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "system_status",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "trackingurltemplate",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "extended_urls",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "converted_url",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "startdate",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      },
+      {
+        "name": "enddate",
+        "rename": null,
+        "type": null,
+        "dateFormat": null,
+        "settings": {},
+        "remove": false
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "SetValueField": {
+    "type": "SetValueField",
+    "id": "cf58e8d8-bc51-4c13-bda8-10c03e8fb365",
+    "name": "Set Column Value",
+    "dependsOn": [
+      "f2f41fb5-1486-4276-afad-08cbadd10c07"
+    ],
+    "gui": {
+      "x": 384,
+      "y": 156,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "f2f41fb5-1486-4276-afad-08cbadd10c07",
+    "fields": [
+      {
+        "name": "Domain",
+        "replaceby": "URL"
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "SplitColumnAction": {
+    "type": "SplitColumnAction",
+    "id": "f7d4e682-9e5f-41cc-9b17-8e51b489c8a5",
+    "name": "Split Column",
+    "dependsOn": [
+      "5b3b1d1d-8dbd-459a-85c2-94827150e96d"
+    ],
+    "settings": {},
+    "gui": {
+      "x": 480,
+      "y": 216,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "5b3b1d1d-8dbd-459a-85c2-94827150e96d",
+    "sourceColumn": "Display Name",
+    "delimiterType": "WHITESPACE",
+    "useRegex": false,
+    "combineExtraSplits": false,
+    "additions": [
+      {
+        "name": "First Name",
+        "dataType": "STRING"
+      },
+      {
+        "name": "Last Name",
+        "dataType": "STRING"
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "SplitFilter": {
+    "type": "SplitFilter",
+    "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667",
+    "name": "Split Filter",
+    "dependsOn": [
+      "LoadFromVault-607ebbf2-233f-4fee-8e2a-1caf12a0f735"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 224,
+      "y": 512,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "LoadFromVault-607ebbf2-233f-4fee-8e2a-1caf12a0f735",
+    "branches": [
+      {
+        "table": {
+          "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_branches-0",
+          "name": "DP22"
+        },
+        "predicate": {
+          "type": "MagicSQLExpression",
+          "value": "`ca_name` = 'Event_Domopalooza_NAM_US_9306_20220323_DPVirtual'"
+        }
+      },
+      {
+        "table": {
+          "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_branches-1",
+          "name": "DP21"
+        },
+        "predicate": {
+          "type": "MagicSQLExpression",
+          "value": "`ca_name` = 'Event_Domopalooza_NAM_US_8941_20210324_Registered'"
+        }
+      },
+      {
+        "table": {
+          "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_branches-2",
+          "name": "DP20"
+        },
+        "predicate": {
+          "type": "MagicSQLExpression",
+          "value": "`ca_name` = 'Event_Domopalooza_NAM_US_8578_202003_Registered'"
+        }
+      },
+      {
+        "table": {
+          "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_branches-3",
+          "name": "DP19"
+        },
+        "predicate": {
+          "type": "MagicSQLExpression",
+          "value": "`ca_name` = 'Event_Domopalooza_NAM_US_8320_201903'"
+        }
+      },
+      {
+        "table": {
+          "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_branches-4",
+          "name": "DP18"
+        },
+        "predicate": {
+          "type": "MagicSQLExpression",
+          "value": "`ca_name` = 'Event_Domopalooza_NAM_US_8034_201803'"
+        }
+      }
+    ],
+    "elseTable": {
+      "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_elseTable",
+      "name": "Else"
+    },
+    "independent": false,
+    "tables": [
+      {
+        "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_branches-0",
+        "name": "DP22"
+      },
+      {
+        "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_branches-1",
+        "name": "DP21"
+      },
+      {
+        "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_branches-2",
+        "name": "DP20"
+      },
+      {
+        "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_branches-3",
+        "name": "DP19"
+      },
+      {
+        "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_branches-4",
+        "name": "DP18"
+      },
+      {
+        "id": "SplitFilter-b99b5bb1-ab33-47f7-ab09-42c146c84667_elseTable",
+        "name": "Else"
+      }
+    ]
+  },
+  "SplitJoin": {
+    "type": "SplitJoin",
+    "id": "SplitJoin-88393a1b-056c-4c66-bc42-e076cfa39c08",
+    "name": "Split Join",
+    "dependsOn": [
+      "dc56610a-7b12-47b0-bdbe-eecaefc8e119",
+      "ce63bb34-4a14-4cf1-a776-7029d6733861"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 320,
+      "y": 320,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "step1": "dc56610a-7b12-47b0-bdbe-eecaefc8e119",
+    "step2": "ce63bb34-4a14-4cf1-a776-7029d6733861",
+    "keys1": [
+      "email"
+    ],
+    "keys2": [
+      "E-mail"
+    ],
+    "schemaModification1": [
+      {
+        "name": "user type",
+        "rename": "a.user type",
+        "remove": false
+      },
+      {
+        "name": "user status",
+        "rename": "a.user status",
+        "remove": false
+      },
+      {
+        "name": "freemium_status",
+        "rename": "a.status",
+        "remove": false
+      }
+    ],
+    "rightAntiTable": {
+      "id": "SplitJoin-88393a1b-056c-4c66-bc42-e076cfa39c08_rightAntiTable",
+      "name": "Right anti-join"
+    },
+    "tables": [
+      {
+        "id": "SplitJoin-88393a1b-056c-4c66-bc42-e076cfa39c08_rightAntiTable",
+        "name": "Right anti-join"
+      }
+    ]
+  },
+  "SQL": {
+    "type": "SQL",
+    "id": "f39c6673-e847-44c6-ab03-1b512fa9c0cf",
+    "name": "transform_data_1",
+    "dependsOn": [
+      "879e1af7-a273-419b-bec8-18d5eff24b0f",
+      "1f390900-abf4-4eaa-927c-0e53d80ceaaf"
+    ],
+    "settings": {},
+    "notes": [],
+    "gui": {
+      "x": 202,
+      "y": 37,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "inputs": [
+      "879e1af7-a273-419b-bec8-18d5eff24b0f",
+      "1f390900-abf4-4eaa-927c-0e53d80ceaaf"
+    ],
+    "statements": [
+      "SELECT \n--  a.\"6sense account buying stage\"\n--  ,a.\"6sense account intent score\"\n--  ,a.\"6sense account profile fit\"\n--  ,a.\"6sense contact grade\"\n--  ,a.\"6sense contact intent score\"\n--  ,a.\"6sense contact profile fit\"\n  a.\"acc_total_lead_converted\"\n  ,a.\"acc_total_lead_lost\"\n  ,a.\"acc_total_lead_open\"\n  ,a.\"acc_total_opp\"\n  ,a.\"acc_total_opp_lost\"\n  ,a.\"acc_total_opp_open\"\n  ,a.\"account country\"\n  ,a.\"account freeium domains\"\n  ,a.\"account state\"\n  ,a.\"account super region\"\n  ,a.\"ca_actualcost\"\n  ,a.\"ca_actualcost_mostrecent\"\n  ,a.\"ca_budgetedcost\"\n  ,a.\"ca_budgetedcost_mostrecent\"\n  ,a.\"ca_channel__c\"\n  ,a.\"ca_description\"\n  ,a.\"ca_enddate\"\n  ,a.\"ca_event_action__c\"\n  ,a.\"ca_geo_city__c\"\n  ,a.\"ca_industry__c\"\n  ,a.\"ca_initiative__c\"\n  ,a.\"ca_interaction_goal__c\"\n  ,a.\"ca_lead_goal__c\"\n  ,a.\"ca_name\"\n  ,a.\"ca_numberofcontacts\"\n  ,a.\"ca_objective__c\"\n  ,a.\"ca_owner_name\"\n  ,a.\"ca_persona__c\"\n  ,a.\"ca_quick_event_name__c\"\n  ,a.\"ca_role__c\"\n  ,a.\"ca_sales_talking_points__c\"\n  ,a.\"ca_startdate\"\n  ,a.\"ca_startdate_mostrecent\"\n  ,a.\"ca_status\"\n  ,a.\"ca_sub_channel__c\"\n  ,a.\"ca_target_audience__c\"\n  , a.\"ca_custom_5__c\"\n  ,a.\"cadence last completed step\"\n  ,a.\"cadence name\"\n  ,a.\"cadence next step\"\n  ,a.\"cadence next step due date\"\n  ,a.\"contact last activity date\"\n  ,a.\"created date\" AS \"lead created date\"\n  ,a.\"description\"\n  ,a.\"dials\"\n  ,a.\"email\"\n  ,a.\"emails count\"\n  ,a.\"existing opportunity\"\n  ,a.\"first call time\"\n  ,a.\"first correct contact\"\n  ,a.\"first email sent date\"\n  ,a.\"first_instance_created_date\"\n  ,a.\"handover ae\"\n  ,a.\"isconverted\"\n  ,a.\"isdisqualifed\"\n  ,a.\"landing page url\"\n  /*,a.\"last call time\"*/\n  ,a.\"last correct contact\"\n  ,a.\"last email sent date\"\n  ,a.\"lead filter\"\n  ,a.\"lead id\"\n  ,a.\"lead source\"\n  ,a.\"lead stage\"\n  ,a.\"lead type\"\n  ,a.\"marketing comments\"\n  ,a.\"marketing disposition\"\n  ,a.\"most recent quick event name\"\n  ,a.\"mql type\"\n  ,a.\"mql type priority\"\n  ,a.\"name\"\n  ,a.\"next step action\"\n  ,a.\"next step datetime\"\n  ,a.\"next step detail\"\n  ,a.\"number of employees\"\n  ,a.\"opp_amount\"\n  ,a.\"opp_close_date\"\n  ,a.\"opp_disco_call_completed\"\n  ,a.\"opp_disco_call_scheduled\"\n  ,a.\"opp_forecast_owner\"\n  ,a.\"opp_handover_status\"\n  ,a.\"opp_stage\"\n  ,a.\"opp_team\"\n  ,a.\"opp_type\"\n  ,a.\"reject/dq reason\"\n  ,a.\"running_total_mqls_target\"\n  ,a.\"sales team comments\"\n  ,a.\"sgl lead source\"\n  ,a.\"stage new datetime\"\n  ,a.\"stagedate accepted\"\n  ,a.\"stagedate converted\"\n  ,a.\"stagedate disqualified\"\n  ,a.\"stagedate new\"\n  ,a.\"stagedate rejected\"\n  ,a.\"status\" AS \"lead status\"\n  ,a.\"owner id\"\n  ,a.\"owner name\"\n  ,a.\"owner manager\"\n  ,a.\"owner role\"\n  ,a.\"a_team_derived\"\n  ,b.\"account customer type\"\n  ,b.\"account id\"\n  ,b.\"account industry\"\n  ,b.\"account name\"\n  ,b.\"account owner\"\n  ,b.\"account owner manager\"\n  ,b.\"account revenue band\"\n  ,b.\"account type\"\n  ,b.\"activity date\"\n  ,b.\"activity id\"\n  ,b.\"activity sub type\"\n  ,b.\"activity type\"\n  ,b.\"call disposition\"\n  ,b.\"contact department\"\n  ,b.\"contact email\"\n  ,b.\"contact name\"\n  ,b.\"contact role\"\n  ,b.\"contact title\"\n  ,b.\"created date\" AS \"activity created date\"\n  ,b.\"dedicated pitches\"\n  ,b.\"first call pitch deck used\"\n  ,b.\"manager1 name\"\n  ,b.\"manager3 name\"\n  ,b.\"opportunity close date\"\n  ,b.\"opportunity forecast owner\"\n  ,b.\"opportunity name\"\n  ,b.\"opportunity stage\"\n  ,b.\"opportunity team\"\n  ,b.\"play first call deck feedback\"\n  ,b.\"play next steps\"\n  ,b.\"rep email\"\n  ,b.\"rep manager name\"\n  ,b.\"rep manager role\"\n  ,b.\"rep name\"\n  ,b.\"rep role\"\n  ,b.\"rep selling role\"\n  ,b.\"rep team\"\n  ,b.\"sequence name\"\n  ,b.\"template name\"\n  ,b.\"user isactive\"\nFROM \n  \"analytics_leads_master_to_oppty_master\" a \nLEFT JOIN \n  \"sales_team_activity\" b \nON \n  a.\"lead id\" = b.\"lead id\" \n  \n  \n\n\n\n"
+    ],
+    "columnSettings": {},
+    "tables": [
+      {}
+    ]
+  },
+  "SqlAction": {
+    "type": "SqlAction",
+    "id": "55ffff6a-968d-4946-9ede-b313aa7f88fc",
+    "dependsOn": [
+      "3"
+    ],
+    "notes": [],
+    "gui": {
+      "x": null,
+      "y": null,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "inputs": [
+      "3"
+    ],
+    "statements": [
+      "ALTER TABLE `transform_data_1` ADD INDEX(`Account Id`)"
+    ],
+    "columnSettings": {},
+    "tables": [
+      {}
+    ]
+  },
+  "StashAction": {
+    "type": "StashAction",
+    "id": "b760b7b9-7d26-4bd3-b935-b999f0934646",
+    "name": "Select and Store Columns",
+    "dependsOn": [
+      "b8516b93-769d-4a08-95c2-6b600d4d7b55"
+    ],
+    "gui": {
+      "x": 168,
+      "y": 96,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "b8516b93-769d-4a08-95c2-6b600d4d7b55",
+    "selection": [
+      "account name",
+      "CONSUMPTION_METRIC",
+      "CONSUMPTION_METRIC_DESC",
+      "users_purchased",
+      "curr_paid_users",
+      "total_customer_users",
+      "RUN_DATE"
+    ],
+    "stashName": "Stored",
+    "tables": [
+      {}
+    ]
+  },
+  "StringCalculator": {
+    "type": "StringCalculator",
+    "id": "39c94d94-4126-4a4e-8fec-202342878686",
+    "name": "String Operations",
+    "dependsOn": [
+      "04dc7f1d-bd56-4968-a8d3-e94967e4c117"
+    ],
+    "settings": {},
+    "gui": {
+      "x": 480,
+      "y": 48,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "04dc7f1d-bd56-4968-a8d3-e94967e4c117",
+    "calculations": [
+      {
+        "fieldName": "Trim Whitespace",
+        "calcType": "TRIM",
+        "fieldA": "Advisor",
+        "constantA": null,
+        "exprA": null,
+        "fieldB": null,
+        "constantB": {
+          "value": "BOTH",
+          "type": "STRING"
+        },
+        "exprB": null,
+        "fieldC": null,
+        "constantC": null,
+        "exprC": null,
+        "settings": null
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "TextFormatting": {
+    "type": "TextFormatting",
+    "id": "TextFormatting-4d837763-3d96-415e-b979-db32a039df18",
+    "name": "Text Formatting",
+    "dependsOn": [
+      "LoadFromVault-22d3cae2-cf73-4e2e-8091-c00970317f54"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 320,
+      "y": 128,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "LoadFromVault-22d3cae2-cf73-4e2e-8091-c00970317f54",
+    "fields": [
+      {
+        "name": "Searched By",
+        "letterCaseMod": "UPPER",
+        "numberMod": "NONE"
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "TextGeneration": {
+    "type": "TextGeneration",
+    "id": "9dd81422-c87c-4696-962f-6ec7d381648c",
+    "name": "new use case identified?",
+    "dependsOn": [
+      "Filter-43b87df0-332a-44b9-ac36-3f82fb193106"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "notes": [],
+    "gui": {
+      "x": 416,
+      "y": 128,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "Filter-43b87df0-332a-44b9-ac36-3f82fb193106",
+    "modelId": "domo.domo_ai.domogpt-small-v1:anthropic",
+    "temperature": 0.5,
+    "instructions": "You are a Strategic Call Analyst tasked with reviewing a call transcript between business stakeholders (e.g., clients, internal teams, or partners). Your goal is to identify whether or not a new use case for leveraging Domo was discussed on this meeting. An example of this would be a new system of data to connect to, a new team that wants to come into Domo, a new product that has yet to be adopted within Domo. Please keep the response to a single sentence. The goal is just to determine whether or not a new use case was identified in this response. ",
+    "prompt": "Here is the call transcript to analyze: {{Call Transcript}}",
+    "parameters": {
+      "Call Transcript": "Call Transcript"
+    },
+    "outputColumnName": "New Use Case Identified?",
+    "path": "",
+    "modelOutputSchema": [],
+    "modelInputSchema": [],
+    "columnSettings": {},
+    "tables": [
+      {}
+    ]
+  },
+  "UnionAll": {
+    "type": "UnionAll",
+    "id": "a6be2dad-614e-4749-8c60-44b525de4fb1",
+    "name": "Append Rows",
+    "dependsOn": [
+      "6644be60-97b9-47d8-8592-fce5c3144b30",
+      "d9b3e9dc-b580-4885-953d-def7ddb2a038"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 576,
+      "y": 128,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "inputs": [
+      "6644be60-97b9-47d8-8592-fce5c3144b30",
+      "d9b3e9dc-b580-4885-953d-def7ddb2a038"
+    ],
+    "unionType": "INCLUDE_ALL",
+    "schemaSource": "6644be60-97b9-47d8-8592-fce5c3144b30",
+    "strict": false,
+    "tables": [
+      {}
+    ]
+  },
+  "Unique": {
+    "type": "Unique",
+    "id": "9e4fb69d-1048-4752-8faa-eb787f5a1cc4",
+    "name": "Remove Duplicate a_id",
+    "dependsOn": [
+      "14317b0c-4ce0-429e-8ba9-96c9a536db97"
+    ],
+    "gui": {
+      "x": 540,
+      "y": 240,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "14317b0c-4ce0-429e-8ba9-96c9a536db97",
+    "countRows": false,
+    "fields": [
+      {
+        "name": "a_id",
+        "caseInsensitive": false
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "UserDefinedAction": {
+    "type": "UserDefinedAction",
+    "id": "904b9247-9b6d-4e00-a921-3ab69401a6d6",
+    "name": "Classification",
+    "dependsOn": [
+      "87ecd9c8-ff2f-4cca-836d-b5d29fbca9f0",
+      "1d4102c9-5359-4f33-b255-294b5d79c81f"
+    ],
+    "gui": {
+      "x": 432,
+      "y": 168,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "inputs": [
+      "87ecd9c8-ff2f-4cca-836d-b5d29fbca9f0",
+      "1d4102c9-5359-4f33-b255-294b5d79c81f"
+    ],
+    "variables": {
+      "trainingInput": {
+        "dataType": "INPUT",
+        "value": "1d4102c9-5359-4f33-b255-294b5d79c81f"
+      },
+      "mainInput": {
+        "dataType": "INPUT",
+        "value": "87ecd9c8-ff2f-4cca-836d-b5d29fbca9f0"
+      },
+      "dependent": {
+        "dataType": "COLUMN",
+        "value": "assigned_to_display_value"
+      },
+      "independentCategorical": {
+        "dataType": "COLUMN",
+        "value": [
+          "assigned_to_display_value"
+        ]
+      },
+      "classificationColumnName": {
+        "dataType": "STRING",
+        "value": "classification"
+      },
+      "algorithm": {
+        "dataType": "STRING",
+        "value": "NAIVE_BAYES"
+      }
+    },
+    "actionDefinitionId": "Classification",
+    "additions": [
+      {
+        "name": null,
+        "dataType": "STRING"
+      },
+      {
+        "name": "short_description",
+        "dataType": "STRING"
+      },
+      {
+        "name": "close_code",
+        "dataType": "STRING"
+      },
+      {
+        "name": "assignment_group_display_value",
+        "dataType": "STRING"
+      },
+      {
+        "name": "assignment_group_link",
+        "dataType": "STRING"
+      },
+      {
+        "name": "description",
+        "dataType": "STRING"
+      },
+      {
+        "name": "sys_updated_on",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "close_notes",
+        "dataType": "STRING"
+      },
+      {
+        "name": "closed_by",
+        "dataType": "STRING"
+      },
+      {
+        "name": "number",
+        "dataType": "STRING"
+      },
+      {
+        "name": "sys_id",
+        "dataType": "STRING"
+      },
+      {
+        "name": "caller_id.vip",
+        "dataType": "STRING"
+      },
+      {
+        "name": "contact_type",
+        "dataType": "STRING"
+      },
+      {
+        "name": "resolved_by",
+        "dataType": "STRING"
+      },
+      {
+        "name": "sys_updated_by",
+        "dataType": "STRING"
+      },
+      {
+        "name": "incident_state",
+        "dataType": "STRING"
+      },
+      {
+        "name": "opened_by_display_value",
+        "dataType": "STRING"
+      },
+      {
+        "name": "opened_by_link",
+        "dataType": "STRING"
+      },
+      {
+        "name": "urgency",
+        "dataType": "STRING"
+      },
+      {
+        "name": "sys_created_on",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "reassignment_count",
+        "dataType": "LONG"
+      },
+      {
+        "name": "state",
+        "dataType": "STRING"
+      },
+      {
+        "name": "sys_created_by",
+        "dataType": "STRING"
+      },
+      {
+        "name": "assigned_to",
+        "dataType": "STRING"
+      },
+      {
+        "name": "severity",
+        "dataType": "STRING"
+      },
+      {
+        "name": "closed_at",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "cmdb_ci",
+        "dataType": "STRING"
+      },
+      {
+        "name": "impact",
+        "dataType": "STRING"
+      },
+      {
+        "name": "sys_mod_count",
+        "dataType": "STRING"
+      },
+      {
+        "name": "active",
+        "dataType": "STRING"
+      },
+      {
+        "name": "priority",
+        "dataType": "STRING"
+      },
+      {
+        "name": "opened_at",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "caller_id_display_value",
+        "dataType": "STRING"
+      },
+      {
+        "name": "caller_id_link",
+        "dataType": "STRING"
+      },
+      {
+        "name": "resolved_at",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "location",
+        "dataType": "STRING"
+      },
+      {
+        "name": "caller_id.department.name",
+        "dataType": "STRING"
+      },
+      {
+        "name": "category",
+        "dataType": "STRING"
+      },
+      {
+        "name": "subcategory",
+        "dataType": "STRING"
+      },
+      {
+        "name": "assigned_to_display_value",
+        "dataType": "STRING"
+      },
+      {
+        "name": "assigned_to_link",
+        "dataType": "STRING"
+      },
+      {
+        "name": "resolved_by_display_value",
+        "dataType": "STRING"
+      },
+      {
+        "name": "resolved_by_link",
+        "dataType": "STRING"
+      },
+      {
+        "name": "cmdb_ci_display_value",
+        "dataType": "STRING"
+      },
+      {
+        "name": "cmdb_ci_link",
+        "dataType": "STRING"
+      },
+      {
+        "name": "location_display_value",
+        "dataType": "STRING"
+      },
+      {
+        "name": "location_link",
+        "dataType": "STRING"
+      },
+      {
+        "name": "closed_by_display_value",
+        "dataType": "STRING"
+      },
+      {
+        "name": "closed_by_link",
+        "dataType": "STRING"
+      },
+      {
+        "name": "opened_by",
+        "dataType": "STRING"
+      },
+      {
+        "name": "caller_id",
+        "dataType": "STRING"
+      },
+      {
+        "name": "assignment_group",
+        "dataType": "STRING"
+      },
+      {
+        "name": "_BATCH_ID_",
+        "dataType": "DOUBLE"
+      },
+      {
+        "name": "_BATCH_LAST_RUN_",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "created",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "opened",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "updated",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "closed",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "resolved",
+        "dataType": "DATETIME"
+      },
+      {
+        "name": "duration_seconds",
+        "dataType": "LONG"
+      }
+    ],
+    "removeByDefault": true,
+    "tables": [
+      {}
+    ]
+  },
+  "ValueMapper": {
+    "type": "ValueMapper",
+    "id": "8b498772-0b08-4da7-96de-9b024964b6b6",
+    "name": "Value Mapper",
+    "dependsOn": [
+      "4307daa4-d499-4640-bf69-566670a6b1d1"
+    ],
+    "gui": {
+      "x": 492,
+      "y": 324,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "4307daa4-d499-4640-bf69-566670a6b1d1",
+    "fieldToUse": "Account Id",
+    "targetField": "Account ID 2",
+    "unmappedBehavior": "KEEP_ORIGINAL",
+    "mappings": [
+      {
+        "from": "",
+        "fromExpr": null,
+        "to": "",
+        "toExpr": null
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  },
+  "WindowAction": {
+    "type": "WindowAction",
+    "id": "WindowAction-994483ff-c381-4871-b7e5-68723f8a6181",
+    "name": "Cost/MQL Rank",
+    "dependsOn": [
+      "ExpressionEvaluator-8d1419c2-28e3-4499-8caf-40d5185bf76d"
+    ],
+    "settings": {
+      "preferredDatabaseEntityType": "TEMP_VIEW"
+    },
+    "gui": {
+      "x": 640,
+      "y": 128,
+      "color": null,
+      "colorSource": null,
+      "sampleJson": null
+    },
+    "input": "ExpressionEvaluator-8d1419c2-28e3-4499-8caf-40d5185bf76d",
+    "orderRules": [
+      {
+        "column": "Cost/MQL",
+        "caseSensitive": false,
+        "ascending": true
+      }
+    ],
+    "additions": [
+      {
+        "name": "Cost/MQL Rank",
+        "operation": {
+          "type": "RANKING",
+          "operationType": "ROW_NUMBER"
+        }
+      }
+    ],
+    "tables": [
+      {}
+    ]
+  }
+}

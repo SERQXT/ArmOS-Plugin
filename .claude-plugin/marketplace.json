@@ -1,0 +1,14 @@
+{
+  "name": "ArmOS-Plugin",
+  "owner": { "name": "Arminas Juknevicius", "email": "arminas.juknevicius@domo.com" },
+  "plugins": [
+    {
+      "name": "ArmOS-Plugin",
+      "source": "./",
+      "version": "0.1.0",
+      "description": "ArmOS — Domo Professional Services skill library + /server MCP repoint command.",
+      "category": "productivity",
+      "keywords": ["domo", "armos", "professional-services"]
+    }
+  ]
+}

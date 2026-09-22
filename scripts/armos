@@ -1,0 +1,35 @@
+#!/bin/sh
+# armos — launch Claude Code with the ArmOS environment.
+#
+# Reproduces the ArmOS wrapper: loads the domo-mcp developer token from
+# .env, ensures cwd is the project root (so ./bin/cortex-key-helper.sh and
+# .mcp.json resolve), then execs `claude` with all args passed through.
+#
+# Usage:  bin/armos [claude args...]
+set -e
+
+# Resolve this script's real path, following symlinks (so a `ln -s` launcher
+# on PATH still finds the project root), then take its parent's parent.
+SOURCE=$0
+while [ -h "$SOURCE" ]; do
+  DIR=$(cd -P "$(dirname "$SOURCE")" && pwd)
+  SOURCE=$(readlink "$SOURCE")
+  case $SOURCE in /*) ;; *) SOURCE="$DIR/$SOURCE" ;; esac
+done
+SCRIPT_DIR=$(cd -P "$(dirname "$SOURCE")" && pwd)
+ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+cd "$ROOT"
+
+# Load .env (DOMO_DEVELOPER_TOKEN, etc.) if present.
+if [ -f "$ROOT/.env" ]; then
+  set -a
+  . "$ROOT/.env"
+  set +a
+else
+  echo "armos: no .env found — copy .env.example to .env and set DOMO_DEVELOPER_TOKEN" >&2
+  echo "          (the domo-mcp server will fail to authenticate without it)" >&2
+fi
+
+# Cortex auth (ANTHROPIC_BASE_URL, model mappings, apiKeyHelper) comes from
+# .claude/settings.json, which Claude Code reads automatically from cwd.
+exec claude "$@"

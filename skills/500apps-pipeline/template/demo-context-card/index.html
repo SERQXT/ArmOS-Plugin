@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Context</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --domo-blue: #99CCEE;
+    --domo-blue-deep: #2A7AB5;
+    --accent-orange: #FF9922;
+    --neutral-50: #F1F6FA;
+    --neutral-100: #DCE4EA;
+    --neutral-200: #B7C1CB;
+    --neutral-600: #68737F;
+    --neutral-900: #3F454D;
+    --white: #ffffff;
+    --accent-purple: #776CB0;
+    --accent-mint: #ADD4C1;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Open Sans', -apple-system, sans-serif;
+    background: var(--white);
+    color: var(--neutral-900);
+    line-height: 1.5;
+  }
+
+  .card {
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  /* ── Hero banner ── */
+  .hero {
+    background: linear-gradient(135deg, var(--domo-blue-deep) 0%, #1B6AA0 100%);
+    padding: 36px 48px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(153,204,238,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 8px;
+  }
+  .hero-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.85);
+    max-width: 640px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Body grid ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  /* ── Left: Challenge + Result ── */
+  .left {
+    padding: 32px 40px 32px 48px;
+    border-right: 1px solid var(--neutral-100);
+  }
+
+  .block { margin-bottom: 28px; }
+  .block:last-child { margin-bottom: 0; }
+
+  .block-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--domo-blue-deep);
+    margin-bottom: 8px;
+  }
+  .block-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--neutral-600);
+  }
+  .result-text {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: var(--neutral-900);
+  }
+
+  /* ── Right: Powered By + Get Started ── */
+  .right {
+    padding: 32px 48px 32px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .capabilities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .cap-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    background: var(--neutral-50);
+    border: 1px solid var(--neutral-100);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--neutral-900);
+  }
+  .cap-count {
+    font-weight: 400;
+    color: var(--neutral-600);
+    margin-left: 2px;
+  }
+  .cap-tag .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-data { background: var(--domo-blue-deep); }
+  .dot-app { background: var(--accent-orange); }
+  .dot-ai { background: var(--accent-purple); }
+  .dot-auto { background: var(--accent-mint); }
+
+  .how-it-works {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--neutral-600);
+    margin-top: 12px;
+  }
+
+  @media (max-width: 700px) {
+    .body { grid-template-columns: 1fr; }
+    .left { border-right: none; border-bottom: 1px solid var(--neutral-100); padding: 24px; }
+    .right { padding: 24px; }
+    .hero { padding: 28px 24px; }
+    .hero-title { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-eyebrow" id="slot-eyebrow"><!-- SLOT: industry --></div>
+    <div class="hero-title" id="slot-title"><!-- SLOT: use_case_title --></div>
+    <div class="hero-subtitle" id="slot-value-prop"><!-- SLOT: value_prop --></div>
+  </div>
+
+  <div class="body">
+
+    <!-- ── LEFT: Challenge + Result ── -->
+    <div class="left">
+      <div class="block">
+        <div class="block-label">The Challenge</div>
+        <div class="block-text" id="slot-challenge"><!-- SLOT: challenge --></div>
+      </div>
+      <div class="block">
+        <div class="block-label">The Result</div>
+        <div class="result-text" id="slot-result"><!-- SLOT: result --></div>
+      </div>
+    </div>
+
+    <!-- ── RIGHT: Powered By + Get Started ── -->
+    <div class="right">
+      <div>
+        <div class="block">
+          <div class="block-label">Powered By</div>
+          <div class="capabilities" id="slot-capabilities"><!-- SLOT: capabilities --></div>
+          <div class="how-it-works" id="slot-how"><!-- SLOT: how_it_works --></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!--
+  AGENT: Replace the placeholder JSON below with actual slot data.
+  This element MUST appear before the reader script so the data is
+  available when the script runs on load.
+
+  LANGUAGE RULES:
+  - use_case_title: Clear, benefit-oriented name (not technical)
+  - value_prop: One sentence a VP would read — what business outcome this enables
+  - challenge: Business pain in plain language — no technical jargon
+  - result: The measurable outcome — what changed for the team using this
+  - capabilities: Domo platform features, written for a non-technical audience
+  - how_it_works: One sentence on HOW it delivers the result — approachable, not code-level
+-->
+<script type="application/json" id="slot-data">{
+  "use_case_title": "",
+  "industry": "",
+  "value_prop": "",
+  "challenge": "",
+  "result": "",
+  "capabilities": [
+    { "name": "", "count": 0, "detail": "" }
+  ],
+  "how_it_works": ""
+}</script>
+
+<script>
+(function() {
+  var SLOTS = {
+    use_case_title: '',
+    industry: '',
+    value_prop: '',
+    challenge: '',
+    result: '',
+    capabilities: [],
+    how_it_works: ''
+  };
+
+  var el = document.getElementById('slot-data');
+  if (el) {
+    try { SLOTS = Object.assign(SLOTS, JSON.parse(el.textContent)); } catch(e) {}
+  }
+
+  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  if (SLOTS.use_case_title) document.getElementById('slot-title').textContent = SLOTS.use_case_title;
+  if (SLOTS.industry) document.getElementById('slot-eyebrow').textContent = SLOTS.industry + '  \u00B7  Domo Professional Services';
+  if (SLOTS.value_prop) document.getElementById('slot-value-prop').textContent = SLOTS.value_prop;
+  if (SLOTS.challenge) document.getElementById('slot-challenge').textContent = SLOTS.challenge;
+  if (SLOTS.result) document.getElementById('slot-result').textContent = SLOTS.result;
+  if (SLOTS.how_it_works) document.getElementById('slot-how').textContent = SLOTS.how_it_works;
+
+  var CAP_COLORS = {
+    'AppDB': 'dot-data',
+    'Datasets': 'dot-data',
+    'Domo AI': 'dot-ai',
+    'Code Engine': 'dot-auto',
+    'Magic ETL': 'dot-data',
+    'Workflows': 'dot-auto',
+    'Dashboards': 'dot-app'
+  };
+
+  if (SLOTS.capabilities && SLOTS.capabilities.length) {
+    document.getElementById('slot-capabilities').innerHTML = SLOTS.capabilities
+      .filter(function(c) { return c.name; })
+      .map(function(c) {
+        var dotClass = CAP_COLORS[c.name] || 'dot-app';
+        var countLabel = c.count && c.detail ? '<span class="cap-count">' + c.count + ' ' + esc(c.detail) + '</span>' : '';
+        return '<span class="cap-tag"><span class="dot ' + dotClass + '"></span>' + esc(c.name) + countLabel + '</span>';
+      }).join('');
+  }
+
+
+})();
+</script>
+
+</body>
+</html>

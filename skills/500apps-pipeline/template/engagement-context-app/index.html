@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engagement Context</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --border: #1e1e2e;
+    --text: #e4e4ed;
+    --text-secondary: #8888a0;
+    --accent: #3b82f6;
+    --accent-soft: #1e3a5f;
+    --success: #22c55e;
+    --warn: #f59e0b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 900px; margin: 0 auto; padding: 48px 32px; }
+  .slide { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; margin-bottom: 24px; }
+  .slide-hero { padding: 56px 40px; text-align: center; }
+  .customer-name { font-size: 14px; font-weight: 500; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .use-case-title { font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+  .outcome { font-size: 18px; font-weight: 300; color: var(--text-secondary); max-width: 680px; margin: 0 auto; line-height: 1.5; }
+  .section-label { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+  .problem-text { font-size: 16px; color: var(--text-secondary); line-height: 1.7; }
+  .metric-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .metric-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+  .metric-value { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; }
+  .metric-label { font-size: 11px; color: var(--text-secondary); margin-top: 6px; }
+  .feature-list { list-style: none; }
+  .feature-list li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text); }
+  .feature-list li:last-child { border-bottom: none; }
+  .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .scope-col h3 { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+  .scope-col.in-scope h3 { color: var(--success); }
+  .scope-col.out-scope h3 { color: var(--text-secondary); }
+  .scope-col ul { list-style: none; font-size: 14px; color: var(--text-secondary); }
+  .scope-col ul li { padding: 4px 0; }
+  .scope-col.in-scope ul li::before { content: "✓ "; color: var(--success); }
+  .scope-col.out-scope ul li::before { content: "○ "; }
+  .discovery-themes { }
+  .discovery-themes li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .discovery-themes li:last-child { border-bottom: none; }
+  .app-link { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; margin-top: 16px; }
+  .app-link:hover { opacity: 0.9; }
+  .footer { text-align: center; color: var(--text-secondary); font-size: 12px; padding: 24px 0; }
+  .loading { text-align: center; padding: 80px 0; color: var(--text-secondary); }
+  @media (max-width: 640px) {
+    .container { padding: 24px 16px; }
+    .slide { padding: 24px; }
+    .use-case-title { font-size: 24px; }
+    .metric-grid { grid-template-columns: 1fr; }
+    .scope-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container" id="root">
+  <div class="loading">Loading engagement context...</div>
+</div>
+<script>
+(function() {
+  // Parse ENGAGEMENT-CONTEXT-COPY.md content into slots
+  function parseSlots(md) {
+    const slots = {};
+    const sections = md.split(/^###\s+/m).filter(Boolean);
+    for (const sec of sections) {
+      const lines = sec.trim().split('\n');
+      const title = lines[0].trim();
+      const body = lines.slice(1).join('\n');
+      // Extract code block content or plain text
+      const codeMatch = body.match(/```[\s\S]*?\n([\s\S]*?)```/);
+      const val = codeMatch ? codeMatch[1].trim() : body.replace(/^_.*_$/gm, '').trim();
+      if (title && val) slots[title] = val;
+    }
+    return slots;
+  }
+
+  function renderBullets(text) {
+    return text.split('\n').filter(l => l.trim().startsWith('•') || l.trim().startsWith('-'))
+      .map(l => l.replace(/^[•\-]\s*/, '').trim()).filter(Boolean);
+  }
+
+  function render(slots) {
+    const customer = slots['Customer Name'] || 'Customer';
+    const title = slots['Use Case Title'] || 'Engagement Context';
+    const outcome = slots['Outcome Statement'] || '';
+    const problem = slots['Problem Narrative'] || '';
+    const heroMetric = slots['Key Metrics']?.split('\n').find(l => l.trim() && !l.includes('Supporting'))?.replace(/^.*?:\s*/, '') || '';
+    const features = renderBullets(slots['Feature Highlights'] || '');
+    const inScope = renderBullets(slots['In Scope'] || slots['What This Build Demonstrates'] || '');
+    const outScope = renderBullets(slots['Out of Scope'] || slots['Not Yet Built'] || '');
+    const discovery = renderBullets(slots['Discovery Focus Areas'] || slots['Discovery Themes'] || '');
+    const appLink = slots['Link to MVP App'] || slots['App Link'] || '';
+
+    // Extract all metrics
+    const metricsRaw = slots['Key Metrics'] || '';
+    const metrics = metricsRaw.split('\n').filter(l => l.trim() && !l.startsWith('**')).map(l => l.trim());
+
+    document.getElementById('root').innerHTML = `
+      <div class="slide slide-hero">
+        <div class="customer-name">${esc(customer)}</div>
+        <div class="use-case-title">${esc(title)}</div>
+        <div class="outcome">${esc(outcome)}</div>
+        ${appLink ? `<a href="${esc(appLink)}" target="_blank" class="app-link">Open the App →</a>` : ''}
+      </div>
+
+      ${problem ? `
+      <div class="slide">
+        <div class="section-label">The Problem</div>
+        <div class="problem-text">${esc(problem)}</div>
+      </div>` : ''}
+
+      ${metrics.length ? `
+      <div class="slide">
+        <div class="section-label">Key Metrics</div>
+        <div class="metric-grid">
+          ${metrics.slice(0, 3).map((m, i) => `
+            <div class="metric-card">
+              <div class="metric-value">${esc(m)}</div>
+              <div class="metric-label">${i === 0 ? 'Primary' : 'Supporting'}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>` : ''}
+
+      ${features.length ? `
+      <div class="slide">
+        <div class="section-label">What This App Does</div>
+        <ul class="feature-list">
+          ${features.map(f => `<li>${esc(f)}</li>`).join('')}
+        </ul>
+      </div>` : ''}
+
+      ${inScope.length || outScope.length ? `
+      <div class="slide">
+        <div class="section-label">Scope</div>
+        <div class="scope-grid">
+          <div class="scope-col in-scope">
+            <h3>In This Build</h3>
+            <ul>${inScope.map(s => `<li>${esc(s)}</li>`).join('')}</ul>
+          </div>
+          <div class="scope-col out-scope">
+            <h3>Coming Next</h3>
+            <ul>${outScope.map(s => `<li>${esc(s)}</li>`).join('')}</ul>
+          </div>
+        </div>
+      </div>` : ''}
+
+      ${discovery.length ? `
+      <div class="slide">
+        <div class="section-label">What We Want to Learn</div>
+        <ul class="discovery-themes">
+          ${discovery.map(d => `<li>${esc(d)}</li>`).join('')}
+        </ul>
+      </div>` : ''}
+
+      <div class="footer">
+        ${esc(customer)} · ${esc(title)} · Generated by ArmOS
+      </div>
+    `;
+    document.title = title + ' — ' + customer;
+  }
+
+  function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  // Load the copy from the API or from a data attribute
+  const dataUrl = document.body.dataset.copyUrl;
+  if (dataUrl) {
+    fetch(dataUrl).then(r => r.text()).then(md => render(parseSlots(md))).catch(e => {
+      document.getElementById('root').innerHTML = '<div class="loading">Failed to load: ' + e.message + '</div>';
+    });
+  } else {
+    // Fallback: look for inline content
+    const pre = document.getElementById('copy-data');
+    if (pre) render(parseSlots(pre.textContent));
+    else document.getElementById('root').innerHTML = '<div class="loading">No copy data found. Set data-copy-url on body or include #copy-data element.</div>';
+  }
+})();
+</script>
+</body>
+</html>

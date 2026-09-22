@@ -1,0 +1,1745 @@
+{
+  "meta": {
+    "schema_version": "0.5.0",
+    "sow_version": "v2.2",
+    "generated_date": "2026-04-24",
+    "revision_label": "Accelerated \u2014 6-Month Plan",
+    "confidentiality": "Confidential",
+    "prepared_by": [
+      "Mark Lees"
+    ]
+  },
+  "client": {
+    "name": "Pacific Healthcare Association",
+    "short_name": "PHA",
+    "primary_stakeholders": [
+      {
+        "name": "Maya Chen",
+        "title": "SVP, Quality & Compliance"
+      },
+      {
+        "name": "David Reeves",
+        "title": "Sr. Director, Technology"
+      }
+    ]
+  },
+  "engagement": {
+    "eyebrow": "Statement of Work Proposal \u2014 Accelerated 6-Month Delivery",
+    "title": "Pacific Healthcare Association<br>Data Modernization Platform",
+    "subtitle": "Implementation Services \u00b7 Accelerated Delivery",
+    "rate_default": 275,
+    "rate_floor": 150,
+    "rate_ceiling": 500
+  },
+  "executive_summary": {
+    "strategic_context": {
+      "eyebrow": "Strategic Context",
+      "title": "A Platform Transformation, Not a Point Solution",
+      "paragraphs": [
+        "PHA's data infrastructure challenge is not a single problem \u2014 it is a collection of interconnected constraints that have compounded over time, limiting the organization's ability to serve its members with the timeliness and depth of insight they deserve. Today, PHA's data team operates across a fragmented stack: PHI clinical data submitted through ad-hoc file transfers, financial and operational data collected via manual spreadsheet intake and email coordination, QA and ETL work managed through a combination of SQL scripts, Microsoft Access, Data 360, and Tableau \u2014 each requiring significant manual intervention to move data from receipt to report.",
+        "The result is a reporting cycle that, in some cases, stretches 12 to 18 months from data collection to published report \u2014 a lag that has created real concerns among PHA's membership about the relevance and value of the organization's analytical output. PHA leadership has identified closing this gap as the single most important outcome this engagement must deliver.",
+        "Domo addresses this not by replacing one tool with another, but by providing an end-to-end platform \u2014 data integration, transformation, AI-powered validation, warehousing, and visualization \u2014 under a single, unified environment. This consolidates the existing vendor landscape (Tableau, AWS, Data 360, Access, and custom-built portals) into one governed, scalable system that PHA's team can own and operate independently over time."
+      ]
+    },
+    "pillars": [
+      {
+        "label": "Eliminate the Reporting Lag",
+        "text": "Reduce PHA's QHR reporting cycle from 12\u201318 months to near-real-time. Once data is submitted and validated, the report is generated automatically \u2014 no manual ETL, no Access intermediary, no multi-month pipeline.",
+        "color_var": "--cs1"
+      },
+      {
+        "label": "Modernize Data Intake End-to-End",
+        "text": "Replace manual spreadsheet collection, email coordination, and ad-hoc file transfers with a governed, member-facing intake platform \u2014 covering both PHI clinical data and the four non-PHI financial and operational reports PHA collects annually.",
+        "color_var": "--cs2"
+      },
+      {
+        "label": "Elevate the Member Experience",
+        "text": "Transition members from receiving static annual PDF exports to self-service access to their own data, peer benchmarks, and trend analysis \u2014 building PHA's value proposition as a data-driven resource for the PHA community.",
+        "color_var": "--cs3"
+      },
+      {
+        "label": "Consolidate & Simplify the Tech Stack",
+        "text": "Replace the fragmented combination of Tableau, AWS, Data 360, Access, and custom-built portals with a single, fully integrated Domo environment \u2014 reducing vendor overhead, training burden, and points of failure across PHA's data operations.",
+        "color_var": "--cs4"
+      }
+    ],
+    "current_state": {
+      "title": "Current State \u2014 Constraints",
+      "rows": [
+        "PHI data collected via decommissioned QHR portal, now transitioning to interim SharePoint file transfer",
+        "Non-PHI financial and operational data collected via email and manual spreadsheet intake",
+        "Data QA and ETL managed manually across SQL scripts, Access databases, and Data 360",
+        "QHR taxonomy crosswalk performed manually \u2014 EHR column changes and coding differences require recurring rework",
+        "Reporting produced in Tableau and distributed as static PDF emails \u2014 no self-service member access",
+        "QHR reporting cycle: 12\u201318 months from data collection to published report",
+        "Submission tracking managed manually in spreadsheets \u2014 no real-time status visibility"
+      ]
+    },
+    "future_state": {
+      "title": "Future State \u2014 With Domo",
+      "rows": [
+        "PHI data submitted directly through a governed Domo member portal \u2014 secure, auditable, and permanently hosted",
+        "Non-PHI data collected via Domo Forms with required field validation \u2014 no spreadsheets, no manual QA on intake",
+        "Agentic AI validates uploaded files automatically \u2014 flags issues, routes for human review, and learns from approved corrections",
+        "QHR taxonomy crosswalk automated \u2014 EHR column changes detected and resolved with human-in-loop approval, not manual rework",
+        "Members access self-service dashboards with their own data, peer benchmarks, and trend analysis \u2014 PDF export on demand",
+        "QHR reporting available near-real-time upon validated submission \u2014 12\u201318 month lag eliminated",
+        "Submission tracking live in Domo \u2014 PHA staff see status by org, form, and date in real time"
+      ]
+    },
+    "phase_one_framing": {
+      "title": "Solution 1 \u2014 QHR Intake Portal: The Right First Step",
+      "paragraphs": [
+        "Within the broader platform vision, Solution 1 has been deliberately scoped to address PHA's most pressing near-term need: establishing a permanent, Domo-native channel for members to submit their QHR PHI data \u2014 before the current collection cycle requires PHA to direct members to a temporary solution.",
+        "The decommissioned QHR portal left PHA without a dedicated submission channel. An interim SharePoint site has been prepared as a bridge, but directing members there \u2014 only to transition them again to Domo within the same year \u2014 would create unnecessary friction and require communicating a process change twice in a short period. By standing up the Domo intake portal first, PHA makes one clear, intentional announcement to its membership: this is the new platform, and this is how things will work going forward.",
+        "This approach also ensures that every subsequent solution \u2014 AI validation, QHR taxonomy mapping, analytics dashboards, and non-PHI form ingestion \u2014 is built on a foundation that members are already familiar and comfortable with, making each new capability feel like a natural evolution rather than a disruption."
+      ]
+    },
+    "kpi_row": [
+      {
+        "label": "Solution 1 Target",
+        "value": "End Jun",
+        "highlight": true
+      },
+      {
+        "label": "Solution 1 Hours",
+        "value": "80",
+        "highlight": true
+      },
+      {
+        "label": "Pilot Cohort Size",
+        "value": "5\u201310",
+        "highlight": false
+      },
+      {
+        "label": "Full Roadmap Hours",
+        "value": "590",
+        "highlight": false
+      }
+    ],
+    "closing_callout": {
+      "variant": "track",
+      "title": "The Defining Outcome",
+      "body": "PHA's QHR report for 2024 data \u2014 collected by the end of Q2 2025 \u2014 was not published until early 2026. That is a 9-to-12-month gap between data availability and member access. With Domo's validated intake pipeline and automated reporting layer in place, that same cycle compresses to days from submission. That is the transformation PHA's members are waiting for \u2014 and the outcome this engagement is designed to deliver."
+    }
+  },
+  "solutions": [
+    {
+      "id": "p1",
+      "number": 1,
+      "title": "QHR PHI Intake Portal",
+      "subtitle": "Domo Filesets upload portal \u00b7 Member authentication \u00b7 Submission tracking \u00b7 Replaces interim SharePoint site",
+      "badges": [
+        "core"
+      ],
+      "is_priority": true,
+      "weeks_label": "Weeks 1\u20135",
+      "weeks_start": 1,
+      "weeks_end": 5,
+      "hours": {
+        "low": 58,
+        "high": 80
+      },
+      "color_var": "--cs1",
+      "timeline_label": "QHR Portal",
+      "timeline_bar_text": "PHI Intake Portal",
+      "kpi_short_label": "Immediate",
+      "description": "A production-ready, HIPAA-aligned PHI file intake portal embedded on phaonline.org. Members log in once, upload their QHR data files, and are done. PHA staff have real-time submission visibility. This becomes the permanent foundation \u2014 no interim step, no second migration.",
+      "deliverables": [
+        {
+          "title": "Member-Facing Intake Portal (Custom App)",
+          "description": "A branded Domo Custom App embedded behind the phaonline.org member login wall. Members access the portal as part of their existing PHA login flow \u2014 no second account, no separate URL \u2014 and the visual treatment matches PHA's web presence from launch day.",
+          "audience": [
+            "Member healthcare organizations",
+            "PHA program leadership"
+          ],
+          "outcome_value": "Replaces the interim SharePoint upload site and removes the friction that has been suppressing member submissions. Becomes the permanent foundation every subsequent solution builds on \u2014 there is no second migration after this."
+        },
+        {
+          "title": "Member Authentication & Org Hierarchy Governance",
+          "description": "Role-based access scoping for 150+ member healthcare organizations, including parent-org / child-site hierarchies. Each member organization sees only its own data; PHA staff see across the full membership. Member ID is the authoritative key linking authentication, file partitions, and downstream analytics.",
+          "audience": [
+            "Member healthcare organizations",
+            "PHA IT and security review"
+          ],
+          "outcome_value": "Solves the parent/child organization modeling that the current SharePoint setup can't represent cleanly, and gives PHA the HIPAA-aligned access posture required to receive PHI through the portal at all."
+        },
+        {
+          "title": "PHI File Upload to Domo Filesets",
+          "description": "A single upload experience that routes member files into Domo Filesets with org-level partitioning. Each member organization's PHI is isolated for HIPAA compliance and is deletable on a per-org basis to honor BAA obligations.",
+          "audience": [
+            "Member healthcare organizations",
+            "PHA compliance and BAA owners"
+          ],
+          "outcome_value": "Eliminates the upload friction members experience today, while giving PHA a defensible HIPAA posture and a clean BAA-deletability story it can share with member-org legal teams during onboarding."
+        },
+        {
+          "title": "EHR Vendor Identification at Intake",
+          "description": "A lightweight intake questionnaire capturing each member organization's EHR vendor (Epic, Cerner, MEDITECH, etc.) at the moment of file submission. The captured EHR signal becomes the routing key the Solution 2 AI validation layer applies to choose the correct vendor-specific transformations.",
+          "audience": [
+            "Member-org data submitters",
+            "Solution 2 validation engine consumers"
+          ],
+          "outcome_value": "Pre-positions Solution 2 with the routing data it needs from day one of the QHR pipeline, so AI validation launches without a separate EHR-discovery exercise after Solution 1 closes."
+        },
+        {
+          "title": "Submission Tracker for PHA Staff",
+          "description": "A live PHA-staff dashboard showing Member ID, file name, date/time, and submission status for every org's QHR cycle. Replaces the manually maintained SharePoint tracker PHA staff use today.",
+          "audience": [
+            "PHA program leadership",
+            "PHA program operations staff"
+          ],
+          "outcome_value": "Restores real-time submission visibility \u2014 staff can see who has submitted, who hasn't, and where to follow up in days rather than weeks. Direct support for the solution's 'restore visibility' objective."
+        },
+        {
+          "title": "Submission Notifications & Reminders",
+          "description": "Workflow-driven alerts to PHA staff on every new submission, plus configurable reminder cadences for member organizations that haven't yet submitted by the per-cycle deadline.",
+          "audience": [
+            "PHA program operations staff",
+            "Member-org data submitters"
+          ],
+          "outcome_value": "Removes the manual chase-up burden from PHA staff and lifts member submission rates by surfacing late submitters early \u2014 the early warning surface that prevents missed cycles before they happen."
+        },
+        {
+          "title": "Forward-Compatible Fileset & AppDB Architecture",
+          "description": "Data architecture for the intake layer deliberately designed so that Solutions 2\u20135 (validation, taxonomy mapping, analytics, extended EHR coverage) plug in additively without rebuilding the intake plumbing.",
+          "audience": [
+            "Domo solution architecture team",
+            "PHA IT"
+          ],
+          "outcome_value": "Locks in the 'no second migration' commitment as a structural property of the architecture rather than a hope. The Solution 1 investment is preserved entirely as the program scales across solutions."
+        },
+        {
+          "title": "HIPAA-Aligned Environment Configuration",
+          "description": "Configuration of the Domo HIPAA-eligible environment, security review, BAA execution support, and a documentation packet PHA can hand to member organizations and their legal teams during onboarding.",
+          "audience": [
+            "PHA compliance owners",
+            "Member-org legal and security review"
+          ],
+          "outcome_value": "Removes the compliance friction that is currently the single biggest block to faster member submission \u2014 member-org legal teams clear the portal on day one rather than after weeks of internal review."
+        },
+        {
+          "title": "Pilot Cohort Onboarding (5\u201310 Member Orgs)",
+          "description": "Hands-on onboarding for an early-adopter cohort of 5\u201310 member organizations, with feedback collection, two iteration cycles, and a phased rollout plan informed by what the pilot reveals.",
+          "audience": [
+            "Pilot member organizations",
+            "PHA program operations staff"
+          ],
+          "outcome_value": "De-risks the full membership rollout \u2014 proves the experience works across diverse member-org IT realities before opening it to all 150+. Pilot insights also tune Solution 2's validation rule strictness."
+        },
+        {
+          "title": "QA, UAT, and Production Deployment",
+          "description": "End-to-end testing across the upload UX, authentication, fileset isolation, submission tracker, and notifications; UAT with PHA program staff and pilot member representatives; production cutover from the SharePoint interim to the Domo portal.",
+          "audience": [
+            "PHA program leadership",
+            "Pilot member organizations"
+          ],
+          "outcome_value": "Ensures cutover is a member-experience improvement, not a regression \u2014 pilot member organizations move from SharePoint to the Domo portal without losing confidence in the program."
+        }
+      ],
+      "architecture_flow": {
+        "title": "Solution 1 Technical Flow \u2014 Fileset Intake Architecture",
+        "steps": [
+          {
+            "title": "Member Login",
+            "subtitle": "phaonline.org embed",
+            "highlight": false
+          },
+          {
+            "title": "Upload Button",
+            "subtitle": "Domo Custom App",
+            "highlight": true
+          },
+          {
+            "title": "Domo Filesets",
+            "subtitle": "PHI isolated by org",
+            "highlight": true
+          },
+          {
+            "title": "Staff Tracker",
+            "subtitle": "Submission dashboard",
+            "highlight": false
+          },
+          {
+            "title": "Notifications",
+            "subtitle": "Workflow alerts",
+            "highlight": false
+          }
+        ]
+      },
+      "loe_rows": [
+        {
+          "work_item": "Solution Design & Architecture",
+          "description": "Requirements, Fileset data model, PHI isolation design, hosting config, HIPAA environment setup. POC scaffolding reuse.",
+          "hours": {
+            "low": 6,
+            "high": 8
+          }
+        },
+        {
+          "work_item": "Member Portal & Auth",
+          "description": "Custom app, PHA branding, phaonline.org embed, RBAC for 150+ orgs with parent/child hierarchy. AI-scaffolded UX shell.",
+          "category": "Visualize",
+          "hours": {
+            "low": 14,
+            "high": 18
+          }
+        },
+        {
+          "work_item": "Fileset Upload Interface",
+          "description": "Single upload button UX, file routing to org-partitioned Filesets, EHR system identification intake",
+          "category": "Data Source Connections",
+          "hours": {
+            "low": 10,
+            "high": 12
+          }
+        },
+        {
+          "work_item": "Submission Tracker",
+          "description": "PHA staff dashboard \u2014 Member ID, file name, date/time, status per org. AppDB + standard dashboard pattern.",
+          "category": "Visualize",
+          "hours": {
+            "low": 5,
+            "high": 7
+          }
+        },
+        {
+          "work_item": "Workflow Notifications",
+          "description": "Staff alerts on new submissions; configurable member reminders for non-submitters. Workflow templates.",
+          "hours": {
+            "low": 4,
+            "high": 5
+          }
+        },
+        {
+          "work_item": "QA",
+          "description": "Test scripts, stakeholder UAT, security validation, production deployment. Domo HIPAA env pre-validated.",
+          "hours": {
+            "low": 8,
+            "high": 12
+          }
+        },
+        {
+          "work_item": "Solution Rollout & Enablement",
+          "description": "Pilot cohort onboarding (5\u201310 orgs), feedback collection, iteration, phased rollout preparation, member training materials.",
+          "hours": {
+            "low": 5,
+            "high": 8
+          }
+        },
+        {
+          "work_item": "Project Management",
+          "description": "Solution planning, status reporting, stakeholder coordination, risk tracking, weekly cadence with PHA. 10\u201315% of solution delivery work.",
+          "hours": {
+            "low": 6,
+            "high": 10
+          }
+        }
+      ]
+    },
+    {
+      "id": "p2",
+      "number": 2,
+      "title": "Agentic QHR Validation & Taxonomy Engine",
+      "subtitle": "AI validation agent \u00b7 Human-in-loop workflow \u00b7 QHR crosswalk \u00b7 EHR pathway routing \u00b7 Top 3 EHR systems",
+      "badges": [
+        "impact"
+      ],
+      "is_priority": false,
+      "weeks_label": "Weeks 4\u201312",
+      "weeks_start": 4,
+      "weeks_end": 12,
+      "hours": {
+        "low": 112,
+        "high": 158
+      },
+      "color_var": "--cs2",
+      "timeline_label": "AI Validation",
+      "timeline_bar_text": "QHR Taxonomy + Agent",
+      "kpi_short_label": "AI Validation",
+      "description": "With files landing in Filesets from Solution 1, this solution adds intelligence: an agentic review layer that validates data quality, maps to PHA's QHR taxonomy, and surfaces issues to human reviewers before data enters the analytics pipeline.",
+      "deliverables": [
+        {
+          "title": "Agentic AI Validation Pipeline",
+          "description": "An AI agent that reviews every uploaded Fileset against the QHR required-field checklist, automatically flagging missing, malformed, or out-of-range data before it enters the analytics pipeline.",
+          "audience": [
+            "PHA program operations staff",
+            "Member-org data submitters"
+          ],
+          "outcome_value": "Catches data-quality issues that today only surface 9\u201312 months later in QHR review \u2014 collapsing the remediation cycle from quarters to days and protecting the integrity of every downstream report."
+        },
+        {
+          "title": "Human-in-the-Loop Approval Workflow",
+          "description": "A workflow-driven review interface where PHA staff inspect agent findings and approve or reject each data packet before it enters the analytics pipeline. The review queue is filtered to exceptions only, not every submission.",
+          "audience": [
+            "PHA program operations staff"
+          ],
+          "outcome_value": "Keeps PHA staff judgment in the loop where it matters (edge cases, vendor-specific anomalies) while automating the 80% of submissions that are clean \u2014 converts staff effort from data janitorial work to exception handling."
+        },
+        {
+          "title": "QHR Taxonomy Crosswalk Engine",
+          "description": "Automated mapping of EHR-specific coding values into PHA's standardized QHR taxonomy. Built on Aaron Cole's existing Data 360 crosswalk scripts and QA logic, ported into Domo with AI-assisted translation so existing institutional knowledge is preserved rather than rebuilt.",
+          "audience": [
+            "Aaron Cole (Data 360 owner)",
+            "PHA program operations staff"
+          ],
+          "outcome_value": "Preserves five years of institutional crosswalk work and removes the manual Access database / spreadsheet mapping step that today sits between submission and report. The QHR taxonomy becomes a live capability rather than an annual manual exercise."
+        },
+        {
+          "title": "EHR Pathway Routing \u2014 Top 3 Vendors",
+          "description": "Vendor-aware routing for the three EHR systems that cover ~80% of member submission volume. Each pathway carries the validation rules and transformation logic correct for that vendor's data shape.",
+          "audience": [
+            "PHA program operations staff",
+            "Member organizations on Big 3 EHRs"
+          ],
+          "outcome_value": "Delivers immediate clean validation for the membership majority. The long-tail vendors are picked up additively in Solution 5 \u2014 no re-architecture required when coverage expands."
+        },
+        {
+          "title": "Dynamic Column Mapping Intelligence",
+          "description": "AI detection of EHR column-name changes when a vendor pushes an update, with human approval prompts and confirmed-mapping training so the engine learns from each approved decision.",
+          "audience": [
+            "PHA program operations staff",
+            "Member-org IT contacts"
+          ],
+          "outcome_value": "Eliminates the recurring fire drills triggered by EHR vendor updates \u2014 historically a major source of QHR cycle delay \u2014 and lets the validation engine evolve with the EHR market without consultant rework."
+        },
+        {
+          "title": "EHR Transition Dual-Pathway Handling",
+          "description": "Workflow support for member organizations migrating between EHR systems mid-year, ingesting data from both source and target systems without data loss or double-counting through the transition window.",
+          "audience": [
+            "Member organizations mid-EHR-migration",
+            "PHA program operations staff"
+          ],
+          "outcome_value": "Removes a quiet failure mode in today's manual process, where member orgs in EHR transition either submit incomplete data or are quietly excluded from a QHR cycle entirely."
+        },
+        {
+          "title": "Field-Level Member Feedback Loop",
+          "description": "Automated notifications back to the submitting member organization when validation issues are detected, with field-level remediation guidance ('Field X failed range check; expected range Y\u2013Z') so the org can self-correct without contacting PHA.",
+          "audience": [
+            "Member-org data submitters"
+          ],
+          "outcome_value": "Member organizations learn from their own submissions in real time, building data-quality maturity inside the membership and reducing inbound 'why was this rejected?' inquiries to PHA staff."
+        }
+      ],
+      "architecture_flow": {
+        "title": "Solution 2 Technical Flow \u2014 Agentic Validation Architecture",
+        "steps": [
+          {
+            "title": "PHI Fileset",
+            "subtitle": "From Solution 1",
+            "highlight": false
+          },
+          {
+            "title": "AI Validation",
+            "subtitle": "Required field checks",
+            "highlight": true
+          },
+          {
+            "title": "QHR Taxonomy Map",
+            "subtitle": "EHR crosswalk",
+            "highlight": true
+          },
+          {
+            "title": "Human Review",
+            "subtitle": "Exceptions only",
+            "highlight": false
+          },
+          {
+            "title": "Analytics Pipeline",
+            "subtitle": "Validated & ready",
+            "highlight": false
+          }
+        ]
+      },
+      "loe_rows": [
+        {
+          "work_item": "Solution Design & Architecture",
+          "description": "Agentic AI architecture, validation rule schema, EHR routing logic design, taxonomy engine pattern.",
+          "hours": {
+            "low": 6,
+            "high": 10
+          }
+        },
+        {
+          "work_item": "AI Validation Agent",
+          "description": "Agentic review of Fileset files, required field checks, malformed data flagging, workflow triggers. Domo AI primitives + agent framework reuse.",
+          "category": "AI",
+          "hours": {
+            "low": 26,
+            "high": 34
+          }
+        },
+        {
+          "work_item": "Human-in-Loop Workflow",
+          "description": "PHA staff review interface, approve/reject packets, email-triggered review center. Workflow templates from Solution 1.",
+          "hours": {
+            "low": 14,
+            "high": 18
+          }
+        },
+        {
+          "work_item": "QHR Taxonomy Engine",
+          "description": "Automated crosswalk of EHR coding to QHR taxonomy; ported from Aaron Cole's existing Data 360 scripts with AI-assisted translation.",
+          "category": "ETL",
+          "hours": {
+            "low": 20,
+            "high": 26
+          }
+        },
+        {
+          "work_item": "EHR Pathway Routing",
+          "description": "Big 3 EHR vendor routing; column-change detection; dual-pathway for mid-year EHR migrations. Rule-based config + AI-assisted vendor mapping.",
+          "category": "ETL",
+          "hours": {
+            "low": 16,
+            "high": 22
+          }
+        },
+        {
+          "work_item": "Member Feedback Loop",
+          "description": "Automated member issue notifications with field-level remediation guidance. Lightweight workflow on Solution 1 plumbing.",
+          "hours": {
+            "low": 6,
+            "high": 8
+          }
+        },
+        {
+          "work_item": "QA",
+          "description": "Validation logic regression testing, agent UAT, taxonomy crosswalk QA, EHR routing accuracy validation, security review.",
+          "hours": {
+            "low": 8,
+            "high": 12
+          }
+        },
+        {
+          "work_item": "Solution Rollout & Enablement",
+          "description": "Member-facing rollout of agentic validation, Data Quality Coach training, PHA staff enablement on agent + approval workflow.",
+          "hours": {
+            "low": 5,
+            "high": 10
+          }
+        },
+        {
+          "work_item": "Project Management",
+          "description": "Solution planning, status reporting, stakeholder coordination, risk tracking, weekly cadence with PHA. 10\u201315% of solution delivery work.",
+          "hours": {
+            "low": 11,
+            "high": 18
+          }
+        }
+      ]
+    },
+    {
+      "id": "p3",
+      "number": 3,
+      "title": "QHR Analytics Dashboard & Member Reporting",
+      "subtitle": "Near-real-time QHR reporting \u00b7 Member self-service dashboards \u00b7 Staff analytics \u00b7 12-month lag eliminated",
+      "badges": [
+        "strategic"
+      ],
+      "is_priority": false,
+      "weeks_label": "Weeks 10\u201317",
+      "weeks_start": 10,
+      "weeks_end": 17,
+      "hours": {
+        "low": 82,
+        "high": 118
+      },
+      "color_var": "--cs3",
+      "timeline_label": "QHR Reports",
+      "timeline_bar_text": "Analytics + Dashboards",
+      "description": "Validated, taxonomy-mapped PHI data flows automatically into the reporting layer \u2014 replacing the Tableau + Access + manual ETL pipeline with a Domo-native analytics surface that members access directly.",
+      "deliverables": [
+        {
+          "title": "Validated PHI to Analytics Pipeline",
+          "description": "Validated, taxonomy-mapped PHI flowing automatically from Solution 2 into the reporting dataset. No manual ETL, no Access database intermediary, no out-of-Domo handoff between validation and reporting.",
+          "audience": [
+            "Aaron Cole (Data 360 owner)",
+            "PHA program operations staff"
+          ],
+          "outcome_value": "Closes the structural gap that today produces a 9-to-12-month lag between submission and report. The QHR analytics layer becomes a continuous flow rather than an annual data-engineering project."
+        },
+        {
+          "title": "Member-Facing QHR Dashboard",
+          "description": "A self-service dashboard giving each member organization access to its own QHR data, anonymized peer benchmarks at category level, and 5-year trend continuity. Replaces the annual PDF QHR report members receive today.",
+          "audience": [
+            "Member organization clinical leadership",
+            "Member-org executives"
+          ],
+          "outcome_value": "Members move from 'an annual PDF emailed 9 months after submission' to 'a live dashboard refreshed in days.' Materially upgrades the value the PHA membership receives \u2014 the direct answer to the program's 9-to-12-month gap."
+        },
+        {
+          "title": "PHA Staff Aggregate Analytics View",
+          "description": "Full-membership dataset with filter and drill-down by region, org size, Member ID, and EHR type. Reuses the member-portal visualization framework so the staff and member experiences stay visually coherent.",
+          "audience": [
+            "PHA program leadership",
+            "PHA program operations staff"
+          ],
+          "outcome_value": "Replaces the Tableau + manual ETL workflow PHA staff use today, and enables ad-hoc cross-membership analysis (by region, by EHR type, by org size) that is currently a multi-day manual exercise."
+        },
+        {
+          "title": "5-Year Historical Data Integration",
+          "description": "Five-year QHR baseline aligned to the new schema, giving trend continuity from the legacy Tableau/Access world into the Domo analytics layer. AI-assisted schema translation from historical formats.",
+          "audience": [
+            "Member organization clinical leadership",
+            "PHA program leadership"
+          ],
+          "outcome_value": "Members and staff don't lose institutional history at the migration boundary. Year-over-year QHR comparison continues seamlessly, preserving the longitudinal value of every past submission."
+        },
+        {
+          "title": "On-Demand PDF Export & Report Generation",
+          "description": "Self-service PDF export from the member dashboard, replacing the current Tableau \u2192 PDF \u2192 email-distribution workflow.",
+          "audience": [
+            "Member organization clinical leadership",
+            "PHA program operations staff"
+          ],
+          "outcome_value": "Preserves the PDF artifact some member workflows still require, while removing PHA staff from the manual distribution loop entirely."
+        },
+        {
+          "title": "Member-Centered UX Design Review",
+          "description": "Stakeholder design reviews with PHA leadership and a sample of member organizations, deliberately preserving familiar visual language from the legacy QHR report so members aren't asked to learn new conventions while they're learning a new tool.",
+          "audience": [
+            "Member organization end users",
+            "PHA leadership"
+          ],
+          "outcome_value": "Reduces change-management drag on Solution 3 rollout. Members recognize the report shape from day one \u2014 adoption follows the data, not a visual redesign."
+        }
+      ],
+      "architecture_flow": {
+        "title": "Solution 3 Technical Flow \u2014 Analytics & Reporting Architecture",
+        "steps": [
+          {
+            "title": "Validated PHI",
+            "subtitle": "From Solution 2",
+            "highlight": false
+          },
+          {
+            "title": "QHR Dataset",
+            "subtitle": "Near-real-time",
+            "highlight": true
+          },
+          {
+            "title": "Staff Analytics",
+            "subtitle": "Cross-org views",
+            "highlight": true
+          },
+          {
+            "title": "Member Dashboard",
+            "subtitle": "Self-service portal",
+            "highlight": false
+          },
+          {
+            "title": "PDF Export",
+            "subtitle": "On-demand reports",
+            "highlight": false
+          }
+        ]
+      },
+      "loe_rows": [
+        {
+          "work_item": "Solution Design & Architecture",
+          "description": "Member portal IA, dashboard composition, analytics dataset design, PDP scoping.",
+          "hours": {
+            "low": 5,
+            "high": 8
+          }
+        },
+        {
+          "work_item": "QHR Analytics Pipeline",
+          "description": "Validated PHI \u2192 analytics dataset; no manual ETL or Access intermediary. Magic ETL with AI-assisted field mapping.",
+          "category": "ETL",
+          "hours": {
+            "low": 16,
+            "high": 20
+          }
+        },
+        {
+          "work_item": "Member QHR Portal",
+          "description": "Consolidated parent app: current-period dashboard, peer benchmarks, 5-year trend, on-demand PDF export. Replaces annual PDF emails.",
+          "category": "Visualize",
+          "hours": {
+            "low": 20,
+            "high": 26
+          }
+        },
+        {
+          "work_item": "Staff Aggregate View",
+          "description": "Full dataset with org/region/EHR filters and drill-downs. Reuses Member Portal viz framework.",
+          "category": "Visualize",
+          "hours": {
+            "low": 12,
+            "high": 16
+          }
+        },
+        {
+          "work_item": "Historical Data Mapping",
+          "description": "5-year baseline alignment to new schema for continuity. AI-assisted schema translation.",
+          "category": "ETL",
+          "hours": {
+            "low": 10,
+            "high": 16
+          }
+        },
+        {
+          "work_item": "QA",
+          "description": "Dashboard UAT with PHA stakeholders, PDP scoping validation, PDF export QA, member portal accessibility testing.",
+          "hours": {
+            "low": 7,
+            "high": 10
+          }
+        },
+        {
+          "work_item": "Solution Rollout & Enablement",
+          "description": "Member portal rollout, dashboard training, PDF export self-service guidance, PHA staff enablement on aggregate views.",
+          "hours": {
+            "low": 4,
+            "high": 8
+          }
+        },
+        {
+          "work_item": "Project Management",
+          "description": "Solution planning, status reporting, stakeholder coordination, risk tracking, weekly cadence with PHA. 10\u201315% of solution delivery work.",
+          "hours": {
+            "low": 8,
+            "high": 14
+          }
+        }
+      ]
+    },
+    {
+      "id": "p4",
+      "number": 4,
+      "title": "Non-PHI Form Ingestion & Financial Dashboards",
+      "subtitle": "Financial report forms \u00b7 Staffing forms \u00b7 Quality/compliance forms \u00b7 50 Tableau chart migrations",
+      "badges": [
+        "quick-win"
+      ],
+      "is_priority": false,
+      "weeks_label": "Weeks 14\u201321",
+      "weeks_start": 14,
+      "weeks_end": 21,
+      "hours": {
+        "low": 96,
+        "high": 136
+      },
+      "color_var": "--cs4",
+      "timeline_label": "Non-PHI Forms",
+      "timeline_bar_text": "Financial + Staffing Forms",
+      "description": "This work is sequenced after the QHR PHI portal launch. PHA's financial report data collection is already underway and will conclude within the original six-week window. This solution picks up once the QHR pipeline is established and the member experience is stable.",
+      "deliverables": [
+        {
+          "title": "Domo Forms \u2014 PMPM, Financial, Staffing, Quality",
+          "description": "Domo Forms for each of the four non-PHI data submission types (PMPM, Financial Ratios, Staffing, Quality/Compliance), with required-field validation and field-level guidance per form.",
+          "audience": [
+            "Member-org finance contacts",
+            "Member-org HR/staffing contacts",
+            "PHA program operations staff"
+          ],
+          "outcome_value": "Brings the non-PHI data streams into the same submission experience as QHR, ending the multi-tool patchwork members navigate today and giving PHA a unified submission surface across all four data types."
+        },
+        {
+          "title": "Tableau Visual Migration (50 Charts)",
+          "description": "Recreation of 36 PMPM and 14 Financial Ratio Tableau visuals in Domo, using the Pacific Drift chart palette and consolidated into 4 dashboards rather than 50 disconnected views. AI-assisted Tableau-to-Beast-Mode translation.",
+          "audience": [
+            "PHA program leadership",
+            "Member organization finance contacts"
+          ],
+          "outcome_value": "Retires the Tableau license dependency for these reports while consolidating 50 fragmented views into 4 coherent dashboards \u2014 a usability win in addition to a tooling win."
+        },
+        {
+          "title": "Financial & Staffing Member Dashboards",
+          "description": "Dedicated member-facing and PHA-staff aggregate dashboards for the financial and staffing data domains, built on the same parent-app pattern established in Solution 3.",
+          "audience": [
+            "Member organization executives",
+            "Member-org finance contacts",
+            "PHA program leadership"
+          ],
+          "outcome_value": "Extends the QHR self-service experience into financial and staffing domains, giving members a unified view of their full PHA program participation in one place."
+        },
+        {
+          "title": "Staggered Annual Form Activation Calendar",
+          "description": "Form activation tied to PHA's annual data collection cadence \u2014 forms become available to members on schedule, and reminders fire on PHA's existing rhythm.",
+          "audience": [
+            "PHA program operations staff",
+            "Member-org data submitters"
+          ],
+          "outcome_value": "Honors PHA's existing operational cadence rather than forcing a process change. Members see forms appearing on the calendar they already expect."
+        },
+        {
+          "title": "Extended Member Onboarding Flow",
+          "description": "Member onboarding flow extending the change-management foundation built in Solutions 1\u20133 across the financial, staffing, and quality submission types.",
+          "audience": [
+            "Member organization end users",
+            "PHA program operations staff"
+          ],
+          "outcome_value": "Avoids a second adoption hill for members \u2014 the rollout of non-PHI forms feels like an extension of the QHR portal rather than a new system to learn."
+        }
+      ],
+      "architecture_flow": {
+        "title": "Solution 4 Technical Flow \u2014 Form Ingestion & Financial Reporting Architecture",
+        "steps": [
+          {
+            "title": "Member Form App",
+            "subtitle": "Self-service portal",
+            "highlight": false
+          },
+          {
+            "title": "AppDB Storage",
+            "subtitle": "Form submissions",
+            "highlight": true
+          },
+          {
+            "title": "ETL & Beast Modes",
+            "subtitle": "Tableau migration",
+            "highlight": true
+          },
+          {
+            "title": "Financial Dashboards",
+            "subtitle": "Real-time views",
+            "highlight": false
+          },
+          {
+            "title": "Staff Reports",
+            "subtitle": "Staffing + quality",
+            "highlight": false
+          }
+        ]
+      },
+      "loe_rows": [
+        {
+          "work_item": "Solution Design & Architecture",
+          "description": "Form schema design, dashboard IA for migrated visuals, calendar / activation pattern.",
+          "hours": {
+            "low": 5,
+            "high": 8
+          }
+        },
+        {
+          "work_item": "Non-PHI Forms (\u00d74)",
+          "description": "PMPM, Financial Ratios, Staffing, Quality/Compliance forms with validation. Domo Forms primitives + AI-generated field configs.",
+          "category": "Data Source Connections",
+          "hours": {
+            "low": 28,
+            "high": 36
+          }
+        },
+        {
+          "work_item": "50 Chart Migration",
+          "description": "Replicate 36 PMPM + 14 Financial Ratio Tableau visuals in Domo, consolidated into 4 dashboards. AI-assisted Tableau-to-Beast-Mode translation.",
+          "category": "Visualize",
+          "hours": {
+            "low": 24,
+            "high": 32
+          }
+        },
+        {
+          "work_item": "Financial & Staffing Dashboards",
+          "description": "Member and staff views; staggered form calendar; extended onboarding flow. Consolidated parent app pattern.",
+          "category": "Visualize",
+          "hours": {
+            "low": 18,
+            "high": 24
+          }
+        },
+        {
+          "work_item": "QA",
+          "description": "Form UAT with PHA + sample member orgs, 50-chart visual fidelity QA against Tableau source, dashboard regression testing.",
+          "hours": {
+            "low": 8,
+            "high": 12
+          }
+        },
+        {
+          "work_item": "Solution Rollout & Enablement",
+          "description": "Form rollout per staggered annual calendar, member training on each form type, PHA staff enablement on financial dashboards.",
+          "hours": {
+            "low": 4,
+            "high": 8
+          }
+        },
+        {
+          "work_item": "Project Management",
+          "description": "Solution planning, status reporting, stakeholder coordination, risk tracking, weekly cadence with PHA. 10\u201315% of solution delivery work.",
+          "hours": {
+            "low": 9,
+            "high": 16
+          }
+        }
+      ]
+    },
+    {
+      "id": "p5",
+      "number": 5,
+      "title": "Data Quality Intelligence, Extended EHR Coverage & SSO",
+      "subtitle": "All 15 EHR systems \u00b7 Quality audit engine \u00b7 Longitudinal tracking \u00b7 SSO planning",
+      "badges": [
+        "phased"
+      ],
+      "is_priority": false,
+      "weeks_label": "Weeks 19\u201326",
+      "weeks_start": 19,
+      "weeks_end": 26,
+      "hours": {
+        "low": 66,
+        "high": 98
+      },
+      "color_var": "--cs5",
+      "timeline_label": "Quality+",
+      "timeline_bar_text": "EHR+ \u00b7 SSO",
+      "description": "The final solution extends coverage to the full membership and establishes durable quality intelligence \u2014 turning every submission cycle into an opportunity for continuous improvement.",
+      "deliverables": [
+        {
+          "title": "Longitudinal Data Quality Audit Engine",
+          "description": "Per-org tracking of submission accuracy across cycles, surfacing chronic data-quality issues at the membership level. Built on the Solution 2 agent framework and validation logs.",
+          "audience": [
+            "PHA program leadership",
+            "Member-org data submitters"
+          ],
+          "outcome_value": "Turns every cycle into an opportunity for member-org data improvement rather than a one-time audit. PHA gains visibility into membership-wide data maturity trends and where to invest member support."
+        },
+        {
+          "title": "Targeted Member Quality Feedback Packages",
+          "description": "Per-member-org remediation reports surfacing chronic issues \u2014 for example, 'Field X is repeatedly submitted late' or 'Field Y consistently fails range checks' \u2014 designed to help member organizations improve their in-house data practices.",
+          "audience": [
+            "Member-org data submitters",
+            "Member-org clinical leadership"
+          ],
+          "outcome_value": "PHA's role evolves from 'collects data' to 'helps member orgs get better at their own data.' Strengthens the member-association value proposition durably and gives member orgs a tangible reason to engage with PHA outside of submission deadlines."
+        },
+        {
+          "title": "Extended EHR Pathway Coverage (12+ Vendors)",
+          "description": "Extension of validation and taxonomy mapping to the 12 additional EHR / homegrown systems beyond the Big 3 covered in Solution 2. Repeatable pattern with AI-assisted vendor configuration.",
+          "audience": [
+            "Member organizations on long-tail EHR systems",
+            "PHA program operations staff"
+          ],
+          "outcome_value": "Brings the remaining ~20% of membership into the same automated experience as the Big 3 cohort \u2014 completing the QHR pipeline modernization for the full membership."
+        },
+        {
+          "title": "Predictive Submission Prompts",
+          "description": "AI-generated nudges reminding member organizations of historically missed fields specific to their org and EHR vendor, fired ahead of submission deadlines.",
+          "audience": [
+            "Member-org data submitters"
+          ],
+          "outcome_value": "Prevents the same submission misses recurring cycle after cycle \u2014 turns submission history into a forward-looking quality lever rather than a backward-looking audit artifact."
+        },
+        {
+          "title": "SSO Integration Scoping",
+          "description": "Design and scoping work for future single sign-on integration with PHA's replacement Association Management Software, defining the integration shape and effort estimate ready to execute when the AMS replacement is in place.",
+          "audience": [
+            "PHA IT",
+            "Member organization end users"
+          ],
+          "outcome_value": "Eliminates the dual-login experience members currently navigate, and pre-positions Domo and the new AMS for a clean integration when the AMS replacement project is ready to execute."
+        }
+      ],
+      "architecture_flow": {
+        "title": "Solution 5 Technical Flow \u2014 Quality Intelligence & Platform Completion Architecture",
+        "steps": [
+          {
+            "title": "All 15 EHR Systems",
+            "subtitle": "Full coverage",
+            "highlight": false
+          },
+          {
+            "title": "Quality Audit Engine",
+            "subtitle": "Anomaly detection",
+            "highlight": true
+          },
+          {
+            "title": "Longitudinal Tracking",
+            "subtitle": "Multi-year data",
+            "highlight": true
+          },
+          {
+            "title": "SSO Integration",
+            "subtitle": "Platform access",
+            "highlight": false
+          },
+          {
+            "title": "Enterprise Platform",
+            "subtitle": "Fully operational",
+            "highlight": false
+          }
+        ]
+      },
+      "loe_rows": [
+        {
+          "work_item": "Solution Design & Architecture",
+          "description": "Quality engine architecture, EHR rollout pattern design, SSO scoping framework.",
+          "hours": {
+            "low": 4,
+            "high": 7
+          }
+        },
+        {
+          "work_item": "Quality Audit Engine",
+          "description": "Longitudinal per-org quality tracking, automated remediation reports. Reuses Solution 2 logs and agent framework.",
+          "category": "AI",
+          "hours": {
+            "low": 18,
+            "high": 22
+          }
+        },
+        {
+          "work_item": "Extended EHR Coverage",
+          "description": "Pathways for 12 additional EHR/homegrown systems beyond Big 3. Repeatable pattern; AI-assisted vendor configuration.",
+          "category": "ETL",
+          "hours": {
+            "low": 24,
+            "high": 32
+          }
+        },
+        {
+          "work_item": "SSO Planning",
+          "description": "Design and scoping for future AMS integration and single sign-on pass-through.",
+          "hours": {
+            "low": 6,
+            "high": 10
+          }
+        },
+        {
+          "work_item": "QA",
+          "description": "Quality engine UAT, EHR coverage validation across 12 vendors, audit log testing.",
+          "hours": {
+            "low": 5,
+            "high": 8
+          }
+        },
+        {
+          "work_item": "Solution Rollout & Enablement",
+          "description": "Quality engine rollout, PHA staff enablement on EHR coverage configuration, SSO planning workshops.",
+          "hours": {
+            "low": 3,
+            "high": 7
+          }
+        },
+        {
+          "work_item": "Project Management",
+          "description": "Solution planning, status reporting, stakeholder coordination, risk tracking, weekly cadence with PHA. 10\u201315% of solution delivery work.",
+          "hours": {
+            "low": 6,
+            "high": 12
+          }
+        }
+      ]
+    }
+  ],
+  "loe_summary": {
+    "loe_note": "<strong>AI-Accelerated Delivery:</strong> Hour estimates reflect Domo's deepest AI-assisted delivery model. Consultants leverage Claude and Domo AI for custom app scaffolding, Fileset architecture, ETL logic, agentic workflow design, taxonomy engine development, and Tableau-to-Beast-Mode translation \u2014 resulting in <strong>40\u201350% leaner estimates</strong> than traditional delivery. Estimates are further compressed by (1) direct reuse of Marcus Brown's existing POC scaffolding into Solution 1, (2) Solution 1 patterns templated directly into Solutions 2\u20135, (3) parent/child consolidation reducing actual visualization count, (4) Domo platform primitives (Filesets, Magic ETL, Beast Modes, Workflow templates, AI grounding) eliminating bespoke build, and (5) parallel-track execution across solutions. Solution 1 is scoped narrow to hit the late-June target."
+  },
+  "data_sources": {
+    "intro": "The two tables below enumerate the critical data sources the Domo consulting team will connect for ingestion and the dashboards, custom apps, and reports the team will build across all five solutions. Items are grouped by solution and consolidated into parent components \u2014 sub-pages and constituent datasets are listed inline within each parent row.",
+    "totals_kpi_row": [
+      {
+        "label": "Data Source Components",
+        "value": "13"
+      },
+      {
+        "label": "Visualization Components",
+        "value": "10"
+      },
+      {
+        "label": "Domo Filesets & AppDB",
+        "value": "Core"
+      },
+      {
+        "label": "Solution 1 Components",
+        "value": "5"
+      }
+    ],
+    "data_source_rows": [
+      {
+        "solution_id": "p1",
+        "name": "QHR PHI File Submissions",
+        "count": "4 file types",
+        "approach": "Domo Filesets via member-facing custom app",
+        "comments": "Includes: <em>Enrollment, Encounters, Admissions, Program-Level files</em>. Org-partitioned for HIPAA isolation; org-level deletability per BAA."
+      },
+      {
+        "solution_id": "p1",
+        "name": "Member Identity & H-Number Directory",
+        "count": "1\u20132",
+        "approach": "Domo Form / one-time CSV + scheduled refresh",
+        "comments": "Source of truth for 150+ orgs with parent/child site hierarchy. Powers RBAC and Personalized Data Permissions across the engagement."
+      },
+      {
+        "solution_id": "p1",
+        "name": "Submission Operations Telemetry",
+        "count": "3",
+        "approach": "Domo AppDB + Workflow audit feed",
+        "comments": "Includes: <em>submission tracker tables, workflow notification logs, EHR identification intake responses</em>."
+      },
+      {
+        "solution_id": "p2",
+        "name": "QHR Validation Rule Library",
+        "count": "4",
+        "approach": "Domo dataset (curated, version-controlled)",
+        "comments": "Includes: <em>required-field registry, value-range rules, conditional logic, EHR pathway routing rules for Big 3 vendors</em> (80% of submission volume)."
+      },
+      {
+        "solution_id": "p2",
+        "name": "QHR Taxonomy Crosswalk",
+        "count": "15\u201320 mapping tables",
+        "approach": "One-time migration from Data 360 + version-controlled dataset",
+        "comments": "Foundation for EHR-to-QHR standardization. Ported from Aaron Cole's existing Data 360 scripts and QA logic."
+      },
+      {
+        "solution_id": "p2",
+        "name": "Validation & Approval Audit Trail",
+        "count": "3",
+        "approach": "Workflow event capture",
+        "comments": "Includes: <em>agent decision logs, human-in-loop approval events, member resubmit notifications</em>. HIPAA-grade auditability."
+      },
+      {
+        "solution_id": "p3",
+        "name": "Validated QHR Analytics Datasets",
+        "count": "5\u20137",
+        "approach": "Domo Magic ETL outputs (downstream of Solution 2)",
+        "comments": "Single source for member dashboards and staff aggregate views. Built only from validated, taxonomy-mapped data."
+      },
+      {
+        "solution_id": "p3",
+        "name": "5-Year Historical QHR Data",
+        "count": "4\u20136",
+        "approach": "One-time SQL Server / Access connector ingestion + schema alignment",
+        "comments": "Provides trend continuity in new dashboards. Aligned to v2.2 schema."
+      },
+      {
+        "solution_id": "p3",
+        "name": "Peer Benchmark & Anonymization Configuration",
+        "count": "3\u20134",
+        "approach": "Domo dataset (PHA-managed) + PDP rules",
+        "comments": "Includes: <em>peer cohort definitions (org size, region, EHR type), masking configuration for cross-org comparison</em>."
+      },
+      {
+        "solution_id": "p4",
+        "name": "Non-PHI Form Submissions",
+        "count": "4\u20136",
+        "approach": "Domo Forms with required-field validation",
+        "comments": "Includes: <em>PMPM, Financial Ratios, Staffing, and Quality/Compliance form datasets</em> on a staggered annual calendar."
+      },
+      {
+        "solution_id": "p4",
+        "name": "Tableau Visualization Reference Library",
+        "count": "50 charts",
+        "approach": "One-time export + Domo recreation in Pacific Drift palette",
+        "comments": "Source visuals for migration: 36 PMPM + 14 Financial Ratio."
+      },
+      {
+        "solution_id": "p5",
+        "name": "Extended EHR Coverage Library",
+        "count": "12 routing rule sets",
+        "approach": "Domo Forms + custom connectors (Jupyter where APIs are non-standard)",
+        "comments": "Completes coverage beyond Big 3. Addresses long-tail of submitters with homegrown or unsupported legacy systems."
+      },
+      {
+        "solution_id": "p5",
+        "name": "Quality Intelligence Datasets",
+        "count": "2\u20133",
+        "approach": "Domo Magic ETL aggregations + AI agent training data",
+        "comments": "Powers org-level audit reports and predictive submission prompts. Self-improving over time."
+      }
+    ],
+    "visualization_rows": [
+      {
+        "solution_id": "p1",
+        "name": "QHR Submission Portal (Custom App)",
+        "kpi_count": 6,
+        "filter_count": 4,
+        "comments": "Member-facing upload experience embedded behind PHA member login. Sub-pages: <em>file upload, submission history, EHR identification intake, current cycle countdown</em>."
+      },
+      {
+        "solution_id": "p1",
+        "name": "PHA Staff Operations Dashboard",
+        "kpi_count": 8,
+        "filter_count": 5,
+        "comments": "Staff-facing operational view. Sub-pages: <em>live submission tracker, reminder & notification center, EHR vendor mix snapshot</em>."
+      },
+      {
+        "solution_id": "p2",
+        "name": "AI Validation & Approval Workspace",
+        "kpi_count": 8,
+        "filter_count": 5,
+        "comments": "PHA staff workspace. Sub-pages: <em>agent findings console, human-in-loop approval queue, EHR pathway routing monitor</em>."
+      },
+      {
+        "solution_id": "p2",
+        "name": "Taxonomy & Crosswalk Admin App",
+        "kpi_count": 4,
+        "filter_count": 4,
+        "comments": "Sub-pages: <em>crosswalk mapping admin, member resubmit / issue notification view</em>."
+      },
+      {
+        "solution_id": "p3",
+        "name": "Member-Facing QHR Portal (Self-Service)",
+        "kpi_count": 16,
+        "filter_count": 5,
+        "comments": "PDP-scoped per Member ID. Sub-pages: <em>current-period dashboard, peer benchmark comparison, 5-year trend view, on-demand PDF report builder</em>. Replaces annual PDF email."
+      },
+      {
+        "solution_id": "p3",
+        "name": "PHA Staff QHR Aggregate Dashboard",
+        "kpi_count": 14,
+        "filter_count": 6,
+        "comments": "Internal analytics for PHA leadership. Sub-pages: <em>full dataset view, region / org-size drill-downs, EHR-cohort comparison</em>."
+      },
+      {
+        "solution_id": "p4",
+        "name": "Non-PHI Financial & Operational Dashboards",
+        "kpi_count": 30,
+        "filter_count": 5,
+        "comments": "Member and staff views. Sub-pages: <em>PMPM, Financial Ratios, Staffing, Quality/Compliance dashboards</em>. Recreates 50 Tableau visuals using Pacific Drift palette."
+      },
+      {
+        "solution_id": "p4",
+        "name": "Member Form Submission Flow (Custom App)",
+        "kpi_count": 7,
+        "filter_count": 4,
+        "comments": "Single self-service entry point for all four non-PHI forms. Sub-pages: <em>form selection, validation status, completion progress, calendar / activation view</em>."
+      },
+      {
+        "solution_id": "p5",
+        "name": "Quality Intelligence Center",
+        "kpi_count": 14,
+        "filter_count": 4,
+        "comments": "PHA leadership and per-org views. Sub-pages: <em>longitudinal quality trends, org-level audit reports, predictive submission prompt center</em>."
+      },
+      {
+        "solution_id": "p5",
+        "name": "Extended EHR Coverage Monitor",
+        "kpi_count": 5,
+        "filter_count": 3,
+        "comments": "Operational view of Solution 5 EHR expansion. Tracks long-tail orgs onboarded and fallback path usage."
+      }
+    ],
+    "manifest_summary": "<strong>Build manifest summary:</strong> 13 data source components connected and 10 dashboards / custom apps built across the six-month engagement. Per-solution split \u2014 Solution 1: 3 sources / 2 visuals \u00b7 Solution 2: 3 / 2 \u00b7 Solution 3: 3 / 2 \u00b7 Solution 4: 2 / 2 \u00b7 Solution 5: 2 / 2. Counts represent parent components \u2014 sub-pages and constituent datasets are listed inline. Exact field-level structures will be confirmed during Solution 1 discovery and Solution 2 taxonomy mapping."
+  },
+  "implementation_strategy": {
+    "intro": "Mia emphasized that PHA is a member-facing organization and that member experience cannot be compromised. A phased pilot with the most eager or technically capable member orgs \u2014 before full rollout \u2014 directly addresses this concern and builds confidence at every level of the organization.",
+    "pilot_steps": [
+      {
+        "step": "01",
+        "title": "Select Pilot Cohort",
+        "description": "PHA identifies 5\u201310 member orgs: the most technically capable, the most eager to submit, or the most trusted to provide candid feedback. These become co-designers of the experience, not just early adopters."
+      },
+      {
+        "step": "02",
+        "title": "Pilot & Iterate",
+        "description": "Pilot orgs complete the full upload experience in the Domo portal. PHA and Domo collect feedback, identify friction points, and refine the experience before broader rollout. Members feel heard and valued."
+      },
+      {
+        "step": "03",
+        "title": "Sequenced Rollout",
+        "description": "Next cohorts onboarded in tranches \u2014 10 to 25 orgs at a time. Issues from the pilot are already resolved. Confidence builds across the membership. No big-bang cutover, no single point of failure."
+      }
+    ],
+    "communication_principles": [
+      {
+        "variant": "accent",
+        "label": "One Transition, Not Two",
+        "text": "Members are told once: here is the new platform, and here is how you will submit data going forward. No interim step, no second announcement when Domo is ready. Derek confirmed this is the goal."
+      },
+      {
+        "variant": "accent",
+        "label": "Iterative Reveal",
+        "text": "Members first see the upload-only portal. Over time, they log in to find new capabilities \u2014 dashboards, benchmarks, quality feedback. Change feels incremental and additive, not disruptive."
+      },
+      {
+        "variant": "track",
+        "label": "Historical Context Honored",
+        "text": "Long-tenured members have years of context with how PHA has operated. Communication should acknowledge the change, explain the benefit, and provide clear documentation for both the process and the platform."
+      },
+      {
+        "variant": "track",
+        "label": "Documentation First",
+        "text": "PHA staff must be equipped to field member questions confidently before rollout. Domo will deliver member-facing guides and PHA staff reference documentation alongside each solution launch."
+      }
+    ],
+    "ace_callout": {
+      "title": "ACE Support \u2014 Change Management Accelerator",
+      "body": "PHA's included ACE support package (80 hours/year, 20 hours/quarter) provides direct access to Domo's senior engineers for co-building, training, and platform guidance. During Solution 1 rollout, the ACE team can work concurrently with the implementation team \u2014 helping PHA staff learn the platform in real time. Recommended structure: regular office hours blocks (e.g., Monday/Wednesday) so the full data team can participate efficiently without consuming implementation time."
+    }
+  },
+  "timeline": {
+    "title": "Accelerated Project Timeline \u2014 May through November 2026 (Six Months)",
+    "subtitle": "Delivery Schedule",
+    "months": [
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov"
+    ],
+    "milestones": [
+      {
+        "date": "Late June 2026",
+        "title": "QHR Portal Live",
+        "description": "Members submit PHI to Domo. Pilot group onboarded. Sequenced rollout begins.",
+        "color_var": "--cs1",
+        "is_priority": true
+      },
+      {
+        "date": "Mid-August 2026",
+        "title": "AI Validation Active",
+        "description": "Agent reviews submissions. QHR crosswalk live. Human-in-loop workflow operational.",
+        "color_var": "--cs2",
+        "is_priority": false
+      },
+      {
+        "date": "Late September 2026",
+        "title": "QHR Reports Live",
+        "description": "Near-real-time QHR reporting. 12-month lag eliminated.",
+        "color_var": "--cs3",
+        "is_priority": false
+      },
+      {
+        "date": "Late October 2026",
+        "title": "Non-PHI Forms",
+        "description": "Financial + staffing forms live. 50 Tableau charts migrated. PDF email retired.",
+        "color_var": "--cs4",
+        "is_priority": false
+      },
+      {
+        "date": "Late November 2026",
+        "title": "Quality Intelligence",
+        "description": "All 15 EHRs supported. Org-level quality audits. SSO planning underway.",
+        "color_var": "--cs5",
+        "is_priority": false
+      }
+    ],
+    "closing_callout": {
+      "variant": "risk",
+      "title": "Contract Timing & Six-Month Commitment",
+      "body": "If contract is executed by approximately May 15, a team can be mobilized within one week \u2014 positioning Solution 1 go-live in late June, before PHA would need to direct members to an interim solution. The full five-solution engagement completes within <strong>six months</strong> (late November 2026), enabled by parallel-track execution across solutions and AI-assisted consultant delivery. Hours-per-solution are unchanged from the prior plan; calendar duration compresses through concurrent workstreams and overlapping kickoffs (e.g., Solution 2 architecture begins as Solution 1 enters UAT). Solution 1 remains intentionally narrow in scope \u2014 upload portal and Filesets governance, no visualization layer \u2014 to make this timeline achievable."
+    }
+  },
+  "assumptions": {
+    "client_responsibilities": [
+      "Provide complete list of member org contacts, email addresses, and Member IDs (including parent/child hierarchy) prior to Solution 1 kickoff",
+      "Identify 5\u201310 pilot member orgs for Solution 1 early-adopter cohort",
+      "Coordinate with David/IT to enable Domo app embedding on phaonline.org behind existing member login wall",
+      "Provide EHR system mapping data (which org uses which EHR) from existing PHA records",
+      "Share Aaron Cole's existing QHR taxonomy crosswalk scripts and QA logic from Data 360 (Solution 2 dependency)",
+      "Designate internal PHA project lead; provide timely UAT feedback and stakeholder availability for design reviews",
+      "Manage member communication strategy in coordination with Domo-provided documentation and templates"
+    ],
+    "domo_responsibilities": [
+      "Deliver Solution 1 QHR intake portal within 6 weeks of contract execution (targeting end-of-June go-live)",
+      "Architect Fileset data model and AppDB schema to scale across all five solutions \u2014 no throwaway work",
+      "Provide dedicated implementation consultant (Anika Patel), solutions director (Mark), and technical resource (Marcus Brown) throughout engagement",
+      "Deliver member-facing and PHA staff documentation alongside each solution launch",
+      "Conduct weekly status check-ins and maintain a shared project tracker",
+      "Support pilot cohort onboarding and iterate on feedback before full member rollout"
+    ],
+    "technical_assumptions": [
+      "Domo platform licenses include HIPAA-eligible environment (confirmed \u2014 included in proposal)",
+      "Domo Filesets provisioned for PHI storage with org-level partitioning",
+      "PHA website (phaonline.org) supports iframe or JS embed for Domo app behind existing member login wall",
+      "PHI data can be stored together in Filesets as long as org-level isolation and deletability is maintained per BAA",
+      "Future SSO integration is a separate scoping engagement \u2014 dual-login accepted as interim state"
+    ],
+    "out_of_scope": [
+      "Migration or data extraction from the interim SharePoint site",
+      "Direct live EHR API connections / automated data pulls (future state beyond Solution 5)",
+      "SSO / single sign-on implementation (pending AMS replacement \u2014 separate engagement)",
+      "Modification or maintenance of PHA's existing Tableau environment",
+      "Managed services / ongoing platform administration (separate Domo MSP engagement)",
+      "AWS infrastructure or Data 360 decommissioning (PHA's internal responsibility)"
+    ],
+    "msp_callout": {
+      "title": "Recommended Add-On: Domo Managed Services (MSP)",
+      "body": "As PHA's data team builds internal Domo competency, Domo Managed Services provides continuity of platform administration, ongoing app enhancements, and governance support between solution launches. Derek noted the goal is for the data team to become self-sufficient \u2014 MSP bridges that gap during Year 1 while the team ramps. Nadia Park's team will present MSP options separately as a complement to this implementation SOW."
+    }
+  },
+  "roi": {
+    "intro": "This page presents the investment required to deliver the five-solution engagement and the quantifiable return PHA can expect from modernizing its data platform with Domo. The Total Investment shown is the full contingency cost at Domo's standard $275/hr blended consulting rate; PHA pays only for hours actually delivered.",
+    "investment_framing": "<strong>Investment framing:</strong> The Total Investment shown above reflects the full-contingency cost for the engagement at Domo's standard $275/hr blended consulting rate, including all solutions, Solution Design, QA/UAT, Rollout, and Project Management. PHA pays only for hours actually delivered \u2014 the AI-accelerated delivery model frequently lands engagements 15\u201325% below this contingency ceiling, but every figure on this tab is sized against the ceiling so the payback period, 3-year net value, and ROI multiple are conservative by design.",
+    "drivers_intro": "The drivers below translate the operational outcomes of this engagement into annual financial value. Conservative figures reflect outcomes PHA can confidently realize within the first 12 months of go-live. Stretch figures reflect what becomes achievable as platform adoption deepens and self-service replaces manual operations across the membership.",
+    "drivers": [
+      {
+        "id": "reporting_compression",
+        "name": "Reporting Cycle Compression",
+        "delivery": "QHR lag reduced from 12\u201318 months to days. Members renew and grow membership because PHA delivers timely, relevant value \u2014 rebuilding the data-driven relevance that has eroded over the lag period.",
+        "annual_conservative": 50000,
+        "annual_stretch": 250000
+      },
+      {
+        "id": "vendor_consolidation",
+        "name": "Vendor Stack Consolidation",
+        "delivery": "Tableau, Data 360, MS Access, and the AWS-hosted QHR portal are retired and consolidated into a single Domo environment \u2014 reducing license, infrastructure, and integration spend.",
+        "annual_conservative": 40000,
+        "annual_stretch": 120000
+      },
+      {
+        "id": "staff_time_recapture",
+        "name": "Staff Time Recaptured",
+        "delivery": "Manual ETL, QA, and QHR taxonomy crosswalk work eliminated through agentic validation, AppDB-native pipelines, and Magic ETL \u2014 recapturing analyst capacity for higher-value work.",
+        "annual_conservative": 60000,
+        "annual_stretch": 180000
+      },
+      {
+        "id": "member_experience",
+        "name": "Member Experience Uplift",
+        "delivery": "Self-service dashboards replace static PDF emails. Members find answers themselves, reducing inbound support volume on PHA staff and strengthening PHA's value proposition to its membership.",
+        "annual_conservative": 25000,
+        "annual_stretch": 90000
+      },
+      {
+        "id": "rework_reduction",
+        "name": "Rework & Error Reduction",
+        "delivery": "EHR column-name drift caught automatically via AI; taxonomy crosswalks self-maintain; submission errors are flagged at intake rather than discovered downstream \u2014 eliminating recurring rework cycles.",
+        "annual_conservative": 30000,
+        "annual_stretch": 80000
+      }
+    ],
+    "why_domo_callout": {
+      "title": "Why Domo Consulting Delivers Outsized ROI",
+      "body": "Domo's consulting practice is uniquely positioned to deliver this transformation efficiently and durably. Four reasons drive the ROI math above. First, <strong>AI-accelerated delivery</strong> \u2014 every consultant on this engagement leverages Claude and Domo AI for app scaffolding, ETL design, agentic workflow patterns, and Tableau-to-Beast-Mode translation, producing 40\u201350% leaner estimates than traditional integrators while raising delivery quality. Second, <strong>single-vendor accountability</strong> \u2014 Domo owns the platform, the consulting work, and the runtime, eliminating finger-pointing across vendors when issues surface. Third, <strong>pattern reuse across solutions</strong> \u2014 Solution 1's portal, Fileset architecture, and workflow templates are directly templated into Solutions 2\u20135, compounding the value of every hour invested. Fourth, <strong>platform-native primitives</strong> \u2014 Filesets, Magic ETL, Beast Modes, AppDB, Workflow templates, and Domo's AI grounding eliminate bespoke build that competitors would charge separately for. The combined effect is a consulting engagement that pays for itself in months, not years, and seeds a self-sustaining platform PHA's team can operate independently going forward."
+    }
+  },
+  "credit_impact": {
+    "intro": "This page forecasts the Domo credit consumption PHA can expect once the proposed solution is implemented and adopted. The ROI tab shows the <em>value of the consulting work</em>; this tab shows the <em>ongoing platform consumption to deliver that value</em>. Together they give PHA's commercial leadership the full picture \u2014 what it costs to build the platform, and what it costs to run it once built.",
+    "methodology": {
+      "title": "Forecast Methodology & Assumptions",
+      "items": [
+        "<strong>Audience scale.</strong> Member-facing access modeled at <strong>150 member organizations</strong> (parent + child sites), with internal PHA usage modeled at <strong>~35 staff users</strong> across Quality, Compliance, Finance, and Technology.",
+        "<strong>Refresh cadence.</strong> Submission-driven datasets refresh hourly during active QHR submission cycles and daily otherwise. Analytics datasets refresh nightly. Member-facing dashboards use materialized aggregates rather than live queries against the full member base.",
+        "<strong>Adoption curve.</strong> Year 1 reflects pilot cohort plus the first full member rollout. Year 3 assumes broad member self-service adoption (peer benchmarks, trend views, on-demand PDF). Year 5 assumes the AI-driven Quality Intelligence Center and predictive submission prompts have matured into the day-to-day operational fabric.",
+        "<strong>What's excluded.</strong> Domo platform license fees, ACE/MSP services, Filesets PHI storage overage above the contracted envelope, and any future SSO/AMS integration. These are tracked separately from the consumption forecast.",
+        "<strong>What drives variability.</strong> The Y3/Y5 high end assumes faster-than-typical member self-service adoption (above 60% monthly active member-org usage) and full activation of the predictive AI primitives. The low end assumes adoption tracks Domo's mid-market healthcare benchmark (~35\u201340% MAU)."
+      ]
+    },
+    "drivers": [
+      {
+        "id": "p1_pipeline_directory",
+        "solution_id": "p1",
+        "category": "Data Pipelines",
+        "driver": "Member identity directory + submission telemetry \u2014 3 datasets, AppDB writes per submission event, scheduled refresh aligned to submission cycles",
+        "y1": {
+          "low": 25000,
+          "high": 45000
+        },
+        "y3": {
+          "low": 35000,
+          "high": 60000
+        },
+        "y5": {
+          "low": 45000,
+          "high": 75000
+        }
+      },
+      {
+        "id": "p1_dashboards_staff",
+        "solution_id": "p1",
+        "category": "Dashboards & Views",
+        "driver": "PHA staff operations dashboard + member submission portal app \u2014 2 dashboards \u00d7 ~35 staff daily + 150 member orgs sporadic submission-tracking views",
+        "y1": {
+          "low": 35000,
+          "high": 55000
+        },
+        "y3": {
+          "low": 50000,
+          "high": 80000
+        },
+        "y5": {
+          "low": 65000,
+          "high": 100000
+        }
+      },
+      {
+        "id": "p1_workflows_notify",
+        "solution_id": "p1",
+        "category": "Workflows",
+        "driver": "Submission notification + reminder workflows fired on member events \u2014 ~600 submissions/yr \u00d7 notification fan-out \u00d7 reminder cadence",
+        "y1": {
+          "low": 8000,
+          "high": 15000
+        },
+        "y3": {
+          "low": 12000,
+          "high": 22000
+        },
+        "y5": {
+          "low": 18000,
+          "high": 30000
+        }
+      },
+      {
+        "id": "p1_embed_portal",
+        "solution_id": "p1",
+        "category": "Embed/Everywhere",
+        "driver": "QHR portal embedded behind phaonline.org member login \u2014 page renders + asset hydration per member-org session",
+        "y1": {
+          "low": 20000,
+          "high": 40000
+        },
+        "y3": {
+          "low": 30000,
+          "high": 55000
+        },
+        "y5": {
+          "low": 40000,
+          "high": 70000
+        }
+      },
+      {
+        "id": "p1_storage_phi",
+        "solution_id": "p1",
+        "category": "Storage",
+        "driver": "PHI Filesets with org-level partitioning \u2014 historical 5-yr accumulation plus annual submission cycle adds",
+        "y1": {
+          "low": 10000,
+          "high": 20000
+        },
+        "y3": {
+          "low": 25000,
+          "high": 45000
+        },
+        "y5": {
+          "low": 50000,
+          "high": 80000
+        }
+      },
+      {
+        "id": "p2_pipeline_validation",
+        "solution_id": "p2",
+        "category": "Data Pipelines",
+        "driver": "Validation rule library + QHR taxonomy crosswalk Magic ETL flows \u2014 refresh on submission cycle plus crosswalk version bumps",
+        "y1": {
+          "low": 50000,
+          "high": 80000
+        },
+        "y3": {
+          "low": 70000,
+          "high": 115000
+        },
+        "y5": {
+          "low": 90000,
+          "high": 140000
+        }
+      },
+      {
+        "id": "p2_ai_validation_agent",
+        "solution_id": "p2",
+        "category": "AI Primitives",
+        "driver": "Member-submission validation agent \u2014 ~600 validations/yr \u00d7 multi-step agent reasoning (field validation, taxonomy mapping, anomaly flagging)",
+        "y1": {
+          "low": 90000,
+          "high": 150000
+        },
+        "y3": {
+          "low": 130000,
+          "high": 220000
+        },
+        "y5": {
+          "low": 170000,
+          "high": 275000
+        }
+      },
+      {
+        "id": "p2_workflows_approval",
+        "solution_id": "p2",
+        "category": "Workflows",
+        "driver": "Human-in-loop approval routing \u2014 agent finding \u2192 reviewer queue \u2192 resubmit notification, fan-out per finding",
+        "y1": {
+          "low": 18000,
+          "high": 32000
+        },
+        "y3": {
+          "low": 26000,
+          "high": 45000
+        },
+        "y5": {
+          "low": 35000,
+          "high": 60000
+        }
+      },
+      {
+        "id": "p2_codeengine_ehr",
+        "solution_id": "p2",
+        "category": "Code Engine",
+        "driver": "Custom validation handlers for non-standard EHR pathways (long-tail vendors not covered by stock primitives)",
+        "y1": {
+          "low": 8000,
+          "high": 18000
+        },
+        "y3": {
+          "low": 12000,
+          "high": 25000
+        },
+        "y5": {
+          "low": 18000,
+          "high": 35000
+        }
+      },
+      {
+        "id": "p3_pipeline_analytics",
+        "solution_id": "p3",
+        "category": "Data Pipelines",
+        "driver": "5\u20137 validated analytics datasets + 5-year historical reload \u2014 nightly refresh feeding member dashboards and PHA staff aggregate views",
+        "y1": {
+          "low": 65000,
+          "high": 110000
+        },
+        "y3": {
+          "low": 90000,
+          "high": 150000
+        },
+        "y5": {
+          "low": 110000,
+          "high": 180000
+        }
+      },
+      {
+        "id": "p3_dashboards_member",
+        "solution_id": "p3",
+        "category": "Dashboards & Views",
+        "driver": "Member-facing QHR portal (150 orgs accessing own data + peer benchmarks + 5-yr trends) + PHA staff aggregate dashboard \u2014 materialized aggregates",
+        "y1": {
+          "low": 90000,
+          "high": 160000
+        },
+        "y3": {
+          "low": 130000,
+          "high": 225000
+        },
+        "y5": {
+          "low": 175000,
+          "high": 290000
+        }
+      },
+      {
+        "id": "p3_embed_member_dash",
+        "solution_id": "p3",
+        "category": "Embed/Everywhere",
+        "driver": "Self-service member dashboards embedded behind PHA member login \u2014 PDP-scoped per Member ID, on-demand PDF export",
+        "y1": {
+          "low": 50000,
+          "high": 90000
+        },
+        "y3": {
+          "low": 75000,
+          "high": 135000
+        },
+        "y5": {
+          "low": 100000,
+          "high": 180000
+        }
+      },
+      {
+        "id": "p4_pipeline_nonphi",
+        "solution_id": "p4",
+        "category": "Data Pipelines",
+        "driver": "4 non-PHI form datasets (PMPM, Financial Ratios, Staffing, Quality/Compliance) \u2014 staggered annual collection + processing",
+        "y1": {
+          "low": 18000,
+          "high": 35000
+        },
+        "y3": {
+          "low": 28000,
+          "high": 50000
+        },
+        "y5": {
+          "low": 38000,
+          "high": 65000
+        }
+      },
+      {
+        "id": "p4_dashboards_finops",
+        "solution_id": "p4",
+        "category": "Dashboards & Views",
+        "driver": "PMPM + Financial Ratios + Staffing + Quality dashboards \u2014 50 Tableau visuals migrated, member + staff views in Pacific Drift palette",
+        "y1": {
+          "low": 70000,
+          "high": 115000
+        },
+        "y3": {
+          "low": 100000,
+          "high": 170000
+        },
+        "y5": {
+          "low": 130000,
+          "high": 220000
+        }
+      },
+      {
+        "id": "p5_ai_quality_intel",
+        "solution_id": "p5",
+        "category": "AI Primitives",
+        "driver": "Quality Intelligence Center \u2014 predictive submission prompts + org-level audit pattern detection + longitudinal quality-trend grounding",
+        "y1": {
+          "low": 40000,
+          "high": 75000
+        },
+        "y3": {
+          "low": 80000,
+          "high": 145000
+        },
+        "y5": {
+          "low": 130000,
+          "high": 220000
+        }
+      },
+      {
+        "id": "p5_dashboards_qic",
+        "solution_id": "p5",
+        "category": "Dashboards & Views",
+        "driver": "Quality Intelligence Center dashboards \u2014 PHA leadership longitudinal trends + per-org audit reports + predictive prompt center",
+        "y1": {
+          "low": 30000,
+          "high": 55000
+        },
+        "y3": {
+          "low": 50000,
+          "high": 90000
+        },
+        "y5": {
+          "low": 75000,
+          "high": 130000
+        }
+      }
+    ],
+    "current_envelope": {
+      "annual_credits": 600000,
+      "label": "PHA's Current Annual Envelope (FY26)",
+      "note": "Year 1 forecast lands above today's contracted envelope, reflecting the substantial new workload this engagement introduces \u2014 member-facing portal, AI validation agent, embedded dashboards, and the full reporting pipeline. Domo's recommendation is to right-size the envelope alongside contract execution rather than discover a shortfall mid-Year-1; the Year 3 figure should anchor the multi-year sizing conversation."
+    },
+    "recommendations": [
+      {
+        "title": "Incremental ETL, Not Full Refresh",
+        "body": "Solution 2 and Solution 3 Magic ETL flows are designed to process <em>only the new submission window</em> on each cycle, not re-run the full historical corpus. This pattern alone reduces steady-state pipeline credit consumption by an estimated 35\u201345% versus a naive full-refresh design \u2014 and it's why the Y3/Y5 Data Pipelines numbers don't grow linearly with member adoption."
+      },
+      {
+        "title": "Materialized Aggregates for the Member Portal",
+        "body": "The member-facing QHR portal serves 150 member orgs reading peer benchmarks and 5-year trends. We materialize the heavy aggregates nightly rather than computing them per page-view \u2014 meaning a member self-service session is a cheap dashboard render, not an expensive analytics query. This is the single most impactful efficiency choice in the architecture."
+      },
+      {
+        "title": "AI Primitive Caching",
+        "body": "Validation agent calls cache by <em>EHR pathway \u00d7 validation rule version</em> \u2014 when 50 member orgs submit using the same EHR vendor in the same validation cycle, the agent reasoning is reused, not re-run. This keeps the AI Primitives line bounded as adoption grows."
+      },
+      {
+        "title": "Re-Forecast Triggers",
+        "body": "Re-baseline this forecast at three trigger points: (1) end of Solution 1 \u2014 actual member-portal adoption rate observed; (2) end of Solution 3 \u2014 measured query/view patterns on the member-facing dashboards; (3) annually \u2014 alongside renewal sizing. If any single category exceeds its high-end forecast by 25% or more, escalate to Domo Solutions Engineering for a workload review before the next billing cycle."
+      }
+    ],
+    "directional_callout": {
+      "variant": "risk",
+      "title": "Directional Forecast \u2014 Verified at Solution 1 Architecture Review",
+      "body": "These figures are a directional forecast based on the architecture proposed in this engagement, the user counts and refresh cadences described in the methodology block, and Domo's published credit consumption model as of contract date. Final sizing is verified during Solution 1 architecture review against actual workloads, and re-baselined at the trigger points listed above. Treat the ranges as planning anchors for the FY26 and FY27 envelope conversations \u2014 not as contractual commitments."
+    }
+  },
+  "footer": {
+    "legal": "\u00a9 2026 Domo, Inc. \u00b7 Confidential & Proprietary \u00b7 Prepared for Pacific Healthcare Association",
+    "footnote": "v2.2 \u00b7 Accelerated 6-month delivery"
+  },
+  "feedback": {
+    "enabled": true,
+    "worker_url": "https://domo-proposal-feedback.lees-mark.workers.dev",
+    "proposal_id": "pha-2026-v1",
+    "proposal_sig": "22cdef860cbe1c530f93a7f7415ad67e480392b7835369e0576a77341331fe2a"
+  },
+  "hide_credit_impact": true
+}
